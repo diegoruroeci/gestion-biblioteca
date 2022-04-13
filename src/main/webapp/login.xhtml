@@ -9,7 +9,7 @@
 <style type="text/css">
         body {
             background-image:url(fondo.jpg);
-            background-repeat:no-repeat;
+            background-attachment: fixed;
             background-size: cover;
         }
         .row{
@@ -42,10 +42,8 @@
 </h:head>
 <h:body>
 <!--    <center>-->
-<!--        <h:form>-->
+        <h:form>
             <div class="row" style="display:grid; grid-template-rows:auto; row-gap:1ch ;justify-content: center; align-items: center;">
-<!--                <h:panelGrid column="2">-->
-
                 <div class="centrar">
                     <img src="imagenlogo.png" alt="Logo ECI" width="300" height="100" />
                 </div>
@@ -56,21 +54,21 @@
                 <p:outputLabel for="txtUsuario" value="Correo"/>
                 </div>
                 <div class="centrar" id="a">
-                <p:inputText id="txtUsuario" required="true"/>
+                <p:inputText id="txtUsuario" required="true" requiredMessage="Correo requerido"/>
                 </div>
                 <div class="centrar" id="a">
                 <p:outputLabel for="txtClave" value="Contraseña"/>
                 </div>
                 <div class="centrar" id="a">
-                <p:inputText id="txtClave" required="true"/>
+                    <p:inputText id="txtClave" type="password" required="true" requiredMessage="Correo requerido"/>
                 </div>
                 <div class="centrar" id="a">
-                <p:commandButton class="btn btn-black" value="Iniciar Sesion"/>
+                <p:commandButton class="btn btn-black" value="Iniciar Sesion" action="reserve?gestor-redirect = true"/>
                 </div>
 <!--                </h:panelGrid>-->
     <!--        <p:link value="Crear Cuenta" outcome="usuario"/>-->
             </div>
-<!--        </h:form>-->
+        </h:form>
 <!--    </center>-->
 </h:body>
 </html>
