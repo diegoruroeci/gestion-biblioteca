@@ -1,17 +1,18 @@
 package edu.eci.cvds.gestor.entities;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Reservation {
+public class Reservation implements Serializable {
 
     private int id;
-    private Date date;
+    private String date;
     private String startHour;
     private String finishHour;
-    private Resource resource;
+    private String  resource;
     private int license;
 
-    public Reservation(int id, Date date, String startHour, String finishHour, Resource resource, int license) {
+    public Reservation(int id, String date, String startHour, String finishHour, String resource, int license) {
         this.id = id;
         this.date = date;
         this.startHour = startHour;
@@ -28,11 +29,11 @@ public class Reservation {
         this.id = id;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
@@ -52,11 +53,11 @@ public class Reservation {
         this.finishHour = finishHour;
     }
 
-    public Resource getResource() {
+    public String getResource() {
         return resource;
     }
 
-    public void setResource(Resource resource) {
+    public void setResource(String resource) {
         this.resource = resource;
     }
 
@@ -66,5 +67,17 @@ public class Reservation {
 
     public void setLicense(int license) {
         this.license = license;
+    }
+
+    @Override
+    public String toString(){
+        return "Review{" +
+                "id=" + id +
+                ", date='" + date + '\'' +
+                ", startHour=" + startHour + '\'' +
+                ", finishHour='" + finishHour + '\'' +
+                ", resource=" + resource + '\'' +
+                ", license=" + license+
+                '}';
     }
 }

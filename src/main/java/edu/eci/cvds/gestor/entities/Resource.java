@@ -1,21 +1,31 @@
 package edu.eci.cvds.gestor.entities;
 
-public abstract class Resource {
+import java.io.Serializable;
+
+public class Resource implements Serializable {
 
     private String name;
     private String type;
-    private int id;
+    private String id;
     private String description;
     private Boolean available;
     private int internId;
+    private String location;
+    private int capacity;
 
-    public Resource(String name, String type, int id, String description, Boolean available, int internId) {
+    public Resource(){
+        super();
+    }
+
+    public Resource(String id, String name, String location, String type, int capacity, int internId, String description, Boolean available) {
         this.name = name;
         this.type = type;
         this.id = id;
         this.description = description;
         this.available = available;
         this.internId = internId;
+        this.capacity = capacity;
+        this.location = location;
     }
 
     public String getName() {
@@ -34,11 +44,11 @@ public abstract class Resource {
         this.type = type;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -65,4 +75,35 @@ public abstract class Resource {
     public void setInternId(int internId) {
         this.internId = internId;
     }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
+    }
+
+    @Override
+    public String toString(){
+        return "Review{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", location=" + location + '\'' +
+        ", description='" + description + '\'' +
+                ", available=" + available + '\'' +
+        ", internalID=" + internId+ '\'' +
+        ", type=" + type +'\''+
+        ", capacity=" + capacity +
+                '}';
+    }
+
 }
