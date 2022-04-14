@@ -1,6 +1,6 @@
 package edu.eci.cvds.gestor.entities;
 
-public abstract class User {
+public class User {
     private String name;
     private String email;
     private String password;
