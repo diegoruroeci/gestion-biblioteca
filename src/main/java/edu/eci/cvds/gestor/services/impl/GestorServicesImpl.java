@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import edu.eci.cvds.gestor.entities.Reservation;
 import edu.eci.cvds.gestor.entities.Resource;
+import edu.eci.cvds.gestor.entities.User;
 import edu.eci.cvds.gestor.persistence.*;
 import edu.eci.cvds.gestor.services.GestorServices;
 import org.apache.ibatis.exceptions.PersistenceException;
@@ -33,8 +34,8 @@ public class GestorServicesImpl implements GestorServices {
     @Inject
     private ReservationDAO reservationDAO;
 
-//    @Inject
-//    private RoomDAO roomDAO;
+    @Inject
+    private UserDAO userDAO;
 
     @Inject
     private ResourceDAO resourceDAO;
@@ -52,6 +53,15 @@ public class GestorServicesImpl implements GestorServices {
     public List<Reservation> consultReservations() throws PersistenceException {
         try{
             return reservationDAO.consultReservations();
+        }catch (PersistenceException | ParseException e) {
+            throw new PersistenceException(e.getMessage());
+        }
+    }
+
+    @Override
+    public List<User> consultUsers() throws PersistenceException {
+        try{
+            return userDAO.consultUsers();
         }catch (PersistenceException | ParseException e) {
             throw new PersistenceException(e.getMessage());
         }

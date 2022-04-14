@@ -1,6 +1,7 @@
 package edu.eci.cvds.gestor.services;
 
 import com.google.inject.Injector;
+import edu.eci.cvds.gestor.entities.User;
 import edu.eci.cvds.gestor.persistence.*;
 import edu.eci.cvds.gestor.persistence.mybatis.*;
 import edu.eci.cvds.gestor.services.impl.GestorServicesImpl;
@@ -27,7 +28,7 @@ public class ResourceFactory {
 //                bind(CommunityDAO.class).to(MyBatisCommunityDAO.class);
 //                bind(ComputerDAO.class).to(MyBatisComputerDAO.class);
                 bind(ReservationDAO.class).to(MyBatisReservationDAO.class);
-//                bind(RoomDAO.class).to(MyBatisRoomDAO.class);
+                bind(UserDAO.class).to(MyBatisUserDAO.class);
                 bind(ResourceDAO.class).to(MyBatisResourceDAO.class);
                 bind(GestorServices.class).to(GestorServicesImpl.class);
             }

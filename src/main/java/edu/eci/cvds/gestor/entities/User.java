@@ -7,7 +7,11 @@ public class User {
     private char role;
     private int license;
 
-    public User(String name, String email, String password, char role, int license) {
+    public User(){
+        super();
+    }
+
+    public User(int license, String name, String email, String password, char role) {
         this.name = name;
         this.email = email;
         this.password = password;
@@ -53,5 +57,16 @@ public class User {
 
     public void setLicense(int license) {
         this.license = license;
+    }
+
+    @Override
+    public String toString(){
+        return "Review{" +
+                "license=" + license +
+                ", name='" + name + '\'' +
+                ", email=" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", role=" + role + '\'' +
+                '}';
     }
 }
