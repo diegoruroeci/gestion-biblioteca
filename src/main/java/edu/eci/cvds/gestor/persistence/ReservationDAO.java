@@ -8,5 +8,6 @@ import java.util.List;
 public interface ReservationDAO {
 
     public List<Reservation> consultReservations() throws ParseException;
+    public void reserveResource(Reservation reservationv) throws ParseException;
 
 }

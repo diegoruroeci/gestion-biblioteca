@@ -21,4 +21,15 @@ public class MyBatisReservationDAO implements ReservationDAO {
             throw new PersistenceException(e.getMessage());
         }
     }
+
+    @Override
+    public void reserveResource(Reservation reservationv) throws ParseException {
+            try {
+                reservationMapper.reserveResource(reservationv);
+            } catch (org.apache.ibatis.exceptions.PersistenceException e) {
+
+                throw new PersistenceException("Error al consultar reserva:", e);
+
+            }
+    }
 }

@@ -26,4 +26,9 @@
         <result property='license' column='carnet'/>
 
     </resultMap>
+
+    <insert id="reserveResource" parameterType="edu.eci.cvds.entities.Reservation">
+        insert into Reservas (Fecha,HoraIni,HoraFin,Recurso,Carnet)
+        values (#{reservas.Fecha},#{reservas.HoraIni},#{reservas.HoraFin},#{reservas.Recurso},#{reservas.Carnet})
+    </insert>
 </mapper>
