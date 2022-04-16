@@ -34,4 +34,10 @@ public class LoginServicesImpl implements LoginServices {
     public boolean isLoggedIn() {
         return SecurityUtils.getSubject().isAuthenticated();
     }
+
+    @Override
+    public void logOut() {
+        subject = SecurityUtils.getSubject();
+        subject.logout();
+    }
 }
