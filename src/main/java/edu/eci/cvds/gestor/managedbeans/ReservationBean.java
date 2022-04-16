@@ -1,4 +1,4 @@
 package edu.eci.cvds.gestor.managedbeans;
 
-public class ReservationBean {
+public class ReservationBean extends BasePageBean{
 }

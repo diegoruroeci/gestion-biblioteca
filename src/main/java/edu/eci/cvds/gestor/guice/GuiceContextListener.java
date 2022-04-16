@@ -5,7 +5,9 @@ import com.google.inject.Injector;
 import edu.eci.cvds.gestor.persistence.*;
 import edu.eci.cvds.gestor.persistence.mybatis.*;
 import edu.eci.cvds.gestor.services.GestorServices;
+import edu.eci.cvds.gestor.login.LoginServices;
 import edu.eci.cvds.gestor.services.impl.GestorServicesImpl;
+import edu.eci.cvds.gestor.login.LoginServicesImpl;
 import org.mybatis.guice.XMLMyBatisModule;
 import org.mybatis.guice.datasource.helper.JdbcHelper;
 
@@ -27,18 +29,20 @@ public class GuiceContextListener implements ServletContextListener{
                 setEnvironmentId("development");
                 setClassPathResource("mybatis-config.xml");
 
-                // TODO Add service class associated to Stub implementation
-//                bind(AdminDAO.class).to(MyBatisAdminDAO.class);
-//                bind(BoardDAO.class).to(MyBatisBoardDAO.class);
-//                bind(BookDAO.class).to(MyBatisBookDAO.class);
-//                bind(CommunityDAO.class).to(MyBatisCommunityDAO.class);
-//                bind(ComputerDAO.class).to(MyBatisComputerDAO.class);
-                bind(ReservationDAO.class).to(MyBatisReservationDAO.class);
-//                bind(RoomDAO.class).to(MyBatisRoomDAO.class);
-                bind(ResourceDAO.class).to(MyBatisResourceDAO.class);
+
+                //Services
                 bind(GestorServices.class).to(GestorServicesImpl.class);
+                bind(LoginServices.class).to(LoginServicesImpl.class);
+
+
+                //DAO
+                bind(ReservationDAO.class).to(MyBatisReservationDAO.class);
+                bind(ResourceDAO.class).to(MyBatisResourceDAO.class);
+                bind(UserDAO.class).to(MyBatisUserDAO.class);
             }
         });
-        servletContextEvent.getServletContext().setAttribute(Injector.class.getName(), injector);
+
+        ServletContext servletContext = servletContextEvent.getServletContext();
+        servletContext.setAttribute(Injector.class.getName(), injector);
     }
 }

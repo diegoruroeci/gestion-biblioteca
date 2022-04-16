@@ -1,4 +1,4 @@
 package edu.eci.cvds.gestor.managedbeans;
 
-public class ResourceBean {
+public class ResourceBean extends BasePageBean{
 }
