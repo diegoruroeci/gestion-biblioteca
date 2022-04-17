@@ -1,4 +1,6 @@
 package edu.eci.cvds.gestor.persistence.mybatis;
 
-public class MyBatisUserDAO {
+import edu.eci.cvds.gestor.persistence.UserDAO;
+
+public class MyBatisUserDAO implements UserDAO {
 }
