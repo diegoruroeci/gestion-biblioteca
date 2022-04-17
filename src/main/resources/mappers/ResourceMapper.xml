@@ -30,4 +30,10 @@
         FROM RECURSOS r
     </select>
 
+
+    <insert id="addResource" parameterType="edu.eci.cvds.entities.Resource">
+        insert into Recursos (Nombre,Ubicacion,Tipo,Capacidad,ID_interno,Descripcion,Disponible)
+        values (#{Recursos.nombre},#{Recursos.ubicacion},#{Recursos.Tipo},#{Recursos.Capacidad},#{RecursosID_interno},#{Recursos.Descripcion},#{Recurso.Disponible})
+    </insert>
+
 </mapper>

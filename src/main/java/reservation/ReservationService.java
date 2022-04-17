@@ -1,14 +1,13 @@
-package consult;
+package reservation;
 
 import edu.eci.cvds.gestor.entities.Reservation;
-import edu.eci.cvds.gestor.entities.Resource;
 import org.apache.ibatis.exceptions.PersistenceException;
 
+import java.text.ParseException;
 import java.util.List;
 
-public interface ConsultService {
-
-    public abstract List<Resource> consultResources() throws PersistenceException;
+public interface ReservationService {
 
     public abstract List<Reservation> consultReservations() throws PersistenceException;
+    public abstract void reserveResource(Reservation reservationv) throws ParseException;
 }

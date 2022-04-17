@@ -7,6 +7,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 
 public abstract class BasePageBean {
+    private static final long serialVersionUID = -2084921068710522276L;
     private Injector injector;
 
     public Injector getInjector() {

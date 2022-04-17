@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title> Consultar Recursos </title>
+</h:head>
+
+<h:body>
+    <div class="container">
+        <h:form id="Recursos">
+            <p:panel header="Recursos" toggleable="true" toggleSpeed="500" widgetVar="panel" style="text-align: center" name="panel" id="panel">
+                <p:dataTable var="recurso" value="#{resourceBean.consultResources()}">
+                    <p:column headerText="Id">
+                        <h:outputText value="#{recurso.id}" />
+                    </p:column>
+                    <p:column headerText="Nombre">
+                        <h:outputText value="#{recurso.name}" />
+                    </p:column>
+                    <p:column headerText="Tipo">
+                        <h:outputText value="#{recurso.type}" />
+                    </p:column>
+                    <p:column headerText="Descripcion">
+                        <h:outputText value="#{recurso.description}" />
+                    </p:column>
+                    <p:column headerText="Estado">
+                        <h:outputText value="#{recurso.available}" />
+                    </p:column>
+                    <p:column headerText="Localizacion">
+                        <h:outputText value="#{recurso.location}" />
+                    </p:column>
+                    <p:column headerText="Capacidad">
+                        <h:outputText value="#{recurso.capacity}" />
+                    </p:column>
+                </p:dataTable>
+
+            </p:panel>
+        </h:form>
+    </div>
+</h:body>
+</html>

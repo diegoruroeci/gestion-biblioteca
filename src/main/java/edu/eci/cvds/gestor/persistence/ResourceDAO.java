@@ -8,6 +8,7 @@ import java.util.List;
 public interface ResourceDAO {
 
     public List<Resource> consultResources() throws ParseException;
+    public void addResource(Resource recurso) throws ParseException;
 
 }
 
