@@ -2,12 +2,16 @@ package edu.eci.cvds.gestor.guice;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import consult.ConsultService;
+import consult.ConsultServiceImpl;
 import edu.eci.cvds.gestor.persistence.*;
 import edu.eci.cvds.gestor.persistence.mybatis.*;
 import edu.eci.cvds.gestor.services.GestorServices;
 import edu.eci.cvds.gestor.services.impl.GestorServicesImpl;
 import org.mybatis.guice.XMLMyBatisModule;
 import org.mybatis.guice.datasource.helper.JdbcHelper;
+import register.RegisterService;
+import register.RegisterServiceImpl;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -37,6 +41,8 @@ public class GuiceContextListener implements ServletContextListener{
 //                bind(RoomDAO.class).to(MyBatisRoomDAO.class);
                 bind(ResourceDAO.class).to(MyBatisResourceDAO.class);
                 bind(GestorServices.class).to(GestorServicesImpl.class);
+                bind(ConsultService.class).to(ConsultServiceImpl.class);
+                bind(RegisterService.class).to(RegisterServiceImpl.class);
             }
         });
         servletContextEvent.getServletContext().setAttribute(Injector.class.getName(), injector);
