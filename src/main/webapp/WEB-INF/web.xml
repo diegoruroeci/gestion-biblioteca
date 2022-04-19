@@ -14,7 +14,7 @@
     <url-pattern>/gestor/*</url-pattern>
   </servlet-mapping>
   <welcome-file-list>
-    <welcome-file>gestor/timetable.xhtml</welcome-file>
+    <welcome-file>gestor/login.xhtml</welcome-file>
   </welcome-file-list>
 
   <listener>
