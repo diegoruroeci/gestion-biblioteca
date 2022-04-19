@@ -16,29 +16,15 @@ import java.util.List;
 @Singleton
 public class GestorServicesImpl implements GestorServices {
 
-//    @Inject
-//    private AdminDAO adminDAO;
-//
-//    @Inject
-//    private BoardDAO boardDAO;
-//
-//    @Inject
-//    private BookDAO bookDAO;
-//
-//    @Inject
-//    private CommunityDAO communityDAO;
-//
-//    @Inject
-//    private ComputerDAO computerDAO;
 
     @Inject
     private ReservationDAO reservationDAO;
 
     @Inject
-    private UserDAO userDAO;
+    private ResourceDAO resourceDAO;
 
     @Inject
-    private ResourceDAO resourceDAO;
+    private UserDAO userDAO;
 
     @Override
     public List<Resource> consultResources() throws PersistenceException {

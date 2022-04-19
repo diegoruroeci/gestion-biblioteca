@@ -16,9 +16,9 @@ public class MyBatisUserDAO implements UserDAO {
 
     @Override
     public List<User> consultUsers() throws ParseException {
-        try{
+        try {
             return userMapper.consultUsers();
-        }catch (PersistenceException e){
+        } catch (PersistenceException e) {
             throw new PersistenceException(e.getMessage());
         }
     }

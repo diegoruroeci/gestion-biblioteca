@@ -51,19 +51,22 @@
                     <img src="https://cdn.discordapp.com/attachments/771508386452734003/963930258162200626/fondorojo.png" alt="Rojo ECI" width="350" height="250" />
                 </div>
                 <div class="centrar" id="a">
-                <p:outputLabel for="txtUsuario" value="Correo"/>
+                    <p:outputLabel for="txtUsuario" value="Correo"/>
                 </div>
                 <div class="centrar" id="a">
-                <p:inputText id="txtUsuario" required="true" requiredMessage="Correo requerido"/>
+                    <p:inputText id="txtUsuario" required="true" requiredMessage="Correo requerido" binding="#{email}"/>
                 </div>
                 <div class="centrar" id="a">
-                <p:outputLabel for="txtClave" value="Contraseña"/>
+                    <p:outputLabel for="txtClave" value="Contraseña"/>
                 </div>
                 <div class="centrar" id="a">
-                    <p:inputText id="txtClave" type="password" required="true" requiredMessage="Correo requerido"/>
+                    <p:inputText id="txtClave" type="password" required="true" requiredMessage="Correo requerido" binding="#{password}"/>
                 </div>
                 <div class="centrar" id="a">
-                <p:commandButton class="btn btn-black" value="Iniciar Sesion" action="reserve?gestor-redirect = true"/>
+                    <p:selectBooleanCheckbox value="#{rememberMe}" itemLabel="Recordarme"/>
+                </div>
+                <div class="centrar" id="a">
+                    <p:commandButton class="btn btn-black" value="Iniciar Sesion" action="reserve?gestor-redirect = true" actionListener="#{LoginBean.singIn(email.value,password.value,rememberMe)}"/>
                 </div>
 <!--                </h:panelGrid>-->
     <!--        <p:link value="Crear Cuenta" outcome="usuario"/>-->
