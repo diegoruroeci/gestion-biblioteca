@@ -1,8 +1,7 @@
 package edu.eci.cvds.gestor.entities;
 
-import java.io.Serializable;
 
-public class Resource implements Serializable {
+public class Resource {
 
     private String name;
     private String type;
@@ -94,7 +93,7 @@ public class Resource implements Serializable {
 
     @Override
     public String toString(){
-        return "Review{" +
+        return "Resource{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", location=" + location + '\'' +
