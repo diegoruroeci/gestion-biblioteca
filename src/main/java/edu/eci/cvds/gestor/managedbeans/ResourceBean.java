@@ -6,11 +6,8 @@ import edu.eci.cvds.gestor.services.GestorServices;
 import edu.eci.cvds.gestor.services.UserServices;
 import org.apache.ibatis.exceptions.PersistenceException;
 
-import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +25,12 @@ public class ResourceBean extends BasePageBean{
     @Inject
     private GestorServices gestorServices;
 
+    @Inject
+    private UserServices userService;
+
     private List<Resource> filterResource;
+
+    private boolean showNew;
 
     private static ArrayList<Resource> filtroRecurso = new ArrayList<>();
 
@@ -45,11 +47,9 @@ public class ResourceBean extends BasePageBean{
         }
     }
 
-
-
-//    public List<Resource> getResourcesParam(String cadena){
-//        return gestorServices.consultResources();
-//    }
+    public boolean isShowNew() {
+        return userService.isAdmin();
+    }
 
     public List<Resource> getFilterResource() {
         return filterResource;
