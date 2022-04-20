@@ -3,6 +3,7 @@ package edu.eci.cvds.gestor.managedbeans;
 import com.google.inject.Inject;
 import edu.eci.cvds.gestor.entities.Resource;
 import edu.eci.cvds.gestor.services.GestorServices;
+import org.apache.ibatis.exceptions.PersistenceException;
 
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
@@ -30,6 +31,17 @@ public class ResourceBean extends BasePageBean{
         return gestorServices.consultResources();
     }
 
+
+    public void register( String id, String nombre, String ubicacion, String tipo, int capacidad, int idInterno, String descripcion, boolean disponible) throws PersistenceException {
+        try{
+            gestorServices.registerResource(id, nombre, ubicacion, tipo, capacidad, idInterno, descripcion, disponible);
+        }catch (PersistenceException e){
+            throw new PersistenceException(e.getMessage());
+        }
+    }
+
+
+
 //    public List<Resource> getResourcesParam(String cadena){
 //        return gestorServices.consultResources();
 //    }
@@ -49,4 +61,5 @@ public class ResourceBean extends BasePageBean{
     public void setFiltroRecurso(ArrayList<Resource> filtroRecurso) {
         this.filtroRecurso = filtroRecurso;
     }
+
 }
