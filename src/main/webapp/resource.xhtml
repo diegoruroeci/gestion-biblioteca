@@ -50,19 +50,19 @@
             </p:outputPanel>
         </f:facet>
 
-        <p:column headerText="Nombre" class="titulo" sortBy="#{resources.name}" filterBy="#{resources.name}" filterStyle="width:100px;">
+        <p:column headerText="Nombre" class="titulo" sortBy="#{resources.name}" filterBy="#{resources.name}" filterStyle="width:100px;" filterMatchMode="contains">
             <div class="hijo"><h:outputText value="#{resources.name}" class="valor"/></div>
         </p:column>
-        <p:column headerText="Tipo de recurso" class="titulo" sortBy="#{resources.type}" filterBy="#{resources.type}" filterStyle="width:100px;">
+        <p:column headerText="Tipo de recurso" class="titulo" sortBy="#{resources.type}" filterBy="#{resources.type}" filterStyle="width:100px;" filterMatchMode="contains">
             <h:outputText value="#{resources.type}" class="valor"/>
         </p:column>
         <p:column headerText="Descripcion" class="titulo">
             <h:outputText value="#{resources.description}" class="valor"/>
         </p:column>
-        <p:column headerText="Biblioteca" class="titulo" sortBy="#{resources.location}" filterBy="#{resources.location}" filterStyle="width:100px">
+        <p:column headerText="Biblioteca" class="titulo" sortBy="#{resources.location}" filterBy="#{resources.location}" filterStyle="width:100px" filterMatchMode="contains">
             <h:outputText value="#{resources.location}" class="valor"/>
         </p:column>
-        <p:column headerText="Unidades" class="titulo" sortBy="#{resources.capacity}" filterBy="#{resources.capacity}" filterStyle="width:100px">
+        <p:column headerText="Unidades" class="titulo" sortBy="#{resources.capacity}" filterBy="#{resources.capacity}" filterStyle="width:100px" filterMatchMode="contains">
             <h:outputText value="#{resources.capacity}" class="valor"/>
         </p:column>
         <p:column headerText="Reservar" class="titulo">
