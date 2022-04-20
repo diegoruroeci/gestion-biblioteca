@@ -14,8 +14,8 @@ import java.util.List;
 
 @SuppressWarnings("deprecation")
 @ManagedBean(name="ResourceBean")
-@RequestScoped
-//@SessionScoped
+//@RequestScoped
+@SessionScoped
 //@ApplicationScoped
 public class ResourceBean extends BasePageBean{
 
