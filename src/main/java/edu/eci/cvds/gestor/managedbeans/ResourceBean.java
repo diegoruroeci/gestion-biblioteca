@@ -49,4 +49,6 @@ public class ResourceBean extends BasePageBean{
     public void setFiltroRecurso(ArrayList<Resource> filtroRecurso) {
         this.filtroRecurso = filtroRecurso;
     }
+
+
 }

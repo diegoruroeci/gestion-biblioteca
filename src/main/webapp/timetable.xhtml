@@ -13,10 +13,19 @@
             background-attachment: fixed;
             background-size: cover;
         }
+
+        .botones {
+            display: block;
+        }
+
     </style>
 </h:head>
+<h:form>
 <body>
-<p:commandButton value="Atras" onclick="history.back()"/>
+<div class="botones">
+    <p:commandButton type="button" value="Atras" onclick="history.back()"/>
+</div>
+
 <center>
     <h1  class="center"> Horario Disponibilidad </h1>
     <div>
@@ -140,4 +149,5 @@
     </div>
 </center>
 </body>
+</h:form>
 </html>

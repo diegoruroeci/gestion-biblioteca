@@ -33,9 +33,16 @@
             background-color:#ED7D31;
             color:black;
         }
+        .danger {
+            margin-left: 90%;
+            margin-button: 0;
+        }
 </style>
 </h:head>
 <h:body>
+    <div class="botones">
+        <p:commandButton type="button" onclick="log()" value="Danger" class="danger" />
+    </div>
     <center><h1>Recursos Biblioteca</h1></center>
     <h:form>
     <p:dataTable id="resource_table" var="resources" value="#{ResourceBean.resources}" rows="10"
@@ -70,6 +77,15 @@
         </p:column>
     </p:dataTable>
     </h:form>
+    <script type="text/javascript">
+        function log(){
+            if(textLog==="Entrar"){
+
+                }
+            }else{
+            
+            }
+    </script>
 </h:body>
 </html>
 
