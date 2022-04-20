@@ -45,9 +45,9 @@ public class GestorServicesImpl implements GestorServices {
     }
 
     @Override
-    public void registerResource(String id, String nombre, String ubicacion, String tipo, int capacidad, int idInterno, String descripcion, boolean disponible) throws PersistenceException {
+    public void registerResource( String id, String nombre, String ubicacion, String tipo, int capacidad, int idInterno, String descripcion, boolean disponible) throws PersistenceException {
         try {
-            resourceDAO.registerResource(id, nombre, ubicacion, tipo, capacidad, idInterno, descripcion, disponible);
+            resourceDAO.registerResource( id, nombre, ubicacion, tipo, capacidad, idInterno, descripcion, disponible);
         }catch (PersistenceException | ParseException e){
             throw new PersistenceException(e.getMessage());
         }

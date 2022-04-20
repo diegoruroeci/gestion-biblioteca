@@ -60,16 +60,12 @@
     <center> <h1>Registrar Recurso</h1></center>
     <div class="contenedor">
         <div class="input-contenedor">
-            <i class="fa-solid fa-fingerprint icon"></i>
-            <center><p:inputText  placeholder="ID" id= "id" type="String" binding= "#{id}"  class="form-control" style="width:10%; height:30%"/></center>
+            <i class="fa-solid fa-bookmark icon"></i>
+            <center><p:inputText  placeholder="ID" id= "id" type="String" binding= "#{id}"  class="form-control" style="width:10%; height:5%"/></center>
         </div>
         <div class="input-contenedor">
             <i class="fa-solid fa-bookmark icon"></i>
             <center><p:inputText  placeholder="Nombre" id= "name" type="String" binding= "#{name}"  class="form-control" style="width:10%; height:5%"/></center>
-        </div>
-        <div class="input-contenedor">
-            <i class="fa-solid fa-list-ol icon"></i>
-            <center><p:inputText  placeholder="capacidad" id= "capacity" type="number" binding= "#{capacity}"  class="form-control" style="width:10%; height:5%"/></center>
         </div>
         <div class="input-contenedor">
             <i class="fa-solid fa-location-dot icon"></i>
@@ -78,6 +74,10 @@
         <div class="input-contenedor">
             <i class="fa-solid fa-landmark icon"></i>
             <center><p:inputText  placeholder="Tipo" id= "type" type="String" binding= "#{type}"  class="form-control" style="width:10%; height:5%"/></center>
+        </div>
+        <div class="input-contenedor">
+            <i class="fa-solid fa-list-ol icon"></i>
+            <center><p:inputText  placeholder="capacidad" id= "capacity" type="number" binding= "#{capacity}"  class="form-control" style="width:10%; height:5%"/></center>
         </div>
         <div class="input-contenedor">
             <i class="fa-solid fa-fingerprint icon"></i>
@@ -91,7 +91,7 @@
             <i class="fa-solid fa-check icon"></i>
             <center><p:inputText  placeholder="Disponible" id= "available" type="boolean" binding= "#{available}"  class="form-control" style="width:10%; height:5%"/></center>
         </div>
-        <center><h:commandButton value="Registrar" actionListener="#{ResourceBean.register(id.value, name.value, capacity.value ,location.value, type.value, internId.value, description.value, available.value)}"  update="formulario"  style="color:#fff5ee;
+        <center><h:commandButton value="Registrar" actionListener="#{ResourceBean.register(id.value, name.value,location.value , type.value, capacity.value, internId.value, description.value, available.value)}"  update="formulario"  style="color:#fff5ee;
             background-color:#ff6961; width:10%; height:30%; font-size:80%; position:relative; top:40px" /></center>
 
 

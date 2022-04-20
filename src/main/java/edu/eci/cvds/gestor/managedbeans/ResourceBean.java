@@ -32,7 +32,7 @@ public class ResourceBean extends BasePageBean{
         return gestorServices.consultResources();
     }
 
-    public void register(String id, String nombre, String ubicacion, String tipo, int capacidad, int idInterno, String descripcion, boolean disponible) throws PersistenceException {
+    public void register( String id, String nombre, String ubicacion, String tipo, int capacidad, int idInterno, String descripcion, boolean disponible) throws PersistenceException {
         try{
             gestorServices.registerResource(id, nombre, ubicacion, tipo, capacidad, idInterno, descripcion, disponible);
         }catch (PersistenceException e){
