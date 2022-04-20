@@ -46,10 +46,19 @@ public class GestorServicesImpl implements GestorServices {
 
     @Override
     public List<User> consultUsers() throws PersistenceException {
-        try{
+        try {
             return userDAO.consultUsers();
-        }catch (PersistenceException | ParseException e) {
+        } catch (PersistenceException | ParseException e) {
+            throw new PersistenceException(e.getMessage());
+        }
+    }
+
+    public void registerResource( String id, String nombre, String ubicacion, String tipo, int capacidad, int idInterno, String descripcion, boolean disponible) throws PersistenceException {
+        try {
+            resourceDAO.registerResource( id, nombre, ubicacion, tipo, capacidad, idInterno, descripcion, disponible);
+        }catch (PersistenceException | ParseException e){
             throw new PersistenceException(e.getMessage());
         }
     }
 }
+
