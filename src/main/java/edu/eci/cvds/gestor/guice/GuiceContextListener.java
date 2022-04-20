@@ -6,20 +6,10 @@ import edu.eci.cvds.gestor.persistence.*;
 import edu.eci.cvds.gestor.persistence.mybatis.*;
 import edu.eci.cvds.gestor.services.GestorServices;
 import edu.eci.cvds.gestor.login.LoginServices;
-<<<<<<< HEAD
-<<<<<<< HEAD
 import edu.eci.cvds.gestor.services.impl.GestorServicesImpl;
 import edu.eci.cvds.gestor.login.LoginServicesImpl;
-=======
 import edu.eci.cvds.gestor.services.UserServices;
 import edu.eci.cvds.gestor.services.impl.UserServicesImpl;
->>>>>>> 67fa7e8f178edcb79bc6fac345331062ef3a51a5
-=======
-import edu.eci.cvds.gestor.services.UserService;
-import edu.eci.cvds.gestor.services.impl.GestorServicesImpl;
-import edu.eci.cvds.gestor.login.LoginServicesImpl;
-import edu.eci.cvds.gestor.services.impl.UserServiceImpl;
->>>>>>> aae4634ca4d5220e5b2157fd1a9852c9d89618fc
 import org.mybatis.guice.XMLMyBatisModule;
 import org.mybatis.guice.datasource.helper.JdbcHelper;
 
