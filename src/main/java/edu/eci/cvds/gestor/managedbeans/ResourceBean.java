@@ -2,7 +2,9 @@ package edu.eci.cvds.gestor.managedbeans;
 
 import com.google.inject.Inject;
 import edu.eci.cvds.gestor.entities.Resource;
+import edu.eci.cvds.gestor.entities.User;
 import edu.eci.cvds.gestor.services.GestorServices;
+import edu.eci.cvds.gestor.services.UserService;
 import org.apache.ibatis.exceptions.PersistenceException;
 
 import javax.faces.bean.ApplicationScoped;
@@ -23,7 +25,12 @@ public class ResourceBean extends BasePageBean{
     @Inject
     private GestorServices gestorServices;
 
+    @Inject
+    private UserService userService;
+
     private List<Resource> filterResource;
+
+    private boolean showNew;
 
     private static ArrayList<Resource> filtroRecurso = new ArrayList<>();
 
@@ -40,11 +47,9 @@ public class ResourceBean extends BasePageBean{
         }
     }
 
-
-
-//    public List<Resource> getResourcesParam(String cadena){
-//        return gestorServices.consultResources();
-//    }
+    public boolean isShowNew() {
+        return userService.isAdmin();
+    }
 
     public List<Resource> getFilterResource() {
         return filterResource;
