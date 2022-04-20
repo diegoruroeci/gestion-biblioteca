@@ -3,6 +3,7 @@ package edu.eci.cvds.gestor.managedbeans;
 import com.google.inject.Inject;
 import edu.eci.cvds.gestor.entities.Resource;
 import edu.eci.cvds.gestor.services.GestorServices;
+import edu.eci.cvds.gestor.services.UserServices;
 import org.apache.ibatis.exceptions.PersistenceException;
 
 import javax.faces.bean.ApplicationScoped;
@@ -19,6 +20,10 @@ import java.util.List;
 @SessionScoped
 //@ApplicationScoped
 public class ResourceBean extends BasePageBean{
+
+
+    @Inject
+    private UserServices userServices;
 
     @Inject
     private GestorServices gestorServices;
