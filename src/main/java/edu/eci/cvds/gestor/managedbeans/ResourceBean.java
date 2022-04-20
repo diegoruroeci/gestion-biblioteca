@@ -22,6 +22,10 @@ import java.util.List;
 //@ApplicationScoped
 public class ResourceBean extends BasePageBean{
 
+
+    @Inject
+    private UserServices userServices;
+
     @Inject
     private GestorServices gestorServices;
 
