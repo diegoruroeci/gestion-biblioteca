@@ -1,5 +1,4 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
@@ -37,31 +36,40 @@
 </style>
 </h:head>
 <h:body>
-    <h1>Recursos Biblioteca</h1>
+    <center><h1>Recursos Biblioteca</h1></center>
+    <h:form>
     <p:dataTable id="resource_table" var="resources" value="#{ResourceBean.resources}" rows="10"
                  paginator="true"
                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                  currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
-                 rowsPerPageTemplate="5,10,{ShowAll|'All'}" class="tabla">
-        <p:column headerText="Nombre" class="titulo">
+                 rowsPerPageTemplate="5,10,{ShowAll|'All'}" class="tabla" emptyMessage="No existen datos con esa busqueda" widgetVar="tablaRescusos" filteredValue="#{ResourceBean.filtroRecurso}">
+        <f:facet name="header">
+            <p:outputPanel>
+                <h:outputText value="Buscar: " class="valor"/>
+                <p:inputText id="globalFilter" onkeyup="PF('tablaRescusos').filter()" style="width: 150px;" placeholder="Ingresar Busqueda"/>
+            </p:outputPanel>
+        </f:facet>
+
+        <p:column headerText="Nombre" class="titulo" sortBy="#{resources.name}" filterBy="#{resources.name}" filterStyle="width:100px;" filterMatchMode="contains">
             <div class="hijo"><h:outputText value="#{resources.name}" class="valor"/></div>
         </p:column>
-        <p:column headerText="Tipo de recurso" class="titulo" >
+        <p:column headerText="Tipo de recurso" class="titulo" sortBy="#{resources.type}" filterBy="#{resources.type}" filterStyle="width:100px;" filterMatchMode="contains">
             <h:outputText value="#{resources.type}" class="valor"/>
         </p:column>
         <p:column headerText="Descripcion" class="titulo">
             <h:outputText value="#{resources.description}" class="valor"/>
         </p:column>
-        <p:column headerText="Biblioteca" class="titulo">
+        <p:column headerText="Biblioteca" class="titulo" sortBy="#{resources.location}" filterBy="#{resources.location}" filterStyle="width:100px" filterMatchMode="contains">
             <h:outputText value="#{resources.location}" class="valor"/>
         </p:column>
-        <p:column headerText="Unidades" class="titulo">
+        <p:column headerText="Unidades" class="titulo" sortBy="#{resources.capacity}" filterBy="#{resources.capacity}" filterStyle="width:100px" filterMatchMode="contains">
             <h:outputText value="#{resources.capacity}" class="valor"/>
         </p:column>
         <p:column headerText="Reservar" class="titulo">
             <p:button outcome="timetable" value="reservar" class="boton"/>
         </p:column>
     </p:dataTable>
+    </h:form>
 </h:body>
 </html>
 
