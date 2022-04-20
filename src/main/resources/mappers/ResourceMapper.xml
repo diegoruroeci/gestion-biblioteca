@@ -30,4 +30,7 @@
         FROM RECURSOS r
     </select>
 
+    <insert id="registerResource" parameterType="map">
+        insert into Recursos(ID_recurso, Nombre, Ubicacion, Tipo, Capacidad, ID_interno, Descripcion, Disponible) values (#{id}, #{nombre}, #{ubicacion}, #{tipo}, #{capacidad}, #{idInterno}, #{descripcion}, #{disponible})
+    </insert>
 </mapper>
