@@ -22,17 +22,6 @@ public class ResourceBean extends BasePageBean{
 
     @Inject
     private GestorServices gestorServices;
-    private String id;
-    private String nombre;
-    private String ubicacion;
-    private String tipo;
-    private int capacidad;
-    private int idInterno;
-    private String descripcion;
-    private boolean desponible;
-    private String[] tiposDeRecursos = {"Sala", "Equipo de computo", "Equipo de multimedia", "Libro"};
-    private boolean[] estadoRecursos = {true, false};
-    private String[] ubicacionRecursos = {"Biblioteca JAL Bloque B", "Biblioteca JAL Bloque G"};
 
     private List<Resource> filterResource;
 
