@@ -14,7 +14,7 @@ import javax.servlet.ServletResponse;
 
 public class OnlyNotAutenticated extends AccessControlFilter {
 
-    String welcomeurl = "/reserve.xhtml";
+    String welcomeurl = "/gestor/resource.xhtml";
 
     @Override
     protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) throws Exception {

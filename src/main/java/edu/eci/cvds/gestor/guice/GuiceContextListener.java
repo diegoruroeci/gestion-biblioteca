@@ -6,10 +6,13 @@ import edu.eci.cvds.gestor.persistence.*;
 import edu.eci.cvds.gestor.persistence.mybatis.*;
 import edu.eci.cvds.gestor.services.GestorServices;
 import edu.eci.cvds.gestor.login.LoginServices;
-import edu.eci.cvds.gestor.services.UserService;
+<<<<<<< HEAD
 import edu.eci.cvds.gestor.services.impl.GestorServicesImpl;
 import edu.eci.cvds.gestor.login.LoginServicesImpl;
-import edu.eci.cvds.gestor.services.impl.UserServiceImpl;
+=======
+import edu.eci.cvds.gestor.services.UserServices;
+import edu.eci.cvds.gestor.services.impl.UserServicesImpl;
+>>>>>>> 67fa7e8f178edcb79bc6fac345331062ef3a51a5
 import org.mybatis.guice.XMLMyBatisModule;
 import org.mybatis.guice.datasource.helper.JdbcHelper;
 
@@ -35,7 +38,7 @@ public class GuiceContextListener implements ServletContextListener{
                 //Services
                 bind(GestorServices.class).to(GestorServicesImpl.class);
                 bind(LoginServices.class).to(LoginServicesImpl.class);
-                bind(UserService.class).to(UserServiceImpl.class);
+                bind(UserServices.class).to(UserServicesImpl.class);
 
 
                 //DAO

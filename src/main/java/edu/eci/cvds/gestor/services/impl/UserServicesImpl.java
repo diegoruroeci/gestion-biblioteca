@@ -1,14 +1,14 @@
 package edu.eci.cvds.gestor.services.impl;
 
-import edu.eci.cvds.gestor.services.UserService;
+import edu.eci.cvds.gestor.services.UserServices;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 
 
-public class UserServiceImpl implements UserService {
+public class UserServicesImpl implements UserServices {
     @Override
     public boolean isAdmin() {
-        try{
+        try {
             Subject subject = SecurityUtils.getSubject();
             return subject.hasRole("A");
         }catch (Exception e){
