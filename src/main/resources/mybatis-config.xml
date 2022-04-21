@@ -7,7 +7,7 @@
     <typeAliases>
         <typeAlias type='edu.eci.cvds.gestor.entities.Reservation' alias='Reservation'/>
         <typeAlias type='edu.eci.cvds.gestor.entities.Resource' alias='Resource'/>
-<!--        <typeAlias type='edu.eci.cvds.gestor.entities.User' alias='User'/>-->
+        <typeAlias type='edu.eci.cvds.gestor.entities.User' alias='User'/>
     </typeAliases>
 
     <environments default="development">
@@ -26,6 +26,7 @@
     <mappers>
         <mapper resource="mappers/ReservationMapper.xml"></mapper>
         <mapper resource="mappers/ResourceMapper.xml"></mapper>
+        <mapper resource="mappers/UserMapper.xml"></mapper>
     </mappers>
 
 </configuration>
