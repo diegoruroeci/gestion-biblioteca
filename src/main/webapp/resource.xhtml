@@ -33,9 +33,16 @@
             background-color:#ED7D31;
             color:black;
         }
+        .danger {
+            margin-left: 90%;
+            margin-button: 0;
+        }
 </style>
 </h:head>
 <h:body>
+    <div class="botones">
+        <p:commandButton class="danger" value="#{LoginBean.textLog()}" actionListener="#{LoginBean.actionButton()}" />
+    </div>
     <center><h1>Recursos Biblioteca</h1></center>
     <h:form id="form">
     <p:button value="Nuevo recurso" icon="pi pi-plus" rendered="#{ResourceBean.showNew}" style="margin-right: .5rem" outcome="/gestor/registerResource.xhtml"/>

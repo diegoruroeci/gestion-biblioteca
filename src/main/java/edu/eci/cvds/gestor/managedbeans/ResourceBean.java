@@ -16,7 +16,7 @@ import java.util.List;
 //@RequestScoped
 @SessionScoped
 //@ApplicationScoped
-public class ResourceBean extends BasePageBean{
+public class ResourceBean extends BasePageBean {
 
 
     @Inject
@@ -34,15 +34,15 @@ public class ResourceBean extends BasePageBean{
 
     private static ArrayList<Resource> filtroRecurso = new ArrayList<>();
 
-    public List<Resource> getResources(){
+    public List<Resource> getResources() {
         return gestorServices.consultResources();
     }
 
 
-    public void register( String id, String nombre, String ubicacion, String tipo, int capacidad, int idInterno, String descripcion, boolean disponible) throws PersistenceException {
-        try{
+    public void register(String id, String nombre, String ubicacion, String tipo, int capacidad, int idInterno, String descripcion, boolean disponible) throws PersistenceException {
+        try {
             gestorServices.registerResource(id, nombre, ubicacion, tipo, capacidad, idInterno, descripcion, disponible);
-        }catch (PersistenceException e){
+        } catch (PersistenceException e) {
             throw new PersistenceException(e.getMessage());
         }
     }
@@ -68,3 +68,4 @@ public class ResourceBean extends BasePageBean{
     }
 
 }
+
