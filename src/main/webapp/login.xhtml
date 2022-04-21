@@ -43,6 +43,9 @@
 <h:body>
 <!--    <center>-->
         <h:form>
+            <p:messages id="messages" showDetail="true" closable="true">
+                <p:autoUpdate/>
+            </p:messages>
             <div class="row" style="display:grid; grid-template-rows:auto; row-gap:1ch ;justify-content: center; align-items: center;">
                 <div class="centrar">
                     <img src="https://cdn.discordapp.com/attachments/771508386452734003/963930370640871424/imagenlogo.png" alt="Logo ECI" width="300" height="100" />
@@ -60,13 +63,13 @@
                     <p:outputLabel for="txtClave" value="Contraseña"/>
                 </div>
                 <div class="centrar" id="a">
-                    <p:inputText id="txtClave" type="password" required="true" requiredMessage="Correo requerido" binding="#{password}"/>
+                    <p:inputText id="txtClave" type="password" required="true" requiredMessage="Contraseña requerida" binding="#{password}"/>
                 </div>
                 <div class="centrar" id="a">
                     <p:selectBooleanCheckbox value="#{rememberMe}" itemLabel="Recordarme"/>
                 </div>
                 <div class="centrar" id="a">
-                    <p:commandButton class="btn btn-black" value="Iniciar Sesion" action="resource?gestor-redirect = true" actionListener="#{LoginBean.singIn(email.value,password.value,rememberMe)}"/>
+                    <p:commandButton class="btn btn-black" value="Iniciar Sesion"  actionListener="#{LoginBean.singIn(email.value,password.value,rememberMe)}"/>
                 </div>
 <!--                </h:panelGrid>-->
     <!--        <p:link value="Crear Cuenta" outcome="usuario"/>-->

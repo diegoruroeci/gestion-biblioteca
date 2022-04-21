@@ -5,6 +5,10 @@ import edu.eci.cvds.gestor.services.ServicesException;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
+import org.primefaces.PrimeFaces;
+
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 
 public class LoginServicesImpl implements LoginServices {
 
@@ -14,6 +18,7 @@ public class LoginServicesImpl implements LoginServices {
     public void singIn(String email, String password, boolean rememberMe) throws ServicesException{
 
         subject = SecurityUtils.getSubject();
+        FacesMessage facesMessage = new FacesMessage();
         UsernamePasswordToken token = new UsernamePasswordToken(email,password,rememberMe);
         try {
             subject.login(token);
