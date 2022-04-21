@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.eci.cvds.gestor.persistence.mybatis.mappers.ReservationMapper">
+
+    <select parameterType="map" id="consultReservations" resultMap="ReservationResult">
+        select
+        re.id_reserva,
+        re.fecha,
+        re.horaini,
+        re.horafin,
+        re.recurso,
+        re.carnet
+
+        FROM RESERVAS re
+    </select>
+
+    <resultMap type='Reservation' id='ReservationResult'>
+        <id property='id' column='id_reserva'/>
+        <result property='date' column='fecha'/>
+        <result property='startHour' column='horaini'/>
+        <result property='finishHour' column='horafin'/>
+        <result property='resource' column='recurso'/>
+        <result property='license' column='carnet'/>
+
+    </resultMap>
+</mapper>
