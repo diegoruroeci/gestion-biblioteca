@@ -25,9 +25,9 @@ public class LoginBean extends BasePageBean {
 
     public String textLog(){
         if(loginServices.isLoggedIn()){
-            return "Salir";
+            return "Cerrar Sesión";
         }else {
-            return "Entrar";
+            return "Iniciar Sesión";
         }
     }
     
