@@ -4,7 +4,9 @@ import com.google.inject.Inject;
 import edu.eci.cvds.gestor.login.LoginServices;
 import edu.eci.cvds.gestor.login.LoginServicesImpl;
 import edu.eci.cvds.gestor.services.ServicesException;
+import org.primefaces.PrimeFaces;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.context.FacesContext;
@@ -20,7 +22,12 @@ public class LoginBean extends BasePageBean {
     private LoginServices loginServices;
 
     public void singIn(String email, String password, boolean rememberMe) throws ServicesException, IOException {
-        loginServices.singIn(email, password, rememberMe);
+        try {
+            loginServices.singIn(email, password, rememberMe);
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/gestor/resource.xhtml");
+        }catch (ServicesException servicesException){
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error",servicesException.getMessage()));
+        }
     }
 
     public String textLog(){
