@@ -30,4 +30,10 @@ public class LoginBean extends BasePageBean {
             return "Entrar";
         }
     }
+    
+    public void actionButton(){
+        if(loginServices.isLoggedIn()){
+            loginServices.logOut();
+        }
+    }
 }
