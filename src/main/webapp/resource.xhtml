@@ -44,7 +44,8 @@
         <p:commandButton class="danger" value="#{LoginBean.textLog()}" action="login?gestor-redirect = true" actionListener="#{LoginBean.actionButton()}" />
     </div>
     <center><h1>Recursos Biblioteca</h1></center>
-    <h:form>
+    <h:form id="form">
+    <p:button value="Nuevo recurso" icon="pi pi-plus" rendered="#{ResourceBean.showNew}" style="margin-right: .5rem" outcome="/gestor/registerResource.xhtml"/>
     <p:dataTable id="resource_table" var="resources" value="#{ResourceBean.resources}" rows="10"
                  paginator="true"
                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -73,7 +74,7 @@
             <h:outputText value="#{resources.capacity}" class="valor"/>
         </p:column>
         <p:column headerText="Reservar" class="titulo">
-            <p:button outcome="timetable" value="reservar" class="boton"/>
+            <p:button outcome="reserve" value="Ver horarios" class="boton"/>
         </p:column>
     </p:dataTable>
     </h:form>
