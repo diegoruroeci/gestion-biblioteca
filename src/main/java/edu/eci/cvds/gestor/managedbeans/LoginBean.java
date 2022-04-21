@@ -31,9 +31,12 @@ public class LoginBean extends BasePageBean {
         }
     }
     
-    public void actionButton(){
+    public void actionButton() throws IOException {
         if(loginServices.isLoggedIn()){
             loginServices.logOut();
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/gestor/resource.xhtml");
+        }else{
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/gestor/login.xhtml");
         }
     }
 }
