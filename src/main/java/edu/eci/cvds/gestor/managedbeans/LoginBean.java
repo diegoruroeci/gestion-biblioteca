@@ -21,13 +21,23 @@ public class LoginBean extends BasePageBean {
     @Inject
     private LoginServices loginServices;
 
-    public void singIn(String email, String password, boolean rememberMe) throws ServicesException, IOException {
+    public void singIn(String email, String password) throws ServicesException, IOException {
         try {
-            loginServices.singIn(email, password, rememberMe);
-            FacesContext.getCurrentInstance().getExternalContext().redirect("/gestor/resource.xhtml");
+            if (email.trim().isEmpty()){
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error","Correo requerido"));
+            }else if (password.trim().isEmpty()) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error","Contraseña requerida"));
+            }else {
+                loginServices.singIn(email, password, false);
+                FacesContext.getCurrentInstance().getExternalContext().redirect("/gestor/resource.xhtml");
+            }
         }catch (ServicesException servicesException){
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error",servicesException.getMessage()));
         }
+    }
+
+    public void reserveUrl(){
+        System.out.println("Click");
     }
 
     public String textLog(){
@@ -37,7 +47,7 @@ public class LoginBean extends BasePageBean {
             return "Iniciar Sesión";
         }
     }
-    
+
     public void actionButton() throws IOException {
         if(loginServices.isLoggedIn()){
             loginServices.logOut();
