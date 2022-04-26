@@ -46,11 +46,11 @@
     <center><h1>Recursos Biblioteca</h1></center>
     <h:form id="form">
     <p:button value="Nuevo recurso" icon="pi pi-plus" rendered="#{ResourceBean.showNew}" style="margin-right: .5rem" outcome="/gestor/registerResource.xhtml"/>
-    <p:dataTable id="resource_table" var="resources" value="#{ResourceBean.resources}" rows="10"
-                 paginator="true" scrollable="true" scrollHeight="300"
-                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                 currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} recursos"
-                 rowsPerPageTemplate="5,10,{ShowAll|'All'}" class="tabla" emptyMessage="No existen datos con esa busqueda" widgetVar="tablaRescusos" filteredValue="#{ResourceBean.filtroRecurso}">
+    <p:dataTable id="resource_table" var="resources" value="#{ResourceBean.resources}"
+                 paginator="true" scrollable="true" scrollHeight="500"
+                 paginatorTemplate="{CurrentPageReport}"
+                 currentPageReportTemplate="{totalRecords} recursos"
+                 class="tabla" emptyMessage="No existen datos con esa busqueda" widgetVar="tablaRescusos" filteredValue="#{ResourceBean.filtroRecurso}">
         <f:facet name="header">
             <p:outputPanel>
                 <h:outputText value="Buscar: " class="valor"/>
