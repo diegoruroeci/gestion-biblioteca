@@ -1,8 +1,11 @@
 package edu.eci.cvds.gestor.managedbeans;
 
 import com.google.inject.Inject;
+import edu.eci.cvds.gestor.entities.Reservation;
+import edu.eci.cvds.gestor.entities.User;
 import edu.eci.cvds.gestor.login.LoginServices;
 import edu.eci.cvds.gestor.login.LoginServicesImpl;
+import edu.eci.cvds.gestor.services.GestorServices;
 import edu.eci.cvds.gestor.services.ServicesException;
 import org.primefaces.PrimeFaces;
 
@@ -11,6 +14,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
+import java.util.List;
 
 @SuppressWarnings("deprecation")
 @ManagedBean(name="LoginBean")
@@ -18,8 +22,15 @@ import java.io.IOException;
 
 public class LoginBean extends BasePageBean {
 
+    private String email;
+
     @Inject
     private LoginServices loginServices;
+
+    @Inject
+    private GestorServices gestorServices;
+
+    private boolean showReserve;
 
     public void singIn(String email, String password) throws ServicesException, IOException {
         try {
@@ -29,6 +40,7 @@ public class LoginBean extends BasePageBean {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error","Contraseña requerida"));
             }else {
                 loginServices.singIn(email, password, false);
+                this.email=email;
                 FacesContext.getCurrentInstance().getExternalContext().redirect("/gestor/resource.xhtml");
             }
         }catch (ServicesException servicesException){
@@ -48,6 +60,18 @@ public class LoginBean extends BasePageBean {
         }
     }
 
+    public boolean isShowReserve() {
+        return loginServices.isLoggedIn();
+    }
+
+    public String textReserve(){
+        if(loginServices.isLoggedIn()){
+            return "Ver mis reservas";
+        }else{
+            return null;
+        }
+    }
+
     public void actionButton() throws IOException {
         if(loginServices.isLoggedIn()){
             loginServices.logOut();
@@ -56,4 +80,14 @@ public class LoginBean extends BasePageBean {
             FacesContext.getCurrentInstance().getExternalContext().redirect("/gestor/login.xhtml");
         }
     }
+
+    public void actionReserve() throws IOException {
+        FacesContext.getCurrentInstance().getExternalContext().redirect("/gestor/reservation.xhtml");
+    }
+
+    public List<User> getUsers() {
+        return gestorServices.consultUsers();
+    }
+
+    public String getEmail(){return email;}
 }
