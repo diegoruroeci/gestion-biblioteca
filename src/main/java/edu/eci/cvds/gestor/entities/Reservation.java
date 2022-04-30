@@ -9,10 +9,10 @@ public class Reservation implements Serializable {
     private String date;
     private String startHour;
     private String finishHour;
-    private String  resource;
+    private int resource;
     private int license;
 
-    public Reservation(int id, String date, String startHour, String finishHour, String resource, int license) {
+    public Reservation(int id, String date, String startHour, String finishHour, int resource, int license) {
         this.id = id;
         this.date = date;
         this.startHour = startHour;
@@ -53,11 +53,11 @@ public class Reservation implements Serializable {
         this.finishHour = finishHour;
     }
 
-    public String getResource() {
+    public int getResource() {
         return resource;
     }
 
-    public void setResource(String resource) {
+    public void setResource(int resource) {
         this.resource = resource;
     }
 

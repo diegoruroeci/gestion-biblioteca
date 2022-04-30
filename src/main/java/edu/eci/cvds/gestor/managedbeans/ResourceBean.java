@@ -48,6 +48,7 @@ public class ResourceBean extends BasePageBean {
     private boolean disponibilidadSeleccionada;
 
 
+
     public void register(String nombre, String ubicacion, String tipo, int capacidad, int idInterno, String descripcion, boolean disponible) throws PersistenceException {
         try{
             if(nombre.trim().isEmpty() || nombre.equals(null)){
