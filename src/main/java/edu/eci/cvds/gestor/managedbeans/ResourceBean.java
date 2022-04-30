@@ -5,9 +5,12 @@ import edu.eci.cvds.gestor.entities.Resource;
 import edu.eci.cvds.gestor.services.GestorServices;
 import edu.eci.cvds.gestor.services.UserServices;
 import org.apache.ibatis.exceptions.PersistenceException;
+import org.primefaces.PrimeFaces;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,12 +40,37 @@ public class ResourceBean extends BasePageBean {
     public List<Resource> getResources() {
         return gestorServices.consultResources();
     }
+    private String[] TiposDeRecursos = {"Sala", "Computador", "Equipo de multimedia", "Libro"};
+    private String[] UbicacionDelRecurso = {"Biblioteca JAL Bloque B", "Biblioteca JAL Bloque G"};
+    private boolean[] recursoDisponible={true,false};
+    private String tipoSeleccionado;
+    private String ubicacionSeleccionada;
+    private boolean disponibilidadSeleccionada;
 
 
-    public void register(String id, String nombre, String ubicacion, String tipo, int capacidad, int idInterno, String descripcion, boolean disponible) throws PersistenceException {
-        try {
-            gestorServices.registerResource(id, nombre, ubicacion, tipo, capacidad, idInterno, descripcion, disponible);
-        } catch (PersistenceException e) {
+    public void register(String nombre, String ubicacion, String tipo, int capacidad, int idInterno, String descripcion, boolean disponible) throws PersistenceException {
+        try{
+            if(nombre.trim().isEmpty() || nombre.equals(null)){
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error","Nombre requerido"));
+            }
+            if(0>capacidad || capacidad>1000){
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error","La capacidad debe estar dentro del rango de 0 a 1000"));
+            }
+            if(String.valueOf(capacidad).isEmpty() || String.valueOf(capacidad).equals(null)){
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error","Capacidad requerida"));
+            }
+            if(descripcion.trim().isEmpty() || descripcion.equals(null)){
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error","Descripcion requerida"));
+            }
+            else {
+                ubicacion = this.ubicacionSeleccionada;
+                tipo= this.tipoSeleccionado;
+                disponible=this.disponibilidadSeleccionada;
+                gestorServices.registerResource(nombre, ubicacion, tipo, capacidad, idInterno, descripcion, disponible);
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Message", " Se ha registrado el recurso");
+                PrimeFaces.current().dialog().showMessageDynamic(message);
+            }
+        }catch (PersistenceException e){
             throw new PersistenceException(e.getMessage());
         }
     }
@@ -67,5 +95,60 @@ public class ResourceBean extends BasePageBean {
         this.filtroRecurso = filtroRecurso;
     }
 
+    public String[] getTiposDeRecursos() {
+        return TiposDeRecursos;
+    }
+
+    public void setTiposDeRecursos(String[] tiposDeRecursos) {
+        TiposDeRecursos = tiposDeRecursos;
+    }
+
+    public String[] getUbicacionDelRecurso() {
+        return UbicacionDelRecurso;
+    }
+
+    public void setUbicacionDelRecurso(String[] ubicacionDelRecurso) {
+        UbicacionDelRecurso = ubicacionDelRecurso;
+    }
+
+    public String getTipoSeleccionado() {
+        return tipoSeleccionado;
+    }
+
+    public void setTipoSeleccionado(String tipoSeleccionado) {
+        this.tipoSeleccionado = tipoSeleccionado;
+    }
+
+    public String getUbicacionSeleccionada() {
+        return ubicacionSeleccionada;
+    }
+
+    public void setUbicacionSeleccionada(String ubicacionSeleccionada) {
+        this.ubicacionSeleccionada = ubicacionSeleccionada;
+    }
+
+    public UserServices getUserServices() {
+        return userServices;
+    }
+
+    public void setUserServices(UserServices userServices) {
+        this.userServices = userServices;
+    }
+
+    public boolean[] getRecursoDisponible() {
+        return recursoDisponible;
+    }
+
+    public void setRecursoDisponible(boolean[] recursoDisponible) {
+        this.recursoDisponible = recursoDisponible;
+    }
+
+    public boolean isDisponibilidadSeleccionada() {
+        return disponibilidadSeleccionada;
+    }
+
+    public void setDisponibilidadSeleccionada(boolean disponibilidadSeleccionada) {
+        this.disponibilidadSeleccionada = disponibilidadSeleccionada;
+    }
 }
 

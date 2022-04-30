@@ -23,9 +23,9 @@ public class MyBatisResourceDAO implements ResourceDAO {
     }
 
     @Override
-    public void registerResource(String id, String nombre, String ubicacion, String tipo, int capacidad, int idInterno, String descripcion, boolean disponible) throws ParseException {
+    public void registerResource(String nombre, String ubicacion, String tipo, int capacidad, int idInterno, String descripcion, boolean disponible) throws ParseException {
         try {
-            resourceMapper.registerResource(id, nombre,ubicacion,tipo,capacidad,idInterno,descripcion,disponible);
+            resourceMapper.registerResource(nombre,ubicacion,tipo,capacidad,idInterno,descripcion,disponible);
         }catch (PersistenceException e){
             throw new PersistenceException(e.getMessage());
         }
