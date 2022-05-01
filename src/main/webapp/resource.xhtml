@@ -45,7 +45,8 @@
     </div>
     <center><h1>Recursos Biblioteca</h1></center>
     <h:form id="form">
-    <p:button value="Nuevo recurso" icon="pi pi-plus" rendered="#{ResourceBean.showNew}" style="margin-right: .5rem" outcome="/gestor/registerResource.xhtml"/>
+        <p:button value="Nuevo recurso" icon="pi pi-plus" rendered="#{ResourceBean.showNew}" style="margin-right: .5rem" outcome="/gestor/registerResource.xhtml"/>
+        <p:commandButton rendered="#{LoginBean.showReserve}" value="#{LoginBean.textReserve()}" style="margin-right: .5rem" actionListener="#{LoginBean.actionReserve()}"/>
     <p:dataTable id="resource_table" var="resources" value="#{ResourceBean.resources}"
                  paginator="true" scrollable="true" scrollHeight="500"
                  paginatorTemplate="{CurrentPageReport}"
