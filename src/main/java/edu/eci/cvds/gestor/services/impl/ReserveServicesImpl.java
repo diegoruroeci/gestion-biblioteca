@@ -42,6 +42,6 @@ public class ReserveServicesImpl implements ReserveServices {
 
     public int getResource(int index){
         List<Resource> resources = gestorServices.getResources();
-        return Integer.parseInt(resources.get(index).getId());
+        return resources.get(index).getId();
     }
 }
