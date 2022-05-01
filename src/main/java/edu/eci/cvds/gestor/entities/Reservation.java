@@ -1,18 +1,29 @@
 package edu.eci.cvds.gestor.entities;
 
 import java.io.Serializable;
-import java.util.Date;
+
+
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.List;
+
 
 public class Reservation implements Serializable {
 
     private int id;
-    private String date;
-    private String startHour;
-    private String finishHour;
-    private String  resource;
+    private Date date;
+    private Timestamp startHour;
+    private Timestamp finishHour;
+    private int resource;
     private int license;
+    private Resource resources;
+    private User Uname;
 
-    public Reservation(int id, String date, String startHour, String finishHour, String resource, int license) {
+    public Reservation(){
+        super();
+    }
+
+    public Reservation(int id, Date date, Timestamp startHour, Timestamp finishHour, int resource, int license) {
         this.id = id;
         this.date = date;
         this.startHour = startHour;
@@ -29,35 +40,35 @@ public class Reservation implements Serializable {
         this.id = id;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
-    public String getStartHour() {
+    public Timestamp getStartHour() {
         return startHour;
     }
 
-    public void setStartHour(String startHour) {
+    public void setStartHour(Timestamp startHour) {
         this.startHour = startHour;
     }
 
-    public String getFinishHour() {
+    public Timestamp getFinishHour() {
         return finishHour;
     }
 
-    public void setFinishHour(String finishHour) {
+    public void setFinishHour(Timestamp finishHour) {
         this.finishHour = finishHour;
     }
 
-    public String getResource() {
+    public int getResource() {
         return resource;
     }
 
-    public void setResource(String resource) {
+    public void setResource(int resource) {
         this.resource = resource;
     }
 
@@ -67,6 +78,22 @@ public class Reservation implements Serializable {
 
     public void setLicense(int license) {
         this.license = license;
+    }
+
+    public Resource getResources() {
+        return resources;
+    }
+
+    public void setResources(Resource resources) {
+        this.resources = resources;
+    }
+
+    public User getUname() {
+        return Uname;
+    }
+
+    public void setUname(User uname) {
+        Uname = uname;
     }
 
     @Override

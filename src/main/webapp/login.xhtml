@@ -57,19 +57,16 @@
                     <p:outputLabel for="txtUsuario" value="Correo"/>
                 </div>
                 <div class="centrar" id="a">
-                    <p:inputText id="txtUsuario" required="true" requiredMessage="Correo requerido" binding="#{email}"/>
+                    <p:inputText id="txtUsuario" binding="#{email}"/>
                 </div>
                 <div class="centrar" id="a">
                     <p:outputLabel for="txtClave" value="Contraseña"/>
                 </div>
                 <div class="centrar" id="a">
-                    <p:inputText id="txtClave" type="password" required="true" requiredMessage="Contraseña requerida" binding="#{password}"/>
+                    <p:inputText id="txtClave" type="password"  binding="#{password}"/>
                 </div>
                 <div class="centrar" id="a">
-                    <p:selectBooleanCheckbox value="#{rememberMe}" itemLabel="Recordarme"/>
-                </div>
-                <div class="centrar" id="a">
-                    <p:commandButton class="btn btn-black" value="Iniciar Sesion"  actionListener="#{LoginBean.singIn(email.value,password.value,rememberMe)}"/>
+                    <p:commandButton class="btn btn-black" value="Iniciar Sesion"  actionListener="#{LoginBean.singIn(email.value,password.value)}"/>
                 </div>
 <!--                </h:panelGrid>-->
     <!--        <p:link value="Crear Cuenta" outcome="usuario"/>-->

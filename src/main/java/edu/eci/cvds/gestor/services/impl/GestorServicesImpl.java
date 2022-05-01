@@ -45,6 +45,15 @@ public class GestorServicesImpl implements GestorServices {
     }
 
     @Override
+    public List<Reservation> consultReservationsUser(String email) throws PersistenceException {
+        try{
+            return reservationDAO.consultReservationsUser(email);
+        }catch (PersistenceException e) {
+            throw new PersistenceException(e.getMessage());
+        }
+    }
+
+    @Override
     public List<User> consultUsers() throws PersistenceException {
         try {
             return userDAO.consultUsers();
@@ -53,7 +62,7 @@ public class GestorServicesImpl implements GestorServices {
         }
     }
 
-    public void registerResource( String id, String nombre, String ubicacion, String tipo, int capacidad, int idInterno, String descripcion, boolean disponible) throws PersistenceException {
+    public void registerResource( int id, String nombre, String ubicacion, String tipo, int capacidad, int idInterno, String descripcion, boolean disponible) throws PersistenceException {
         try {
             resourceDAO.registerResource( id, nombre, ubicacion, tipo, capacidad, idInterno, descripcion, disponible);
         }catch (PersistenceException | ParseException e){
