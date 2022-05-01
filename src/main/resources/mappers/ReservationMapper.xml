@@ -17,6 +17,10 @@
         FROM RESERVAS re
     </select>
 
+    <insert id="reserveResource" parameterType="map">
+        insert into Reservas(Fecha, Horaini, Horafin, recurso, carnet, recurrencia) values (#{fecha}, #{horaini}, #{horafin}, #{recurso}, #{carnet}, #{recurrencia})
+    </insert>
+
     <resultMap type='Reservation' id='ReservationResult'>
         <id property='id' column='id_reserva'/>
         <result property='date' column='fecha'/>
