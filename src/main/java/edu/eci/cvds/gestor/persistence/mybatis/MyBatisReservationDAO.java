@@ -30,4 +30,22 @@ public class MyBatisReservationDAO implements ReservationDAO {
             throw new PersistenceException(e.getMessage());
         }
     }
+
+    @Override
+    public List<Reservation> consultReservationsUserCancelled(String email) throws PersistenceException {
+        try{
+            return reservationMapper.consultReservationsUserCancelled(email);
+        }catch (PersistenceException e){
+            throw new PersistenceException(e.getMessage());
+        }
+    }
+
+    @Override
+    public List<Reservation> consultReservationsUserExpired(String email) throws PersistenceException {
+        try{
+            return reservationMapper.consultReservationsUserExpired(email);
+        }catch (PersistenceException e){
+            throw new PersistenceException(e.getMessage());
+        }
+    }
 }

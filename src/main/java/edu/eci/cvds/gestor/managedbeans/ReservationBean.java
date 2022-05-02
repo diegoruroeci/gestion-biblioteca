@@ -29,4 +29,14 @@ public class ReservationBean extends BasePageBean{
         return gestorServices.consultReservationsUser(email);
     }
 
+    public List<Reservation> getReservationsUserCancelled(String email) {
+        return gestorServices.consultReservationsUserCancelled(email);
+    }
+
+    public List<Reservation> getReservationsUserExpired(String email) {
+        return gestorServices.consultReservationsUserExpired(email);
+    }
+
+
+
 }
