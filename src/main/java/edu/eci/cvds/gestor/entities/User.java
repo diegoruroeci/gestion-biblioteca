@@ -6,17 +6,19 @@ public class User {
     private String password;
     private char role;
     private int license;
+    private String universityCareer;
 
     public User(){
         super();
     }
 
-    public User(int license, String name, String email, String password, char role) {
+    public User(int license, String name, String email, String password, char role, String universityCareer) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.role = role;
         this.license = license;
+        this.universityCareer= universityCareer;
     }
 
     public String getName() {
@@ -59,6 +61,14 @@ public class User {
         this.license = license;
     }
 
+    public String getUniversityCareer() {
+        return universityCareer;
+    }
+
+    public void setUniversityCareer(String universityCareer) {
+        this.universityCareer = universityCareer;
+    }
+
     @Override
     public String toString(){
         return "Review{" +
@@ -67,6 +77,7 @@ public class User {
                 ", email=" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", role=" + role + '\'' +
+                "universityCareer"+ universityCareer+ '\''+
                 '}';
     }
 }

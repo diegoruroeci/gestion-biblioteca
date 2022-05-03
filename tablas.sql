@@ -3,7 +3,8 @@ Carnet int NOT NULL,
 Nombre varchar(50) NOT NULL,
 Correo varchar(50) NOT NULL,
 Contraseña varchar(15) NOT NULL,
-Rol char NOT NULL
+Rol char NOT NULL,
+Carrera varchar(50) NOT NULL
 );
 
 CREATE TABLE Reservas(

@@ -29,4 +29,6 @@ public class ReservationBean extends BasePageBean{
         return gestorServices.consultReservationsUser(email);
     }
 
+    public List<Reservation> getAllReservations() {return gestorServices.consultAllReservations();}
+
 }

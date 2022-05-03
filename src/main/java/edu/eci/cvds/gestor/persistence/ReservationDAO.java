@@ -12,4 +12,6 @@ public interface ReservationDAO {
 
     public List<Reservation> consultReservationsUser(String email) throws PersistenceException;
 
+    public List<Reservation> consultAllReservations() throws ParseException;
+
 }

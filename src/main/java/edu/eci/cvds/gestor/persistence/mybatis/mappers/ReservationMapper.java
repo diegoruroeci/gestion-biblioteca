@@ -10,4 +10,6 @@ public interface ReservationMapper {
     public List<Reservation> consultReservations();
 
     public List<Reservation> consultReservationsUser(@Param("email") String email);
+
+    public List<Reservation> consultAllReservations();
 }
