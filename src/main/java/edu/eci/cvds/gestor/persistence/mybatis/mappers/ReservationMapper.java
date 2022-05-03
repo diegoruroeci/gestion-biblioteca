@@ -14,4 +14,10 @@ public interface ReservationMapper {
     public List<Reservation> consultReservationsUserCancelled(@Param("email") String email);
 
     public List<Reservation> consultReservationsUserExpired(@Param("email") String email);
+
+    public List<Reservation> consultReservationsActive();
+
+    public List<Reservation> consultReservationsCancelled();
+
+    public List<Reservation> consultReservationsExpired();
 }

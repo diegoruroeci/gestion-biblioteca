@@ -26,15 +26,27 @@ public class ReservationBean extends BasePageBean{
     }
 
     public List<Reservation> getReservationsUser(String email) {
-        return gestorServices.consultReservationsUser(email);
+        if (userServices.isAdmin()){
+            return gestorServices.consultReservationsActive();
+        }else {
+            return gestorServices.consultReservationsUser(email);
+        }
     }
 
     public List<Reservation> getReservationsUserCancelled(String email) {
-        return gestorServices.consultReservationsUserCancelled(email);
+        if (userServices.isAdmin()) {
+            return gestorServices.consultReservationsCancelled();
+        }else {
+            return gestorServices.consultReservationsUserCancelled(email);
+        }
     }
 
     public List<Reservation> getReservationsUserExpired(String email) {
-        return gestorServices.consultReservationsUserExpired(email);
+        if (userServices.isAdmin()) {
+            return gestorServices.consultReservationsExpired();
+        }else {
+            return gestorServices.consultReservationsUserExpired(email);
+        }
     }
 
 

@@ -16,4 +16,9 @@ public interface ReservationDAO {
 
     public List<Reservation> consultReservationsUserExpired(String email) throws PersistenceException;
 
+    public List<Reservation> consultReservationsActive() throws PersistenceException;
+
+    public List<Reservation> consultReservationsCancelled() throws PersistenceException;
+
+    public List<Reservation> consultReservationsExpired() throws PersistenceException;
 }

@@ -20,6 +20,72 @@
         FROM RESERVAS re
     </select>
 
+    <select parameterType="map" id="consultReservationsActive" resultMap="ReservationResult">
+        select
+        u.nombre as u_nombre,
+        re.nombre as re_nombre,
+        re.descripcion as re_descripcion,
+        re.ubicacion as re_ubicacion,
+        r.fecha,
+        r.horaini,
+        r.horafin,
+        r.estado,
+        r.recurrencia,
+        r.fecharecurrencia
+
+        From usuarios u
+        JOIN reservas r ON r.carnet = u.carnet
+        JOIN recursos re ON re.id_recurso = r.recurso
+
+        WHERE r.estado = 'activa'
+
+        ORDER BY r.horaini;
+    </select>
+
+    <select parameterType="map" id="consultReservationsCancelled" resultMap="ReservationResult">
+        select
+        u.nombre as u_nombre,
+        re.nombre as re_nombre,
+        re.descripcion as re_descripcion,
+        re.ubicacion as re_ubicacion,
+        r.fecha,
+        r.horaini,
+        r.horafin,
+        r.estado,
+        r.recurrencia,
+        r.fecharecurrencia
+
+        From usuarios u
+        JOIN reservas r ON r.carnet = u.carnet
+        JOIN recursos re ON re.id_recurso = r.recurso
+
+        WHERE r.estado = 'cancelada'
+
+        ORDER BY r.horaini;
+    </select>
+
+    <select parameterType="map" id="consultReservationsExpired" resultMap="ReservationResult">
+        select
+        u.nombre as u_nombre,
+        re.nombre as re_nombre,
+        re.descripcion as re_descripcion,
+        re.ubicacion as re_ubicacion,
+        r.fecha,
+        r.horaini,
+        r.horafin,
+        r.estado,
+        r.recurrencia,
+        r.fecharecurrencia
+
+        From usuarios u
+        JOIN reservas r ON r.carnet = u.carnet
+        JOIN recursos re ON re.id_recurso = r.recurso
+
+        WHERE r.estado = 'vencida'
+
+        ORDER BY r.horaini;
+    </select>
+
     <select parameterType="map" id="consultReservationsUser" resultMap="ReservationResult">
         select
         u.nombre as u_nombre,

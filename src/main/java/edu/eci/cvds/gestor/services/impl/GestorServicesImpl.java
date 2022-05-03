@@ -80,6 +80,33 @@ public class GestorServicesImpl implements GestorServices {
         }
     }
 
+    @Override
+    public List<Reservation> consultReservationsActive() throws PersistenceException {
+        try{
+            return reservationDAO.consultReservationsActive();
+        }catch (PersistenceException e) {
+            throw new PersistenceException(e.getMessage());
+        }
+    }
+
+    @Override
+    public List<Reservation> consultReservationsCancelled() throws PersistenceException {
+        try{
+            return reservationDAO.consultReservationsCancelled();
+        }catch (PersistenceException e) {
+            throw new PersistenceException(e.getMessage());
+        }
+    }
+
+    @Override
+    public List<Reservation> consultReservationsExpired() throws PersistenceException {
+        try{
+            return reservationDAO.consultReservationsExpired();
+        }catch (PersistenceException e) {
+            throw new PersistenceException(e.getMessage());
+        }
+    }
+
     public void registerResource( int id, String nombre, String ubicacion, String tipo, int capacidad, int idInterno, String descripcion, boolean disponible) throws PersistenceException {
         try {
             resourceDAO.registerResource( id, nombre, ubicacion, tipo, capacidad, idInterno, descripcion, disponible);
