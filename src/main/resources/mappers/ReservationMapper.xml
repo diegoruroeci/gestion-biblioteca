@@ -17,6 +17,10 @@
         FROM RESERVAS re
     </select>
 
+    <insert id="reserveResource" parameterType="map">
+        insert into Reservas(Fecha, Horaini, Horafin, recurso, carnet, recurrencia, fecharecurrencia) values (#{fecha}, #{horaini}, #{horafin}, #{recurso}, #{carnet}, #{recurrencia}, #{fecharecurrencia})
+    </insert>
+
     <select parameterType="map" id="consultReservationsUser" resultMap="ReservationResult">
         select
         u.nombre as u_nombre,
