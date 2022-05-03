@@ -22,13 +22,14 @@ public class ReserveServicesImpl implements ReserveServices {
     GestorServices gestorServices;
 
     @Override
-    public void reserveResource(String date, String initHour, String finalHour, int resource, int carnet, String recurrence) throws ServicesException {
+    public void reserveResource(String date, String initHour, String finalHour, int resource, int carnet, String recurrence, Date recurrenceDate) throws ServicesException {
         try {
             Date dateFormatted = new SimpleDateFormat("yyyy/MM/dd").parse(date);
             java.sql.Date dateSql = new java.sql.Date(dateFormatted.getTime());
+            java.sql.Date recurrenceDateSql = new java.sql.Date(recurrenceDate.getTime());
             Timestamp initTimeStamp = convertToTimestamp(date+' '+initHour);
             Timestamp finalTimeStamp = convertToTimestamp(date+' '+finalHour);
-            reservationDAO.reserveResource(dateSql,initTimeStamp,finalTimeStamp,getResource(resource),carnet,recurrence);
+            reservationDAO.reserveResource(dateSql,initTimeStamp,finalTimeStamp,getResource(resource),carnet,recurrence,recurrenceDateSql);
         }catch (ParseException parseException){
             throw new ServicesException("La cadena no parece una fecha", parseException);
         }

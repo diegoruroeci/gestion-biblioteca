@@ -8,6 +8,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.Map;
 
 @SuppressWarnings("deprecation")
@@ -19,8 +20,8 @@ public class ReserveBean extends BasePageBean{
     ReserveServices reserveServices;
 
 
-    public void reserve(String initHour, String finalHour, String recurrence) throws ServicesException {
-        reserveServices.reserveResource("2022/04/30",initHour,finalHour,getRecurso(),2165184,recurrence);
+    public void reserve(String initHour, String finalHour, String recurrence, Date recurrenceDate) throws ServicesException {
+        reserveServices.reserveResource("2022/04/30",initHour,finalHour,getRecurso(),2165184,recurrence,recurrenceDate);
     }
 
     public int getRecurso() {

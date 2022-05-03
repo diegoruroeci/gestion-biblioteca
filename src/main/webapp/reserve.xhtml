@@ -57,9 +57,17 @@
                 <f:selectItem itemLabel="Una sola vez" itemValue="oneTime"/>
             </p:selectOneRadio>
         </div>
-        <h:commandButton value="Reservar" type="submit" actionListener="#{ReserveBean.reserve(initHour.value,finalHour.value,recurrence.value)}">
+        <div class="p-field p-col-12 p-md-4">
+            <p:outputLabel for="basic" value="Recurrencia hasta"/>
+            <p:calendar id="basic" pattern="dd/MM/yyyy" value="#{date}" mindate="today" maxdate="20/05/2022"/>
+        </div>
+
+        <h:commandButton value="Reservar" type="submit" actionListener="#{ReserveBean.reserve(initHour.value,finalHour.value,recurrence.value,date)}">
             <f:param name="recurso" value="#{param['recurso']}"/>
         </h:commandButton>
     </h:form>
 </h:body>
+<script>
+today = Date("dd/MM/yyyy");
+</script>
 </html>

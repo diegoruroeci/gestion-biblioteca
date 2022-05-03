@@ -11,6 +11,6 @@ public interface ReservationDAO {
 
     public List<Reservation> consultReservations() throws ParseException;
 
-    public void reserveResource(Date date, Timestamp initHour, Timestamp finalHour, int resource, int carnet, String recurrence);
+    public void reserveResource(Date date, Timestamp initHour, Timestamp finalHour, int resource, int carnet, String recurrence, Date recurrenceDate);
 
 }

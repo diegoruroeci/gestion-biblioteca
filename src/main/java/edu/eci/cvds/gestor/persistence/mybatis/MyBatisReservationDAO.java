@@ -25,9 +25,9 @@ public class MyBatisReservationDAO implements ReservationDAO {
     }
 
     @Override
-    public void reserveResource(Date date, Timestamp initHour, Timestamp finalHour, int resource, int carnet, String recurrence) {
+    public void reserveResource(Date date, Timestamp initHour, Timestamp finalHour, int resource, int carnet, String recurrence, Date recurrenceDate) {
         try{
-            reservationMapper.reserveResource(date,initHour,finalHour,resource,carnet,recurrence);
+            reservationMapper.reserveResource(date,initHour,finalHour,resource,carnet,recurrence,recurrenceDate);
         }catch (PersistenceException e){
             throw new PersistenceException(e.getMessage());
         }
