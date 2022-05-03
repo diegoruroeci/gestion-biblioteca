@@ -18,7 +18,7 @@
     </select>
 
     <insert id="reserveResource" parameterType="map">
-        insert into Reservas(Fecha, Horaini, Horafin, recurso, carnet, recurrencia, fecharecurrencia) values (#{fecha}, #{horaini}, #{horafin}, #{recurso}, #{carnet}, #{recurrencia}, #{fecharecurrencia})
+        insert into Reservas(Fecha, Horaini, Horafin, recurso, carnet, recurrencia, fecharecurrencia,estado) values (#{fecha}, #{horaini}, #{horafin}, #{recurso}, #{carnet}, #{recurrencia}, #{fecharecurrencia},#{estado})
     </insert>
 
     <select parameterType="map" id="consultReservationsUser" resultMap="ReservationResult">
