@@ -20,6 +20,7 @@
         FROM RESERVAS re
     </select>
 
+
     <select parameterType="map" id="consultReservationsActive" resultMap="ReservationResult">
         select
         u.nombre as u_nombre,
@@ -85,6 +86,11 @@
 
         ORDER BY r.horaini;
     </select>
+
+    <insert id="reserveResource" parameterType="map">
+        insert into Reservas(Fecha, Horaini, Horafin, recurso, carnet, recurrencia, fecharecurrencia) values (#{fecha}, #{horaini}, #{horafin}, #{recurso}, #{carnet}, #{recurrencia}, #{fecharecurrencia})
+    </insert>
+
 
     <select parameterType="map" id="consultReservationsUser" resultMap="ReservationResult">
         select

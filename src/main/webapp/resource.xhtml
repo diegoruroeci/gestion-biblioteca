@@ -47,7 +47,7 @@
     <h:form id="form">
         <p:button value="Nuevo recurso" icon="pi pi-plus" rendered="#{ResourceBean.showNew}" style="margin-right: .5rem" outcome="/gestor/registerResource.xhtml"/>
         <p:commandButton rendered="#{LoginBean.showReserve}" value="#{LoginBean.textReserve()}" style="margin-right: .5rem" actionListener="#{LoginBean.actionReserve()}"/>
-    <p:dataTable id="resource_table" var="resources" value="#{ResourceBean.resources}"
+    <p:dataTable id="resource_table" var="resources" value="#{ResourceBean.resources}"  rowIndexVar="rowIndex"
                  paginator="true" scrollable="true" scrollHeight="500"
                  paginatorTemplate="{CurrentPageReport}"
                  currentPageReportTemplate="{totalRecords} recursos"
@@ -75,7 +75,7 @@
             <h:outputText value="#{resources.capacity}" class="valor"/>
         </p:column>
         <p:column headerText="Reservar" class="titulo">
-            <p:button outcome="reserve" value="Ver horarios" class="boton"/>
+            <p:button outcome="reserve?recurso=#{rowIndex}" value="Ver horarios" class="boton"/>
         </p:column>
     </p:dataTable>
     </h:form>

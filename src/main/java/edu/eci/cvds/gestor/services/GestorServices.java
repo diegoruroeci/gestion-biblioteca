@@ -30,5 +30,8 @@ public interface GestorServices {
 
     public abstract void registerResource(int id, String nombre, String ubicacion, String tipo, int capacidad, int idInterno, String descripcion, boolean disponible) throws PersistenceException;
 
+    public abstract List<Resource> getResources();
+
+    public abstract void setResources(List<Resource> resources);
 
 }

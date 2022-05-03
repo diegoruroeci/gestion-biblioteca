@@ -26,10 +26,14 @@ public class GestorServicesImpl implements GestorServices {
     @Inject
     private UserDAO userDAO;
 
+    private List<Resource> resources;
+
     @Override
     public List<Resource> consultResources() throws PersistenceException {
         try{
-            return resourceDAO.consultResources();
+            List<Resource> resources = resourceDAO.consultResources();
+            setResources(resources);
+            return resources;
         }catch (PersistenceException | ParseException e) {
             throw new PersistenceException(e.getMessage());
         }
@@ -113,6 +117,14 @@ public class GestorServicesImpl implements GestorServices {
         }catch (PersistenceException | ParseException e){
             throw new PersistenceException(e.getMessage());
         }
+    }
+
+    public List<Resource> getResources() {
+        return resources;
+    }
+
+    public void setResources(List<Resource> resources) {
+        this.resources = resources;
     }
 }
 
