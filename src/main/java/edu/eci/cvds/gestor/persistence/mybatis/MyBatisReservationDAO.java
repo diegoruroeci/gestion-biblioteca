@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import edu.eci.cvds.gestor.entities.Reservation;
 import edu.eci.cvds.gestor.persistence.ReservationDAO;
 import edu.eci.cvds.gestor.persistence.mybatis.mappers.ReservationMapper;
+import edu.eci.cvds.gestor.services.RecurrenceOptions;
 import org.apache.ibatis.exceptions.PersistenceException;
 
 import java.sql.Date;
@@ -25,9 +26,9 @@ public class MyBatisReservationDAO implements ReservationDAO {
     }
 
     @Override
-    public void reserveResource(Date date, Timestamp initHour, Timestamp finalHour, int resource, int carnet, String recurrence, Date recurrenceDate) {
+    public void reserveResource(Date date, Timestamp initHour, Timestamp finalHour, int resource, int carnet, RecurrenceOptions recurrence, Date recurrenceDate) {
         try{
-            reservationMapper.reserveResource(date,initHour,finalHour,resource,carnet,recurrence,recurrenceDate);
+            reservationMapper.reserveResource(date,initHour,finalHour,resource,carnet,recurrence.toString(),recurrenceDate,"activa");
         }catch (PersistenceException e){
             throw new PersistenceException(e.getMessage());
         }

@@ -1,6 +1,7 @@
 package edu.eci.cvds.gestor.persistence;
 
 import edu.eci.cvds.gestor.entities.Reservation;
+import edu.eci.cvds.gestor.services.RecurrenceOptions;
 import org.apache.ibatis.exceptions.PersistenceException;
 
 import java.sql.Date;
@@ -12,7 +13,7 @@ public interface ReservationDAO {
 
     public List<Reservation> consultReservations() throws ParseException;
 
-    public void reserveResource(Date date, Timestamp initHour, Timestamp finalHour, int resource, int carnet, String recurrence, Date recurrenceDate);
+    public void reserveResource(Date date, Timestamp initHour, Timestamp finalHour, int resource, int carnet, RecurrenceOptions recurrence, Date recurrenceDate);
 
     public List<Reservation> consultReservationsUser(String email) throws PersistenceException;
 

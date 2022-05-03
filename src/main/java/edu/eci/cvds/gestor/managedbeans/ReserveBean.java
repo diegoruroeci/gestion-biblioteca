@@ -1,14 +1,19 @@
 package edu.eci.cvds.gestor.managedbeans;
 
 import com.google.inject.Inject;
+import edu.eci.cvds.gestor.services.RecurrenceOptions;
 import edu.eci.cvds.gestor.services.ReserveServices;
 import edu.eci.cvds.gestor.services.ServicesException;
+import edu.eci.cvds.gestor.services.UserServices;
 import org.apache.ibatis.exceptions.PersistenceException;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Map;
 
@@ -20,13 +25,20 @@ public class ReserveBean extends BasePageBean{
     @Inject
     ReserveServices reserveServices;
 
+    @Inject
+    UserServices userServices;
+
 
     public void reserve(String initHour, String finalHour, String recurrence, Date recurrenceDate) throws ServicesException {
 
         try {
-            reserveServices.reserveResource("2022/04/30", initHour, finalHour, getRecurso(), 2165184, recurrence, recurrenceDate);
+            checkHour(initHour,finalHour);
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+            reserveServices.reserveResource(dtf.format(LocalDate.now()), initHour, finalHour, getRecurso(), userServices.getCarnetByEmail(userServices.getEmail()), getRecurrenceOptions(recurrence), recurrenceDate);
         }catch (PersistenceException persistenceException){
             throw new ServicesException("no se pudo completar la reserva", persistenceException);
+        }catch (ServicesException servicesException){
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error",servicesException.getMessage()));
         }
     }
 
@@ -36,4 +48,38 @@ public class ReserveBean extends BasePageBean{
         return Integer.parseInt(request.getParameter("recurso"));
     }
 
+    public RecurrenceOptions getRecurrenceOptions(String recurrence){
+        switch (recurrence){
+            case "oneTime":
+                return RecurrenceOptions.ONE_TIME;
+            case "diaria":
+                return RecurrenceOptions.DAILY;
+            case "semanal":
+                return RecurrenceOptions.WEEKLY;
+            case "mensual":
+                return RecurrenceOptions.MONTHLY;
+        }
+        return null;
+    }
+
+    private void checkHour(String initHour,String finalHour)throws ServicesException{
+        Integer hourInit = Integer.parseInt(initHour.split(":")[0]);
+        Integer hourFinal = Integer.parseInt(finalHour.split(":")[0]);
+        Integer minutesInit = Integer.parseInt(initHour.split(":")[1]);
+        Integer minutesFinal = Integer.parseInt(finalHour.split(":")[1]);
+        int hourDiff = hourFinal-hourInit;
+        int minutesDiff= minutesFinal-minutesInit;
+        if (minutesDiff < 0) {
+            minutesDiff = 60 + minutesDiff;
+            hourDiff--;
+        }
+        if (hourDiff < 0) {
+            hourDiff = 24 + hourDiff ;
+        }
+        if (hourDiff>2){
+            throw new ServicesException("No se puede reservar por mas de 2 horas");
+        }else if (hourDiff==2 && minutesDiff>0){
+            throw new ServicesException("No se puede reservar por mas de 2 horas");
+        }
+    }
 }
