@@ -64,6 +64,7 @@
         r.horafin,
         r.recurso,
         r.carnet,
+        r.recurrente,
         re.nombre as re_nombre,
         re.tipo as re_tipo,
         re.descripcion as re_descripcion,
