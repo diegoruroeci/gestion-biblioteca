@@ -37,7 +37,7 @@
         JOIN reservas r ON r.carnet = u.carnet
         JOIN recursos re ON re.id_recurso = r.recurso
 
-        WHERE u.correo = #{email}
+        WHERE u.correo = #{email} and r.estado = 'activa'
 
         ORDER BY r.horaini;
     </select>

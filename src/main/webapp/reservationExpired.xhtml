@@ -52,46 +52,46 @@
         }
     </style>
 </h:head>
-    <h:body>
-        <p:button value="Atras" outcome="resource"/>
-        <center><h1>Mis Reservas</h1></center>
-        <h:form>
-            <p:button value="Reservas Canceladas"  outcome="reservationsCancelled"/>
-            <p:button value="Reservas Vencidas"  outcome="reservationExpired"/>
-            <p:dataTable id="reservation_table" var="reservations" value="#{ReservationBean.getReservationsUser(LoginBean.email)}"
-                         rowStyleClass="#{reservations.status eq 'cancelada' ? 'cheap' : null}"
-                         paginator="true" scrollable="true" scrollHeight="500"
-                         paginatorTemplate="{CurrentPageReport}"
-                         currentPageReportTemplate="{totalRecords} reservas"
-                         widgetVar="reserveTable"
-                         emptyMessage="No existen datos con esa busqueda">
-                <p:column style="width:1rem">
-                    <p:rowToggler/>
-                </p:column>
-                <p:column headerText="Nombre de Usuario" class="titulo">
-                    <div class="hijo"><h:outputText value="#{reservations.getUname().getName()}" class="valor"/></div>
-                </p:column>
-                <p:column headerText="Nombre de Recurso" class="titulo">
-                    <h:outputText value="#{reservations.getResources().getName()}" class="valor"/>
-                </p:column>
-                <p:column headerText="Fecha de solicitud" class="titulo">
-                    <h:outputText value="#{reservations.date}" class="valor"/>
-                </p:column>
-                <p:column headerText="Hora y Fecha inicial" class="titulo">
-                    <h:outputText value="#{reservations.startHour}" class="valor"/>
-                </p:column>
-                <p:column headerText="Hora y Fecha final" class="titulo">
-                    <h:outputText value="#{reservations.finishHour}" class="valor"/>
-                </p:column>
+<h:body>
+    <p:button value="Atras" outcome="resource"/>
+    <center><h1>Mis Reservas</h1></center>
+    <h:form>
+        <p:button value="Reservas Activas"  outcome="reservation"/>
+        <p:button value="Reservas Canceladas"  outcome="reservationsCancelled"/>
+        <p:dataTable id="reservation_table" var="reservations" value="#{ReservationBean.getReservationsUserExpired(LoginBean.email)}"
+                     rowStyleClass="#{reservations.status eq 'cancelada' ? 'cheap' : null}"
+                     paginator="true" scrollable="true" scrollHeight="500"
+                     paginatorTemplate="{CurrentPageReport}"
+                     currentPageReportTemplate="{totalRecords} reservas"
+                     widgetVar="reserveTable"
+                     emptyMessage="No existen datos con esa busqueda">
+            <p:column style="width:1rem">
+                <p:rowToggler/>
+            </p:column>
+            <p:column headerText="Nombre de Usuario" class="titulo">
+                <div class="hijo"><h:outputText value="#{reservations.getUname().getName()}" class="valor"/></div>
+            </p:column>
+            <p:column headerText="Nombre de Recurso" class="titulo">
+                <h:outputText value="#{reservations.getResources().getName()}" class="valor"/>
+            </p:column>
+            <p:column headerText="Fecha de solicitud" class="titulo">
+                <h:outputText value="#{reservations.date}" class="valor"/>
+            </p:column>
+            <p:column headerText="Hora y Fecha inicial" class="titulo">
+                <h:outputText value="#{reservations.startHour}" class="valor"/>
+            </p:column>
+            <p:column headerText="Hora y Fecha final" class="titulo">
+                <h:outputText value="#{reservations.finishHour}" class="valor"/>
+            </p:column>
 
-                <p:column headerText="Estado" class="titulo">
-                    <h:outputText value="#{reservations.status}" class="valor"/>
-                </p:column>
+            <p:column headerText="Estado" class="titulo">
+                <h:outputText value="#{reservations.status}" class="valor"/>
+            </p:column>
 
-                <p:rowExpansion>
-                    <center>
+            <p:rowExpansion>
+                <center>
                     <div class="valor">
-<!--                        <br></br>-->
+                        <!--                        <br></br>-->
                         <div class="info">
                             <strong>Descripcion:</strong>
                             <div><span>#{reservations.getResources().getDescription()}</span>
@@ -117,9 +117,9 @@
                             </p:commandButton>
                         </div>
                     </div>
-                    </center>
-                </p:rowExpansion>
-            </p:dataTable>
-        </h:form>
-    </h:body>
+                </center>
+            </p:rowExpansion>
+        </p:dataTable>
+    </h:form>
+</h:body>
 </html>
