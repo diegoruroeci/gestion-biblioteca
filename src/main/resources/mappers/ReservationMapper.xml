@@ -21,13 +21,32 @@
         insert into Reservas(Fecha, Horaini, Horafin, recurso, carnet, recurrencia, fecharecurrencia) values (#{fecha}, #{horaini}, #{horafin}, #{recurso}, #{carnet}, #{recurrencia}, #{fecharecurrencia})
     </insert>
 
+    <select parameterType="map" id="consultReservationsUser" resultMap="ReservationResult">
+        select
+        u.nombre as u_nombre,
+        re.nombre as re_nombre,
+        re.descripcion as re_descripcion,
+        re.ubicacion as re_ubicacion,
+        r.fecha,
+        r.horaini,
+        r.horafin
+
+        From usuarios u
+        JOIN reservas r ON r.carnet = u.carnet
+        JOIN recursos re ON re.id_recurso = r.recurso
+
+        WHERE u.correo = #{email}
+
+        ORDER BY r.horaini;
+    </select>
+
     <resultMap type='Reservation' id='ReservationResult'>
         <id property='id' column='id_reserva'/>
         <result property='date' column='fecha'/>
         <result property='startHour' column='horaini'/>
         <result property='finishHour' column='horafin'/>
-        <result property='resource' column='recurso'/>
-        <result property='license' column='carnet'/>
-
+        <association property="resources" javaType="Resource" resultMap="edu.eci.cvds.gestor.persistence.mybatis.mappers.ResourceMapper.ResourceResult" columnPrefix="re_"/>
+        <association property="Uname" javaType="User" resultMap="edu.eci.cvds.gestor.persistence.mybatis.mappers.UserMapper.UserResult" columnPrefix="u_"/>
     </resultMap>
+
 </mapper>
