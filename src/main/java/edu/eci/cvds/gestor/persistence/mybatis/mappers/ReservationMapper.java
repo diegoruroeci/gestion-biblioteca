@@ -11,7 +11,7 @@ public interface ReservationMapper {
 
     public List<Reservation> consultReservations();
 
-    public List<Reservation> consultReservations(int id);
+    public List<Reservation> consultReservation(@Param("id") int id);
 
     public List<Reservation> consultReservationsUser(@Param("email") String email);
 

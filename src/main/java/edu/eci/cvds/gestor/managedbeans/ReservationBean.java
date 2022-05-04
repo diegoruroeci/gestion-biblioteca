@@ -68,12 +68,12 @@ public class ReservationBean extends BasePageBean{
 
     private ScheduleEvent eventAux = new DefaultScheduleEvent();
 
-    private int eventId = 0;
+    private int eventId;
 
     public void loadEvents() throws ServicesException {
         eventModel = new DefaultScheduleModel();
-
-        List<Reservation> horarios = gestorServices.consultReservations(1);
+        System.out.println(eventId);
+        List<Reservation> horarios = gestorServices.consultReservation(eventId);
         for (Reservation r : horarios){
             event = new DefaultScheduleEvent("2" + " - " + "2", r.getStartHour(), r.getFinishHour());
             eventModel.addEvent(event);
@@ -89,10 +89,10 @@ public class ReservationBean extends BasePageBean{
         this.eventModel = eventModel;
     }
 
-    public void onEventSelect(SelectEvent selectEvent) {
-        this.event = (ScheduleEvent) selectEvent.getObject();
-        this.eventId = Integer.parseInt(event.getId());
-    }
+//    public void onEventSelect(SelectEvent selectEvent) {
+//        this.event = (ScheduleEvent) selectEvent.getObject();
+//        this.eventId = Integer.parseInt(event.getId());
+//    }
 
     public void onEventMove(ScheduleEntryMoveEvent event) {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Event moved", "Day delta:" + event.getDayDelta() + ", Minute delta:" + event.getMinuteDelta());
@@ -115,6 +115,10 @@ public class ReservationBean extends BasePageBean{
 
     public void setEventId(int eventId) {
         this.eventId = eventId;
+    }
+
+    public void imprime(){
+        System.out.println("hola");
     }
 
 }

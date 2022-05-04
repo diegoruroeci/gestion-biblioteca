@@ -25,9 +25,9 @@ public class MyBatisReservationDAO implements ReservationDAO {
         }
     }
 
-    public List<Reservation> consultReservations(int id) throws ParseException {
+    public List<Reservation> consultReservation(int id) throws ParseException {
         try{
-            return reservationMapper.consultReservations(id);
+            return reservationMapper.consultReservation(id);
         }catch (PersistenceException e){
             throw new PersistenceException(e.getMessage());
         }

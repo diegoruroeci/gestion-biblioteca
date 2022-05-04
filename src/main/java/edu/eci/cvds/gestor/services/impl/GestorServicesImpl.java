@@ -48,9 +48,9 @@ public class GestorServicesImpl implements GestorServices {
         }
     }
 
-    public List<Reservation> consultReservations(int id) throws PersistenceException {
+    public List<Reservation> consultReservation(int id) throws PersistenceException {
         try{
-            return reservationDAO.consultReservations(id);
+            return reservationDAO.consultReservation(id);
         }catch (PersistenceException | ParseException e) {
             throw new PersistenceException(e.getMessage());
         }

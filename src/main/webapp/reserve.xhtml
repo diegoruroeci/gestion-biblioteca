@@ -91,7 +91,7 @@
 
         <h:panelGrid id="eventDetails1" border="1" columns="2" styleClass="table-style">
             <h:outputLabel for="it-nombre-1" value="Id Recurso: " />
-            <h:outputLabel id="it-nombre-1" value="  #{ReservationBean.eventId}"/>
+            <h:outputLabel id="it-nombre-1" value="#{ReservationBean.eventId}"/>
             <div>
                 <p:selectOneRadio id="console" value="oneTime" binding="#{recurrence}">
                     <f:selectItem itemLabel="Diaria" itemValue="diaria"/>
