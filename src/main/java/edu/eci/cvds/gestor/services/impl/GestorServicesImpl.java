@@ -48,6 +48,14 @@ public class GestorServicesImpl implements GestorServices {
         }
     }
 
+    public List<Reservation> consultReservations(int id) throws PersistenceException {
+        try{
+            return reservationDAO.consultReservations(id);
+        }catch (PersistenceException | ParseException e) {
+            throw new PersistenceException(e.getMessage());
+        }
+    }
+
     @Override
     public List<Reservation> consultReservationsUser(String email) throws PersistenceException {
         try{

@@ -11,6 +11,8 @@ public interface ReservationMapper {
 
     public List<Reservation> consultReservations();
 
+    public List<Reservation> consultReservations(int id);
+
     public List<Reservation> consultReservationsUser(@Param("email") String email);
 
     public void reserveResource(@Param("fecha") java.sql.Date date, @Param("horaini") Timestamp initHour, @Param("horafin") Timestamp finalHour, @Param("recurso") int resource, @Param("carnet") int carnet, @Param("recurrencia") String recurrence, @Param("fecharecurrencia") Date recurrenceDate,@Param("estado") String estado);

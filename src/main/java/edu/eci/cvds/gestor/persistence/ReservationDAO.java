@@ -13,6 +13,8 @@ public interface ReservationDAO {
 
     public List<Reservation> consultReservations() throws ParseException;
 
+    public List<Reservation> consultReservations(int id) throws ParseException;
+
     public void reserveResource(Date date, Timestamp initHour, Timestamp finalHour, int resource, int carnet, RecurrenceOptions recurrence, Date recurrenceDate);
 
     public List<Reservation> consultReservationsUser(String email) throws PersistenceException;

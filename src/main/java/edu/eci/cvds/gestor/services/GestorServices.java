@@ -14,6 +14,8 @@ public interface GestorServices {
 
     public abstract List<Reservation> consultReservations() throws PersistenceException;
 
+    public abstract List<Reservation> consultReservations(int id) throws PersistenceException;
+
     public abstract List<Reservation> consultReservationsUser(String email) throws PersistenceException;
 
     public abstract List<Reservation> consultReservationsUserCancelled(String email) throws PersistenceException;

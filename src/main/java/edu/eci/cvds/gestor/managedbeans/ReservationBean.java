@@ -73,9 +73,9 @@ public class ReservationBean extends BasePageBean{
     public void loadEvents() throws ServicesException {
         eventModel = new DefaultScheduleModel();
 
-        List<Reservation> horarios = gestorServices.consultReservations();
+        List<Reservation> horarios = gestorServices.consultReservations(1);
         for (Reservation r : horarios){
-            event = new DefaultScheduleEvent("2" + " - " + "2", r.getStartHour().getTime(), r.getFinishHour().getTime());
+            event = new DefaultScheduleEvent("2" + " - " + "2", r.getStartHour(), r.getFinishHour());
             eventModel.addEvent(event);
             event.setId(String.valueOf(r.getId()));
         }
@@ -101,7 +101,7 @@ public class ReservationBean extends BasePageBean{
     }
 
     public void onEventResize(ScheduleEntryResizeEvent event) {
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Event resized", "Day delta:" + event.getDayDeltaStart() + ", Minute delta:" + event.getMinuteDeltaStart());
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Event resized", "Day delta:" + event.getDayDelta() + ", Minute delta:" + event.getMinuteDelta());
         PrimeFaces.current().dialog().showMessageDynamic(message);
     }
 
