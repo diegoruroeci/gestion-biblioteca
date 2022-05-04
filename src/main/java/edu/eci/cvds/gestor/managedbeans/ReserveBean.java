@@ -1,10 +1,7 @@
 package edu.eci.cvds.gestor.managedbeans;
 
 import com.google.inject.Inject;
-import edu.eci.cvds.gestor.services.RecurrenceOptions;
-import edu.eci.cvds.gestor.services.ReserveServices;
-import edu.eci.cvds.gestor.services.ServicesException;
-import edu.eci.cvds.gestor.services.UserServices;
+import edu.eci.cvds.gestor.services.*;
 import org.apache.ibatis.exceptions.PersistenceException;
 
 import javax.faces.application.FacesMessage;
@@ -28,13 +25,16 @@ public class ReserveBean extends BasePageBean{
     @Inject
     UserServices userServices;
 
+    @Inject
+    GestorServices gestorServices;
+
 
     public void reserve(String initHour, String finalHour, String recurrence, Date recurrenceDate) throws ServicesException {
 
         try {
             checkHour(initHour,finalHour);
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-            reserveServices.reserveResource(dtf.format(LocalDate.now()), initHour, finalHour, getRecurso(), userServices.getCarnetByEmail(userServices.getEmail()), getRecurrenceOptions(recurrence), recurrenceDate);
+            reserveServices.reserveResource(dtf.format(LocalDate.now()), initHour, finalHour, getRecurso(), userServices.getCarnetByEmail(userServices.getEmail()), getRecurrenceOptions(recurrence), recurrenceDate,"activa");
         }catch (PersistenceException persistenceException){
             throw new ServicesException("no se pudo completar la reserva", persistenceException);
         }catch (ServicesException servicesException){
@@ -45,7 +45,8 @@ public class ReserveBean extends BasePageBean{
     public int getRecurso() {
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext()
                 .getRequest();
-        return Integer.parseInt(request.getParameter("recurso"));
+        int resourceIndex=Integer.parseInt(request.getParameter("recurso"));
+        return gestorServices.getResources().get(resourceIndex).getId();
     }
 
     public RecurrenceOptions getRecurrenceOptions(String recurrence){
