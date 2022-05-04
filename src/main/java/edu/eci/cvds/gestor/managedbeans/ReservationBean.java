@@ -89,10 +89,10 @@ public class ReservationBean extends BasePageBean{
         this.eventModel = eventModel;
     }
 
-//    public void onEventSelect(SelectEvent selectEvent) {
-//        this.event = (ScheduleEvent) selectEvent.getObject();
-//        this.eventId = Integer.parseInt(event.getId());
-//    }
+    public void onEventSelect(SelectEvent selectEvent) {
+        this.event = (ScheduleEvent) selectEvent.getObject();
+        this.eventId = Integer.parseInt(event.getId());
+    }
 
     public void onEventMove(ScheduleEntryMoveEvent event) {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Event moved", "Day delta:" + event.getDayDelta() + ", Minute delta:" + event.getMinuteDelta());
@@ -117,8 +117,5 @@ public class ReservationBean extends BasePageBean{
         this.eventId = eventId;
     }
 
-    public void imprime(){
-        System.out.println("hola");
-    }
 
 }

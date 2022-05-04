@@ -74,13 +74,15 @@
     #{ReservationBean.loadEvents()}
     <h:panelGrid columnClasses="value">
         <p:schedule id="schedule" value="#{ReservationBean.eventModel}" widgetVar="myschedule"
-                    rightHeaderTemplate="agendaDay,agendaWeek,month,listYear"
+                    rightHeaderTemplate="agendaDay,agendaWeek,month"
                     timeZone="ZoneId.systemDefault()" clientTimeZone="local" draggable="false">
 
             <p:ajax event="eventSelect" listener="#{ReservationBean.onEventSelect}" update="eventDetails1"
                     oncomplete="PF('eventDetails1').show();" />
 
             <p:ajax event="eventMove" listener="#{ReservationBean.onEventMove}" update="messages"/>
+
+            <p:ajax event="eventResize" listener="#{ReservationBean.onEventResize}" update="messages"/>
 
 
         </p:schedule>
@@ -92,6 +94,7 @@
         <h:panelGrid id="eventDetails1" border="1" columns="2" styleClass="table-style">
             <h:outputLabel for="it-nombre-1" value="Id Recurso: " />
             <h:outputLabel id="it-nombre-1" value="#{ReservationBean.eventId}"/>
+            <h:outputLabel for="it-nombre-1" value="Tipo reserva: " />
             <div>
                 <p:selectOneRadio id="console" value="oneTime" binding="#{recurrence}">
                     <f:selectItem itemLabel="Diaria" itemValue="diaria"/>
