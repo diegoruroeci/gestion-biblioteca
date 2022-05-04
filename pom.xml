@@ -122,6 +122,11 @@
             <artifactId>jacoco-maven-plugin</artifactId>
             <version>0.8.2</version>
         </dependency>
+        <dependency>
+            <groupId>org.primefaces</groupId>
+            <artifactId>primefaces</artifactId>
+            <version>11.0.0</version>
+        </dependency>
     </dependencies>
 
     <build>

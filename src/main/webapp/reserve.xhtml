@@ -40,35 +40,69 @@
 </style>
 </h:head>
 <h:body>
-    <h:form id="form">
-        <p:messages id="messages" showDetail="true" closable="true">
-            <p:autoUpdate/>
-        </p:messages>
-        <div class="botones">
-        </div>
-        <center><h1>Resumen de la reserva</h1></center>
-        <h2>Hora inicial</h2>
-        <p:inputText binding="#{initHour}"/>
-        <h2>Hora final</h2>
-        <p:inputText binding="#{finalHour}"/>
-        <h2>Recurrencia</h2>
-        <div>
-            <p:selectOneRadio id="console" value="oneTime" binding="#{recurrence}">
-                <f:selectItem itemLabel="Diaria" itemValue="diaria"/>
-                <f:selectItem itemLabel="Semanal" itemValue="semanal"/>
-                <f:selectItem itemLabel="Mensual" itemValue="mensual"/>
-                <f:selectItem itemLabel="Una sola vez" itemValue="oneTime"/>
-            </p:selectOneRadio>
-        </div>
-        <div class="p-field p-col-12 p-md-4">
-            <p:outputLabel for="basic" value="Recurrencia hasta"/>
-            <p:calendar id="basic" pattern="dd/MM/yyyy" value="#{date}" mindate="today" maxdate="20/05/2022"/>
-        </div>
+<!--    <h:form id="form">-->
+<!--        <p:messages id="messages" showDetail="true" closable="true">-->
+<!--            <p:autoUpdate/>-->
+<!--        </p:messages>-->
+<!--        <div class="botones">-->
+<!--        </div>-->
+<!--        <center><h1>Resumen de la reserva</h1></center>-->
+<!--        <h2>Hora inicial</h2>-->
+<!--        <p:inputText binding="#{initHour}"/>-->
+<!--        <h2>Hora final</h2>-->
+<!--        <p:inputText binding="#{finalHour}"/>-->
+<!--        <h2>Recurrencia</h2>-->
+<!--        <div>-->
+<!--            <p:selectOneRadio id="console" value="oneTime" binding="#{recurrence}">-->
+<!--                <f:selectItem itemLabel="Diaria" itemValue="diaria"/>-->
+<!--                <f:selectItem itemLabel="Semanal" itemValue="semanal"/>-->
+<!--                <f:selectItem itemLabel="Mensual" itemValue="mensual"/>-->
+<!--                <f:selectItem itemLabel="Una sola vez" itemValue="oneTime"/>-->
+<!--            </p:selectOneRadio>-->
+<!--        </div>-->
+<!--        <div class="p-field p-col-12 p-md-4">-->
+<!--            <p:outputLabel for="basic" value="Recurrencia hasta"/>-->
+<!--            <p:calendar id="basic" pattern="dd/MM/yyyy" value="#{date}" mindate="today" maxdate="20/05/2022"/>-->
+<!--        </div>-->
 
-        <h:commandButton value="Reservar" type="submit" actionListener="#{ReserveBean.reserve(initHour.value,finalHour.value,recurrence.value,date)}">
-            <f:param name="recurso" value="#{param['recurso']}"/>
-        </h:commandButton>
-    </h:form>
+<!--        <h:commandButton value="Reservar" type="submit" actionListener="#{ReserveBean.reserve(initHour.value,finalHour.value,recurrence.value,date)}">-->
+<!--            <f:param name="recurso" value="#{param['recurso']}"/>-->
+<!--        </h:commandButton>-->
+<!--    </h:form>-->
+<!--</h:body>-->
+<h:form>
+
+    <p:growl id="messages" showDetail="true"/>
+    #{ReservationBean.loadEvents()}
+    <h:panelGrid columnClasses="value">
+        <p:schedule id="schedule" value="#{ReservationBean.eventModel}" widgetVar="myschedule"
+                    rightHeaderTemplate="agendaDay,agendaWeek,month,listYear"
+                    timeZone="ZoneId.systemDefault()" clientTimeZone="local" draggable="false">
+
+            <p:ajax event="eventSelect" listener="#{ReservationBean.onEventSelect}" update="eventDetails1"
+                    oncomplete="PF('eventDetails1').show();" />
+
+            <p:ajax event="eventMove" listener="#{ReservationBean.onEventMove}" update="messages"/>
+
+            <p:ajax event="eventResize" listener="#{ReservationBean.onEventResize}" update="messages"/>
+
+        </p:schedule>
+    </h:panelGrid>
+
+    <p:dialog widgetVar="eventDetails1" header="Horario de reserva" showEffect="clip" hideEffect="clip"
+              modal="true">
+
+        <h:panelGrid id="eventDetails1" border="1" columns="2" styleClass="table-style">
+            <h:outputLabel for="it-nombre-1" value="Id Recurso: " />
+            <h:outputLabel id="it-nombre-1" value="  #{ReservationBean.eventId}"/>
+
+            <h:outputLabel for="it-apellido-1" value="Apellido: " />
+            <h:inputText id="it-apellido-1" />
+        </h:panelGrid>
+
+    </p:dialog>
+
+</h:form>
 </h:body>
 <script>
 today = Date("dd/MM/yyyy");
