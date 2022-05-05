@@ -3,6 +3,8 @@ package edu.eci.cvds.gestor.persistence.mybatis.mappers;
 import edu.eci.cvds.gestor.entities.Reservation;
 import org.apache.ibatis.annotations.Param;
 
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 public interface ReservationMapper {
@@ -12,4 +14,18 @@ public interface ReservationMapper {
     public List<Reservation> consultReservationsUser(@Param("email") String email);
 
     public List<Reservation> consultAllReservations();
+
+    public void reserveResource(@Param("fecha") java.sql.Date date, @Param("horaini") Timestamp initHour, @Param("horafin") Timestamp finalHour, @Param("recurso") int resource, @Param("carnet") int carnet, @Param("recurrencia") String recurrence, @Param("fecharecurrencia") Date recurrenceDate,@Param("estado") String estado);
+    public List<Reservation> consultReservationsUserCancelled(@Param("email") String email);
+
+    public List<Reservation> consultReservationsUserExpired(@Param("email") String email);
+
+    public List<Reservation> consultReservationsActive();
+
+    public List<Reservation> consultReservationsCancelled();
+
+    public List<Reservation> consultReservationsExpired();
+
+    public void reserveResource(@Param("fecha") java.sql.Date date, @Param("horaini") Timestamp initHour, @Param("horafin") Timestamp finalHour, @Param("recurso") int resource, @Param("carnet") int carnet, @Param("recurrencia") String recurrence, @Param("fecharecurrencia") Date recurrenceDate);
+
 }

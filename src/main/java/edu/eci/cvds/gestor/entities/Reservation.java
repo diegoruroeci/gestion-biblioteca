@@ -16,6 +16,9 @@ public class Reservation implements Serializable {
     private Timestamp finishHour;
     private int resource;
     private int license;
+    private String status;
+    private String recurrence;
+    private Date recurrenceTime;
     private Resource resources;
     private User Uname;
 
@@ -23,13 +26,16 @@ public class Reservation implements Serializable {
         super();
     }
 
-    public Reservation(int id, Date date, Timestamp startHour, Timestamp finishHour, int resource, int license) {
+    public Reservation(int id, Date date, Timestamp startHour, Timestamp finishHour, int resource, int license, String status, String recurrence, Date recurrenceTime) {
         this.id = id;
         this.date = date;
         this.startHour = startHour;
         this.finishHour = finishHour;
         this.resource = resource;
         this.license = license;
+        this.status = status;
+        this.recurrence = recurrence;
+        this.recurrenceTime = recurrenceTime;
     }
 
     public int getId() {
@@ -94,6 +100,30 @@ public class Reservation implements Serializable {
 
     public void setUname(User uname) {
         Uname = uname;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getRecurrence() {
+        return recurrence;
+    }
+
+    public void setRecurrence(String recurrence) {
+        this.recurrence = recurrence;
+    }
+
+    public Date getRecurrenceTime() {
+        return recurrenceTime;
+    }
+
+    public void setRecurrenceTime(Date recurrenceTime) {
+        this.recurrenceTime = recurrenceTime;
     }
 
     @Override

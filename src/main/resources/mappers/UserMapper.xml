@@ -26,4 +26,12 @@
         FROM USUARIOS u
     </select>
 
+    <select id="getCarnetByEmail" resultType="int">
+        select
+        u.carnet
+
+        FROM USUARIOS u
+        WHERE u.correo = #{email}
+    </select>
+
 </mapper>
