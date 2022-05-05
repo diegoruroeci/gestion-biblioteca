@@ -16,38 +16,62 @@
             color:white;
         }
         .titulo{
-            background-color:#ED7D31;
+            background-color:#DAF5DB;
         }
         .valor{
             color:black;
         }
         .ui-datatable tbody td{
-            background-color:#F8D7CD;
+            background-color:#DAF5DB;
         }
         .boton{
             background-color:#ED7D31;
         }
         .ui-paginator{
-            background-color:#ED7D31;
+            background-color:#58D05A;
             color:black;
         }
         .danger {
             margin-left: 90%;
             margin-button: 0;
         }
+        .infoa {
+            margin-left: 5%;
+        }
+        .info {
+            margin-left: 5%;
+            width:200px
+        }
+        .ui-datatable .cheap {
+            background-color: #54a90a !important;
+            background-image: none !important;
+        }
+        .ui-filter-column .ui-column-customfilter .custom-filter {
+            width: 100%;
+            box-sizing: border-box;
+        }
     </style>
 </h:head>
 <h:body>
-    <p:commandButton value="Atras" onclick="history.back()"/>
-    <center><h1>Historias de Reservas</h1></center>
+    <p:button value="Atras" outcome="resource"/>
+    <center><h1>Mis Reservas</h1></center>
     <h:form>
-        <p:dataTable id="reservation_table" var="reservations" value="#{ReservationBean.getAllReservations()}"
+        <p:dataTable id="reservation_table" var="reservations" value="#{ReservationBean.getconsultInfoReservations(LoginBean.email)}"
                      paginator="true" scrollable="true" scrollHeight="500"
                      paginatorTemplate="{CurrentPageReport}"
                      currentPageReportTemplate="{totalRecords} reservas"
                      class="tabla" emptyMessage="No existen datos con esa busqueda">
-            <p:column headerText="Id Reserva" class="titulo">
-                <div class="hijo"><h:outputText value="#{reservations.getId()}" class="valor"/></div>
+            <p:column style="width:1rem">
+                <p:rowToggler/>
+            </p:column>
+            <p:column headerText="Nombre de Usuario" class="titulo">
+                <div class="hijo"><h:outputText value="#{reservations.getUname().getName()}" class="valor"/></div>
+            </p:column>
+            <p:column headerText="Carrera" class="titulo">
+                <div class="hijo"><h:outputText value="#{reservations.getUname().getUniversityCareer()}" class="valor"/></div>
+            </p:column>
+            <p:column headerText="Nombre de Recurso" class="titulo">
+                <h:outputText value="#{reservations.getResources().getName()}" class="valor"/>
             </p:column>
             <p:column headerText="Fecha de solicitud" class="titulo">
                 <h:outputText value="#{reservations.date}" class="valor"/>
@@ -58,26 +82,14 @@
             <p:column headerText="Hora y Fecha final" class="titulo">
                 <h:outputText value="#{reservations.finishHour}" class="valor"/>
             </p:column>
-            <p:column headerText="Carnet" class="titulo">
-                <h:outputText value="#{reservations.getLicense()}" class="valor"/>
+            <p:column headerText="Estado" class="titulo">
+                <h:outputText value="#{reservations.status}" class="valor"/>
             </p:column>
-            <p:column headerText="Nombre de Recurso" class="titulo">
-                <h:outputText value="#{reservations.getResources().getName()}" class="valor"/>
+            <p:column headerText="Tipo Recurrencia" class="titulo">
+                <h:outputText value="#{reservations.recurrence}" class="valor"/>
             </p:column>
-            <p:column headerText="Tipo de Recurso" class="titulo">
-                <h:outputText value="#{reservations.getResources().getType()}" class="valor"/>
-            </p:column>
-            <p:column headerText="Descripcion" class="titulo">
-                <h:outputText value="#{reservations.getResources().getDescription()}" class="valor"/>
-            </p:column>
-            <p:column headerText="Ubicación" class="titulo" >
-                <h:outputText value="#{reservations.getResources().getLocation()}" class="valor"/>
-            </p:column>
-            <p:column headerText="Nombre usuario" class="titulo">
-                <h:outputText value="#{reservations.getUsers().getDescription()}" class="valor"/>
-            </p:column>
-            <p:column headerText="Carrera" class="titulo" >
-                <h:outputText value="#{reservations.getUsers().getUniversityCareer()}" class="valor"/>
+            <p:column headerText="Proxima Ocurrencia" class="titulo">
+<!--                <h:outputText value="#{}" class="valor"/>-->
             </p:column>
         </p:dataTable>
     </h:form>

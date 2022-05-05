@@ -33,7 +33,8 @@ public class ReservationBean extends BasePageBean{
         }
     }
 
-    public List<Reservation> getAllReservations() {return gestorServices.consultAllReservations();}
+    public List<Reservation> getconsultInfoReservations(String email) {
+        return gestorServices.consultInfoReservations(email);}
 
     public List<Reservation> getReservationsUserCancelled(String email) {
         if (userServices.isAdmin()) {

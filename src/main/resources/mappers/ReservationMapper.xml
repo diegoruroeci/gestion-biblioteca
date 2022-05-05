@@ -158,45 +158,30 @@
         ORDER BY r.horaini;
     </select>
 
-    <select parameterType="map" id="consultAllReservations" resultMap="ReservationResult">
+
+    <select parameterType="map" id="consultInfoReservations" resultMap="ReservationResult">
         select
-        r.id_reserva,
+        u.nombre as u_nombre,
+        u.carrera as u_carrera,
+        re.nombre as re_nombre,
+        re.descripcion as re_descripcion,
+        re.ubicacion as re_ubicacion,
         r.fecha,
         r.horaini,
         r.horafin,
-        r.recurso,
-        r.carnet,
-        re.nombre as re_nombre,
-        re.tipo as re_tipo,
-        re.descripcion as re_descripcion,
-        re.ubicacion as re_ubicacion,
-        u.nombre as u_nombre,
-        u.carrera as u_carrera
+        r.estado,
+        r.recurrencia,
+        r.fecharecurrencia
 
         From usuarios u
         JOIN reservas r ON r.carnet = u.carnet
         JOIN recursos re ON re.id_recurso = r.recurso
+
+        WHERE u.correo = #{email}
+
+        ORDER BY r.horaini;
     </select>
 
-    <select parameterType="map" id="consulReservation" resultMap="ReservationResult">
-        select
-        r.fecha,
-        r.horaini,
-        r.horafin,
-        r.recurso,
-        r.carnet,
-        r.recurrente,
-        re.nombre as re_nombre,
-        re.tipo as re_tipo,
-        re.descripcion as re_descripcion,
-        re.ubicacion as re_ubicacion,
-        u.nombre as u_nombre,
-        u.carrera as u_carrera
-
-        From usuarios u
-        JOIN reservas r ON r.carnet = u.carnet
-        JOIN recursos re ON re.id_recurso = r.recurso where r.id_reserva=#{id};
-    </select>
 
     <resultMap type='Reservation' id='ReservationResult'>
         <id property='id' column='id_reserva'/>

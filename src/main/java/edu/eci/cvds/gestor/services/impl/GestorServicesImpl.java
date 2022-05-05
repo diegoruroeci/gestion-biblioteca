@@ -121,9 +121,9 @@ public class GestorServicesImpl implements GestorServices {
 
 
     @Override
-    public List<Reservation> consultAllReservations() throws PersistenceException {
+    public List<Reservation> consultInfoReservations(String email) throws PersistenceException {
         try {
-            return reservationDAO.consultAllReservations();
+            return reservationDAO.consultInfoReservations(email);
         } catch (PersistenceException | ParseException e) {
             throw new PersistenceException(e.getMessage());
         }
