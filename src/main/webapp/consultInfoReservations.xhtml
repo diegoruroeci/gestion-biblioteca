@@ -68,10 +68,13 @@
                 <div class="hijo"><h:outputText value="#{reservations.getUname().getName()}" class="valor"/></div>
             </p:column>
             <p:column headerText="Carrera" class="titulo">
-                <div class="hijo"><h:outputText value="#{reservations.getUname().getUniversityCareer()}" class="valor"/></div>
+               <h:outputText value="#{reservations.getUname().getUniversityCareer()}" class="valor"/>
             </p:column>
             <p:column headerText="Nombre de Recurso" class="titulo">
                 <h:outputText value="#{reservations.getResources().getName()}" class="valor"/>
+            </p:column>
+            <p:column headerText="Ubicación" class="titulo">
+                <h:outputText value="#{reservations.getResources().getLocation()}" class="valor"/>
             </p:column>
             <p:column headerText="Fecha de solicitud" class="titulo">
                 <h:outputText value="#{reservations.date}" class="valor"/>
@@ -87,9 +90,6 @@
             </p:column>
             <p:column headerText="Tipo Recurrencia" class="titulo">
                 <h:outputText value="#{reservations.recurrence}" class="valor"/>
-            </p:column>
-            <p:column headerText="Proxima Ocurrencia" class="titulo">
-<!--                <h:outputText value="#{}" class="valor"/>-->
             </p:column>
         </p:dataTable>
     </h:form>

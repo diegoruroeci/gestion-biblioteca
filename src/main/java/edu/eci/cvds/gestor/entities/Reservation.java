@@ -21,6 +21,7 @@ public class Reservation implements Serializable {
     private Date recurrenceTime;
     private Resource resources;
     private User Uname;
+    private String universityCareer;
 
     public Reservation(){
         super();
@@ -124,6 +125,14 @@ public class Reservation implements Serializable {
 
     public void setRecurrenceTime(Date recurrenceTime) {
         this.recurrenceTime = recurrenceTime;
+    }
+
+    public String getUniversityCareer() {
+        return universityCareer;
+    }
+
+    public void setUniversityCareer(String universityCareer) {
+        this.universityCareer = universityCareer;
     }
 
     @Override

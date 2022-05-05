@@ -58,6 +58,7 @@
         <h:form>
             <p:button value="Reservas Canceladas"  outcome="reservationsCancelled"/>
             <p:button value="Reservas Vencidas"  outcome="reservationExpired"/>
+            <p:button value="Información General" outcome="consultInfoReservations"/>
             <p:dataTable id="reservation_table" var="reservations" value="#{ReservationBean.getReservationsUser(LoginBean.email)}"
                          rowStyleClass="#{reservations.status eq 'cancelada' ? 'cheap' : null}"
                          paginator="true" scrollable="true" scrollHeight="500"

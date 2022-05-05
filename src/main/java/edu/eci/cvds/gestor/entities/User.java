@@ -77,7 +77,7 @@ public class User {
                 ", email=" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", role=" + role + '\'' +
-                "universityCareer"+ universityCareer+ '\''+
+                ", universityCareer"+ universityCareer+ '\''+
                 '}';
     }
 }
