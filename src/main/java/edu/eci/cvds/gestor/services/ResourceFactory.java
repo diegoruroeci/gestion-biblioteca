@@ -4,6 +4,7 @@ import com.google.inject.Injector;
 import edu.eci.cvds.gestor.persistence.*;
 import edu.eci.cvds.gestor.persistence.mybatis.*;
 import edu.eci.cvds.gestor.services.impl.GestorServicesImpl;
+import edu.eci.cvds.gestor.services.impl.ReserveServicesImpl;
 import org.mybatis.guice.XMLMyBatisModule;
 
 import java.util.Optional;
@@ -24,6 +25,7 @@ public class ResourceFactory {
                 bind(UserDAO.class).to(MyBatisUserDAO.class);
                 bind(ResourceDAO.class).to(MyBatisResourceDAO.class);
                 bind(GestorServices.class).to(GestorServicesImpl.class);
+                bind(ReserveServices.class).to(ReserveServicesImpl.class);
             }
         });
     }
@@ -37,6 +39,14 @@ public class ResourceFactory {
         }
 
         return optInjector.get().getInstance(GestorServices.class);
+    }
+
+    public ReserveServices getReserveServices(){
+        if (!optInjector.isPresent()){
+            optInjector = Optional.of(myBatisInjector("development","mybatis-config.xml"));
+        }
+
+        return optInjector.get().getInstance(ReserveServices.class);
     }
 
     public static ResourceFactory getInstance(){
