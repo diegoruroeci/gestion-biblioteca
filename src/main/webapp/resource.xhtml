@@ -37,6 +37,7 @@
             margin-left: 90%;
             margin-button: 0;
         }
+
 </style>
 </h:head>
 <h:body>
@@ -75,7 +76,7 @@
             <h:outputText value="#{resources.capacity}" class="valor"/>
         </p:column>
         <p:column headerText="Reservar" class="titulo">
-            <p:button outcome="reserve?recurso=#{rowIndex}" value="Ver horarios" class="boton"/>
+            <p:button outcome="reserve?recurso=#{rowIndex}" value="Ver horarios" class="boton" />
         </p:column>
     </p:dataTable>
     </h:form>

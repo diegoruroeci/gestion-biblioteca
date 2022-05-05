@@ -158,6 +158,19 @@
         ORDER BY r.horaini;
     </select>
 
+    <select parameterType="map" id="consultReservation" resultMap="ReservationResult">
+        select
+        r.horaini,
+        r.horafin,
+        r.recurrencia
+
+        From reservas r
+        JOIN recursos re ON re.id_recurso = r.recurso
+
+        WHERE re.id_recurso = #{id}
+
+    </select>
+
     <resultMap type='Reservation' id='ReservationResult'>
         <id property='id' column='id_reserva'/>
         <result property='date' column='fecha'/>

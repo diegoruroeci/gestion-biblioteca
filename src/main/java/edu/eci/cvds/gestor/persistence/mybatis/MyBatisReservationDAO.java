@@ -25,6 +25,14 @@ public class MyBatisReservationDAO implements ReservationDAO {
         }
     }
 
+    public List<Reservation> consultReservation(int id) throws ParseException {
+        try{
+            return reservationMapper.consultReservation(id);
+        }catch (PersistenceException e){
+            throw new PersistenceException(e.getMessage());
+        }
+    }
+
     @Override
     public void reserveResource(Date date, Timestamp initHour, Timestamp finalHour, int resource, int carnet, RecurrenceOptions recurrence, Date recurrenceDate,String status) {
         try{

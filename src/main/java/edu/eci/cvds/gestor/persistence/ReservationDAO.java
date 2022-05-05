@@ -12,6 +12,8 @@ import java.util.List;
 public interface ReservationDAO {
 
     public List<Reservation> consultReservations() throws ParseException;
+  
+    public List<Reservation> consultReservation(int id) throws ParseException;
 
     public void reserveResource(Date date, Timestamp initHour, Timestamp finalHour, int resource, int carnet, RecurrenceOptions recurrence, Date recurrenceDate,String status);
 

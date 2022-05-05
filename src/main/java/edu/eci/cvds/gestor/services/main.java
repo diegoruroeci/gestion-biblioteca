@@ -4,7 +4,7 @@ public class main {
 
         public static void main(String[] args){
             GestorServices instance = ResourceFactory.getInstance().getGestorServices();
-            System.out.println(instance.consultReservationsUser("juan.becerra-pe@mail.escuelaing.edu.co"));
+            System.out.println(instance.consultReservation(2));
 
         }
 
