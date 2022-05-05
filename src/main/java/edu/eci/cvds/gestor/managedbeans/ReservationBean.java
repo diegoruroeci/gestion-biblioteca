@@ -3,6 +3,8 @@ package edu.eci.cvds.gestor.managedbeans;
 import com.google.inject.Inject;
 import edu.eci.cvds.gestor.entities.Reservation;
 
+import edu.eci.cvds.gestor.entities.Resource;
+import edu.eci.cvds.gestor.entities.User;
 import edu.eci.cvds.gestor.services.GestorServices;
 import edu.eci.cvds.gestor.services.ServicesException;
 import edu.eci.cvds.gestor.services.UserServices;
@@ -12,6 +14,8 @@ import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.primefaces.PrimeFaces;
@@ -27,6 +31,13 @@ import org.primefaces.model.ScheduleModel;
 @ManagedBean(name="ReservationBean")
 @ApplicationScoped
 public class ReservationBean extends BasePageBean{
+
+
+    private Timestamp startHour;
+    private Timestamp finishHour;
+    private String recurrence;
+    private Date recurrenceTime;
+
 
     @Inject
     private GestorServices gestorServices;
@@ -61,6 +72,24 @@ public class ReservationBean extends BasePageBean{
             return gestorServices.consultReservationsUserExpired(email);
         }
     }
+
+    public Timestamp getStartHour() {
+        return startHour;
+    }
+
+    public Timestamp getFinishHour() {
+        return finishHour;
+    }
+
+    public String getRecurrence() {
+        return recurrence;
+    }
+
+    public Date getRecurrenceTime() {
+        return recurrenceTime;
+    }
+
+
 
     //Schedule
 
