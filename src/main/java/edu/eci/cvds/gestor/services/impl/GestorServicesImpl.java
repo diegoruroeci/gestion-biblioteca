@@ -92,6 +92,7 @@ public class GestorServicesImpl implements GestorServices {
         }
     }
 
+
     @Override
     public List<Reservation> consultReservationsActive() throws PersistenceException {
         try{
@@ -119,9 +120,9 @@ public class GestorServicesImpl implements GestorServices {
         }
     }
 
-    public void registerResource( int id, String nombre, String ubicacion, String tipo, int capacidad, int idInterno, String descripcion, boolean disponible) throws PersistenceException {
+    public void registerResource(String nombre, String ubicacion, String tipo, int capacidad, int idInterno, String descripcion, boolean disponible) throws PersistenceException {
         try {
-            resourceDAO.registerResource( id, nombre, ubicacion, tipo, capacidad, idInterno, descripcion, disponible);
+            resourceDAO.registerResource(nombre, ubicacion, tipo, capacidad, idInterno, descripcion, disponible);
         }catch (PersistenceException | ParseException e){
             throw new PersistenceException(e.getMessage());
         }
