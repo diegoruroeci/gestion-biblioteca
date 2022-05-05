@@ -1,6 +1,7 @@
+<?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
@@ -41,35 +42,7 @@
 </h:head>
 <p:button value="Atras" outcome="resource"/>
 <h:body>
-<!--    <h:form id="form">-->
-<!--        <p:messages id="messages" showDetail="true" closable="true">-->
-<!--            <p:autoUpdate/>-->
-<!--        </p:messages>-->
-<!--        <div class="botones">-->
-<!--        </div>-->
-<!--        <center><h1>Resumen de la reserva</h1></center>-->
-<!--        <h2>Hora inicial</h2>-->
-<!--        <p:inputText binding="#{initHour}"/>-->
-<!--        <h2>Hora final</h2>-->
-<!--        <p:inputText binding="#{finalHour}"/>-->
-<!--        <h2>Recurrencia</h2>-->
-<!--        <div>-->
-<!--            <p:selectOneRadio id="console" value="oneTime" binding="#{recurrence}">-->
-<!--                <f:selectItem itemLabel="Diaria" itemValue="diaria"/>-->
-<!--                <f:selectItem itemLabel="Semanal" itemValue="semanal"/>-->
-<!--                <f:selectItem itemLabel="Mensual" itemValue="mensual"/>-->
-<!--                <f:selectItem itemLabel="Una sola vez" itemValue="oneTime"/>-->
-<!--            </p:selectOneRadio>-->
-<!--        </div>-->
-<!--        <div class="p-field p-col-12 p-md-4">-->
-<!--            <p:outputLabel for="basic" value="Recurrencia hasta"/>-->
-<!--            <p:calendar id="basic" pattern="dd/MM/yyyy" value="#{date}" mindate="today" maxdate="20/05/2022"/>-->
-<!--        </div>-->
-
-<!--    </h:form>-->
-<!--</h:body>-->
 <h:form>
-
     <p:growl id="messages" showDetail="true"/>
     #{ReservationBean.loadEvents()}
     <h:panelGrid columnClasses="value">
@@ -92,24 +65,21 @@
               modal="true">
 
         <h:panelGrid id="eventDetails1" border="1" columns="2" styleClass="table-style">
-            <h:outputLabel for="it-nombre-1" value="Id Recurso: " />
-            <h:outputLabel id="it-nombre-1" value="#{ReservationBean.eventId}"/>
-            <h:outputLabel for="it-nombre-1" value="Tipo reserva: " />
-            <div>
-                <p:selectOneRadio id="console" value="oneTime" binding="#{recurrence}">
-                    <f:selectItem itemLabel="Diaria" itemValue="diaria"/>
-                    <f:selectItem itemLabel="Semanal" itemValue="semanal"/>
-                    <f:selectItem itemLabel="Mensual" itemValue="mensual"/>
-                    <f:selectItem itemLabel="Una sola vez" itemValue="oneTime"/>
-                </p:selectOneRadio>
-            </div>
+            <h:outputLabel for="id" value="Id Evento: " />
+            <h:outputLabel id="id" value="#{ReservationBean.eventId}"/>
+        </h:panelGrid>
+
+    </p:dialog>
+
+    <p:dialog widgetVar="eventDialog" header="Reservar Recurso" showEffect="clip" hideEffect="clip" modal="true">
+
+        <h:panelGrid id="eventDetails" columns="2">
+
+
         </h:panelGrid>
 
     </p:dialog>
 
 </h:form>
 </h:body>
-<script>
-today = Date("dd/MM/yyyy");
-</script>
 </html>

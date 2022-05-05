@@ -10,6 +10,8 @@ import edu.eci.cvds.gestor.services.UserServices;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 import org.primefaces.PrimeFaces;
@@ -70,10 +72,9 @@ public class ReservationBean extends BasePageBean{
 
     private int eventId;
 
-    public void loadEvents() throws ServicesException {
+    public void loadEvents() {
         eventModel = new DefaultScheduleModel();
-        System.out.println(eventId);
-        List<Reservation> horarios = gestorServices.consultReservation(eventId);
+        List<Reservation> horarios = gestorServices.consultReservation(1);
         for (Reservation r : horarios){
             event = new DefaultScheduleEvent("2" + " - " + "2", r.getStartHour(), r.getFinishHour());
             eventModel.addEvent(event);
@@ -113,8 +114,10 @@ public class ReservationBean extends BasePageBean{
         return eventId;
     }
 
-    public void setEventId(int eventId) {
-        this.eventId = eventId;
+    public int setEventId() {
+        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext()
+                .getRequest();
+        return Integer.parseInt(request.getParameter("id"));
     }
 
 
