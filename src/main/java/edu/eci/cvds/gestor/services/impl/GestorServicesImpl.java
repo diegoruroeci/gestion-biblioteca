@@ -26,10 +26,14 @@ public class GestorServicesImpl implements GestorServices {
     @Inject
     private UserDAO userDAO;
 
+    private List<Resource> resources;
+
     @Override
     public List<Resource> consultResources() throws PersistenceException {
         try{
-            return resourceDAO.consultResources();
+            List<Resource> resources = resourceDAO.consultResources();
+            setResources(resources);
+            return resources;
         }catch (PersistenceException | ParseException e) {
             throw new PersistenceException(e.getMessage());
         }
@@ -44,6 +48,41 @@ public class GestorServicesImpl implements GestorServices {
         }
     }
 
+    public List<Reservation> consultReservation(int id) throws PersistenceException {
+        try{
+            return reservationDAO.consultReservation(id);
+        }catch (PersistenceException | ParseException e) {
+            throw new PersistenceException(e.getMessage());
+        }
+    }
+
+    @Override
+    public List<Reservation> consultReservationsUser(String email) throws PersistenceException {
+        try{
+            return reservationDAO.consultReservationsUser(email);
+        }catch (PersistenceException e) {
+            throw new PersistenceException(e.getMessage());
+        }
+    }
+
+    @Override
+    public List<Reservation> consultReservationsUserCancelled(String email) throws PersistenceException {
+        try{
+            return reservationDAO.consultReservationsUserCancelled(email);
+        }catch (PersistenceException e) {
+            throw new PersistenceException(e.getMessage());
+        }
+    }
+
+    @Override
+    public List<Reservation> consultReservationsUserExpired(String email) throws PersistenceException {
+        try{
+            return reservationDAO.consultReservationsUserExpired(email);
+        }catch (PersistenceException e) {
+            throw new PersistenceException(e.getMessage());
+        }
+    }
+
     @Override
     public List<User> consultUsers() throws PersistenceException {
         try {
@@ -53,12 +92,48 @@ public class GestorServicesImpl implements GestorServices {
         }
     }
 
-    public void registerResource( String id, String nombre, String ubicacion, String tipo, int capacidad, int idInterno, String descripcion, boolean disponible) throws PersistenceException {
+
+    @Override
+    public List<Reservation> consultReservationsActive() throws PersistenceException {
+        try{
+            return reservationDAO.consultReservationsActive();
+        }catch (PersistenceException e) {
+            throw new PersistenceException(e.getMessage());
+        }
+    }
+
+    @Override
+    public List<Reservation> consultReservationsCancelled() throws PersistenceException {
+        try{
+            return reservationDAO.consultReservationsCancelled();
+        }catch (PersistenceException e) {
+            throw new PersistenceException(e.getMessage());
+        }
+    }
+
+    @Override
+    public List<Reservation> consultReservationsExpired() throws PersistenceException {
+        try{
+            return reservationDAO.consultReservationsExpired();
+        }catch (PersistenceException e) {
+            throw new PersistenceException(e.getMessage());
+        }
+    }
+
+    public void registerResource(String nombre, String ubicacion, String tipo, int capacidad, int idInterno, String descripcion, boolean disponible) throws PersistenceException {
         try {
-            resourceDAO.registerResource( id, nombre, ubicacion, tipo, capacidad, idInterno, descripcion, disponible);
+            resourceDAO.registerResource(nombre, ubicacion, tipo, capacidad, idInterno, descripcion, disponible);
         }catch (PersistenceException | ParseException e){
             throw new PersistenceException(e.getMessage());
         }
+    }
+
+    public List<Resource> getResources() {
+        return resources;
+    }
+
+    public void setResources(List<Resource> resources) {
+        this.resources = resources;
     }
 }
 

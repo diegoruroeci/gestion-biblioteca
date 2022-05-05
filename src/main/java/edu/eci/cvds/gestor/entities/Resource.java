@@ -5,7 +5,7 @@ public class Resource {
 
     private String name;
     private String type;
-    private String id;
+    private int id;
     private String description;
     private Boolean available;
     private int internId;
@@ -16,7 +16,7 @@ public class Resource {
         super();
     }
 
-    public Resource(String id, String name, String location, String type, int capacity, int internId, String description, Boolean available) {
+    public Resource(int id, String name, String location, String type, int capacity, int internId, String description, Boolean available) {
         this.name = name;
         this.type = type;
         this.id = id;
@@ -43,11 +43,11 @@ public class Resource {
         this.type = type;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
