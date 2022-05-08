@@ -37,6 +37,9 @@
             margin-left: 90%;
             margin-button: 0;
         }
+
+
+
 </style>
 </h:head>
 <h:body>
@@ -45,7 +48,7 @@
     </div>
     <center><h1>Recursos Biblioteca</h1></center>
     <h:form id="form">
-        <p:button value="Nuevo recurso" icon="pi pi-plus" rendered="#{ResourceBean.showNew}" style="margin-right: .5rem" outcome="/gestor/registerResource.xhtml"/>
+        <p:commandButton value="Nuevo recurso" icon="pi pi-plus"  style="margin-right: .5rem"  type="button" onclick="PF('dlg2').show();"/>
         <p:commandButton rendered="#{LoginBean.showReserve}" value="#{LoginBean.textReserve()}" style="margin-right: .5rem" actionListener="#{LoginBean.actionReserve()}"/>
     <p:dataTable id="resource_table" var="resources" value="#{ResourceBean.resources}"  rowIndexVar="rowIndex"
                  paginator="true" scrollable="true" scrollHeight="500"
@@ -79,6 +82,43 @@
         </p:column>
     </p:dataTable>
     </h:form>
+
+    <div class="registrar">
+    <h:form id="frmm2">
+        <p:messages id="messages" showDetail="true" closable="true">
+            <p:autoUpdate/>
+        </p:messages>
+    <p:dialog header="Registrar Recurso" widgetVar="dlg2" modal="true"  resizable="false" height="400">
+        <h:panelGrid columns="2" cellpadding="5">
+            <h:outputLabel for="name" value="Nombre:" />
+            <p:inputText id="name" label="name"
+                         binding= "#{name}" />
+            <label class="bmd-label-floating">Ubicacion:</label>
+            <h:selectOneMenu  value="#{ResourceBean.ubicacionSeleccionada}" class="form-control">
+                <f:selectItems value="#{ResourceBean.getUbicacionDelRecurso()}" />
+            </h:selectOneMenu>
+            <label class="bmd-label-floating">Tipo:</label>
+            <h:selectOneMenu value="#{ResourceBean.tipoSeleccionado}" class="form-control">
+                <f:selectItems value="#{ResourceBean.getTiposDeRecursos()}"  />
+            </h:selectOneMenu>
+            <h:outputLabel for="capacity" value="Capacidad:" />
+            <p:inputText id="capacity" label="capacity" type="number"
+                         binding= "#{capacity}"/>
+            <h:outputLabel for="internId" value="ID interno:" />
+            <p:inputText id="internId" label="internId" type="number"
+                         binding= "#{internId}" />
+            <p:outputLabel for="description" value="Descripción:" />
+            <p:inputTextarea id="description" label="description"
+                             binding= "#{description}" />
+            <label class="bmd-label-floating">Disponible:</label>
+            <h:selectOneMenu  value="#{ResourceBean.disponibilidadSeleccionada}" class="form-control">
+                <f:selectItems value="#{ResourceBean.getRecursoDisponible()}" />
+            </h:selectOneMenu>
+            <center><p:commandButton value="Registrar" actionListener="#{ResourceBean.register(name.value,location.value, type.value,capacity.value , internId.value, description.value, available.value)}" update="frmm2"/></center>
+        </h:panelGrid>
+    </p:dialog>
+    </h:form>
+    </div>
 </h:body>
 </html>
 
