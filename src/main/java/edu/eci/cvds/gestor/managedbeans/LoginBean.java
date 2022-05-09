@@ -7,6 +7,7 @@ import edu.eci.cvds.gestor.login.LoginServices;
 import edu.eci.cvds.gestor.login.LoginServicesImpl;
 import edu.eci.cvds.gestor.services.GestorServices;
 import edu.eci.cvds.gestor.services.ServicesException;
+import edu.eci.cvds.gestor.services.UserServices;
 import org.primefaces.PrimeFaces;
 
 import javax.faces.application.FacesMessage;
@@ -29,6 +30,9 @@ public class LoginBean extends BasePageBean {
 
     @Inject
     private GestorServices gestorServices;
+
+    @Inject
+    private UserServices userServices;
 
     private boolean showReserve;
 
@@ -90,4 +94,8 @@ public class LoginBean extends BasePageBean {
     }
 
     public String getEmail(){return email;}
+
+    public User consultUser(String email) throws ServicesException {
+        return gestorServices.consultUser(email);
+    }
 }
