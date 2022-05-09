@@ -32,4 +32,12 @@
         WHERE u.correo = #{email}
     </select>
 
+    <select parameterType="map" id="consultUser" resultMap="UserResult">
+        select
+        u.nombre
+
+        FROM Usuarios u
+        WHERE u.correo = #{correo};
+    </select>
+
 </mapper>

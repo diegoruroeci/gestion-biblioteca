@@ -54,7 +54,7 @@
 </h:head>
 <h:body>
     <p:button value="Atras" outcome="resource"/>
-    <center><h1>Mis Reservas</h1></center>
+    <center><h1 style="background-color:#C31E1E; width:280px">Mis Reservas</h1></center>
     <h:form>
         <p:button value="Reservas Activas"  outcome ="reservation"/>
         <p:button value="Reservas Vencidas"  outcome ="reservationExpired"/>
@@ -68,10 +68,10 @@
             <p:column style="width:1rem">
                 <p:rowToggler/>
             </p:column>
-            <p:column headerText="Nombre de Usuario" class="titulo">
+            <p:column headerText="Nombre de Usuario" class="titulo" filterBy="#{reservations.getUname().getName()}" filterStyle="width:100px;" filterMatchMode="contains">
                 <div class="hijo"><h:outputText value="#{reservations.getUname().getName()}" class="valor"/></div>
             </p:column>
-            <p:column headerText="Nombre de Recurso" class="titulo">
+            <p:column headerText="Nombre de Recurso" class="titulo" filterBy="#{reservations.getResources().getName()}" filterStyle="width:100px;" filterMatchMode="contains">
                 <h:outputText value="#{reservations.getResources().getName()}" class="valor"/>
             </p:column>
             <p:column headerText="Fecha de solicitud" class="titulo">

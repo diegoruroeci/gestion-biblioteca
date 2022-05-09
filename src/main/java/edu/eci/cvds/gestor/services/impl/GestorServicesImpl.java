@@ -7,6 +7,7 @@ import edu.eci.cvds.gestor.entities.Resource;
 import edu.eci.cvds.gestor.entities.User;
 import edu.eci.cvds.gestor.persistence.*;
 import edu.eci.cvds.gestor.services.GestorServices;
+import edu.eci.cvds.gestor.services.ServicesException;
 import org.apache.ibatis.exceptions.PersistenceException;
 
 import java.text.ParseException;
@@ -134,6 +135,15 @@ public class GestorServicesImpl implements GestorServices {
 
     public void setResources(List<Resource> resources) {
         this.resources = resources;
+    }
+
+    @Override
+    public User consultUser(String email) throws ServicesException {
+        try {
+            return userDAO.consultUser(email);
+        }catch (PersistenceException persistenceException){
+            throw new ServicesException(persistenceException.getMessage());
+        }
     }
 }
 
