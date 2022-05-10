@@ -10,6 +10,8 @@ import edu.eci.cvds.gestor.services.GestorServices;
 import edu.eci.cvds.gestor.services.ServicesException;
 import org.apache.ibatis.exceptions.PersistenceException;
 
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.List;
 
@@ -102,6 +104,16 @@ public class GestorServicesImpl implements GestorServices {
             throw new PersistenceException(e.getMessage());
         }
     }
+
+    @Override
+    public List<Reservation> consultReservationsActiveByHour(Timestamp initHour, Timestamp finalHour,int resource) throws PersistenceException {
+        try {
+            return reservationDAO.consultReservationsActiveByHour(initHour,finalHour,resource);
+        }catch (PersistenceException persistenceException){
+            throw new PersistenceException(persistenceException.getMessage());
+        }
+    }
+
 
     @Override
     public List<Reservation> consultReservationsCancelled() throws PersistenceException {

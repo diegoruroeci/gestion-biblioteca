@@ -4,7 +4,10 @@ import edu.eci.cvds.gestor.entities.Reservation;
 import edu.eci.cvds.gestor.entities.Resource;
 import edu.eci.cvds.gestor.entities.User;
 import org.apache.ibatis.exceptions.PersistenceException;
+import org.junit.Test;
 
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.List;
 
@@ -28,6 +31,8 @@ public interface GestorServices {
     public abstract void registerResource(String nombre, String ubicacion, String tipo, int capacidad, int idInterno, String descripcion, boolean disponible) throws PersistenceException;
 
     public abstract List<Reservation> consultReservationsActive() throws PersistenceException;
+
+    public abstract List<Reservation> consultReservationsActiveByHour(Timestamp initHour, Timestamp finalHour, int resource) throws PersistenceException;
 
     public abstract List<Reservation> consultReservationsCancelled() throws PersistenceException;
 

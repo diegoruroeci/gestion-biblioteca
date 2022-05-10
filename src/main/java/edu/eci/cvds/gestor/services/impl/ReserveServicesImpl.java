@@ -12,6 +12,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import java.sql.Timestamp;
 import java.util.List;
@@ -42,6 +43,53 @@ public class ReserveServicesImpl implements ReserveServices {
         }
     }
 
+    @Override
+    public ArrayList<LocalDate> checkReserve(String date, String initHour, String finalHour, int resource, RecurrenceOptions recurrence, Date recurrenceDate) throws ParseException {
+        Date dateFormatted = new SimpleDateFormat("yyyy/MM/dd").parse(date);
+        java.sql.Date dateSql = new java.sql.Date(dateFormatted.getTime());
+        java.sql.Date recurrenceDateSql = new java.sql.Date(recurrenceDate.getTime());
+        switch (recurrence){
+            case DAILY:
+                return checkManyReservations(dateSql,initHour,finalHour,resource,recurrence,recurrenceDateSql,1);
+            case WEEKLY:
+                return checkManyReservations(dateSql,initHour,finalHour,resource,recurrence,recurrenceDateSql,7);
+            case MONTHLY:
+                return checkMonthlyReservations(dateSql,initHour,finalHour,resource,recurrence,recurrenceDateSql);
+        }
+        return null;
+    }
+
+    private ArrayList<LocalDate> checkMonthlyReservations(java.sql.Date date, String initHour, String finalHour, int resource, RecurrenceOptions recurrence, java.sql.Date recurrenceDate) throws ParseException {
+        LocalDate dateLocal=date.toLocalDate();
+        ArrayList<LocalDate> cantReserve = new ArrayList<LocalDate>();
+        for (LocalDate currentDate = dateLocal; currentDate.isBefore(recurrenceDate.toLocalDate().plusDays(1)); currentDate=currentDate.plusMonths(1)) {
+            if (currentDate.getDayOfWeek()!= DayOfWeek.SUNDAY){
+                Timestamp initHourTimestamp = this.convertToTimestamp(currentDate,initHour);
+                Timestamp finalHourTimestamp = this.convertToTimestamp(currentDate,finalHour);
+                if (!this.checkIfCanReserve(initHourTimestamp,finalHourTimestamp, resource)){
+                    cantReserve.add(currentDate);
+                }
+            }
+        }
+        return cantReserve;
+    }
+
+    private ArrayList<LocalDate> checkManyReservations(java.sql.Date date, String initHour, String finalHour, int resource, RecurrenceOptions recurrence, java.sql.Date recurrenceDate, int days) throws ParseException {
+        LocalDate dateLocal=date.toLocalDate();
+        ArrayList<LocalDate> cantReserve = new ArrayList<LocalDate>();
+        for (LocalDate currentDate = dateLocal; currentDate.isBefore(recurrenceDate.toLocalDate().plusDays(1)); currentDate=currentDate.plusDays(days)) {
+            if (currentDate.getDayOfWeek()!= DayOfWeek.SUNDAY){
+                Timestamp initHourTimestamp = this.convertToTimestamp(currentDate,initHour);
+                Timestamp finalHourTimestamp = this.convertToTimestamp(currentDate,finalHour);
+                if (!this.checkIfCanReserve(initHourTimestamp,finalHourTimestamp, resource)){
+                    cantReserve.add(currentDate);
+                }
+            }
+        }
+        return cantReserve;
+    }
+
+
     private Timestamp convertToTimestamp(String time) throws ParseException {
         Date timeFormatted = new SimpleDateFormat("yyyy/MM/dd hh:mm").parse(time);
         Timestamp timeStamp = new Timestamp(timeFormatted.getTime());
@@ -53,8 +101,8 @@ public class ReserveServicesImpl implements ReserveServices {
         return timeStamp;
     }
 
-    
-    public void createReservations(java.sql.Date date, String initHour, String finalHour, int resource, int carnet, RecurrenceOptions recurrence, java.sql.Date recurrenceDate,String status) throws ParseException {
+
+    private void createReservations(java.sql.Date date, String initHour, String finalHour, int resource, int carnet, RecurrenceOptions recurrence, java.sql.Date recurrenceDate,String status) throws ParseException {
         switch (recurrence){
             case DAILY:
                 createManyReservations(date,initHour,finalHour,resource,carnet,recurrence,recurrenceDate,status,1);
@@ -87,6 +135,27 @@ public class ReserveServicesImpl implements ReserveServices {
                 Timestamp finalHourTimestamp = this.convertToTimestamp(currentDate,finalHour);
                 reservationDAO.reserveResource(java.sql.Date.valueOf(currentDate),initHourTimestamp,finalHourTimestamp,resource,carnet,recurrence,recurrenceDate,status);
             }
+        }
+    }
+    @Override
+    public boolean checkIfCanReserve(Timestamp initHour,Timestamp finalHour, int resource){
+
+        if (gestorServices.consultReservationsActiveByHour(initHour,finalHour,resource).isEmpty()){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean checkIfCanReserve(String date, String initHour, String finalHour, int resource) throws ParseException {
+        Timestamp initTimeStamp = convertToTimestamp(date+' '+initHour);
+        Timestamp finalTimeStamp = convertToTimestamp(date+' '+finalHour);
+
+        if (gestorServices.consultReservationsActiveByHour(initTimeStamp,finalTimeStamp,resource).isEmpty()){
+            return true;
+        }else {
+            return false;
         }
     }
 }
