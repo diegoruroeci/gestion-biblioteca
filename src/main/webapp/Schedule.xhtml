@@ -19,7 +19,7 @@
     }
   </style>
 </h:head>
-<p:button value="Atras" outcome="reserve"/>
+<p:button value="Atras" outcome="resource"/>
 <h:body>
   <h:form>
     <p:growl id="messages" showDetail="true"/>
@@ -90,6 +90,11 @@
                          oncomplete="PF('myschedule').update();PF('eventDialog').hide();">
             <f:param name="recurso" value="#{param['recurso']}"/>
         </h:commandButton>
+        <p:confirmDialog widgetVar="warningManyDialog"  message="#{ReserveBean.manyMessage}">
+          <p:commandButton value="Confirmar" oncomplete="PF('warningManyDialog').hide();"
+                           action="#{ReserveBean.reserve(initHour.value,finalHour.value,recurrence.value,date)}" />
+          <p:commandButton value="Cancelar"   onclick="PF('warningManyDialog').hide();"/>
+        </p:confirmDialog>
 
 
       </h:panelGrid>

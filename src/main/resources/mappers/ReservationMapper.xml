@@ -43,6 +43,27 @@
         ORDER BY r.horaini;
     </select>
 
+    <select parameterType="map" id="consultReservationsActiveByHour" resultMap="ReservationResult">
+        select
+        u.nombre as u_nombre,
+        re.nombre as re_nombre,
+        re.descripcion as re_descripcion,
+        re.ubicacion as re_ubicacion,
+        r.fecha,
+        r.horaini,
+        r.horafin,
+        r.estado,
+        r.recurrencia,
+        r.fecharecurrencia
+
+        From usuarios u
+        JOIN reservas r ON r.carnet = u.carnet
+        JOIN recursos re ON re.id_recurso = r.recurso
+
+        WHERE r.horaini = #{horaini} and r.horafin = #{horafin} and r.recurso = #{recurso}
+
+    </select>
+
     <select parameterType="map" id="consultReservationsCancelled" resultMap="ReservationResult">
         select
         u.nombre as u_nombre,

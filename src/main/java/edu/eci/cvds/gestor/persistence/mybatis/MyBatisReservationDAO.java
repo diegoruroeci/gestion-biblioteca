@@ -79,6 +79,15 @@ public class MyBatisReservationDAO implements ReservationDAO {
     }
 
     @Override
+    public List<Reservation> consultReservationsActiveByHour(Timestamp initHour,Timestamp finalHour,int resource) throws PersistenceException {
+        try {
+            return reservationMapper.consultReservationsActiveByHour(initHour,finalHour,resource);
+        }catch (PersistenceException persistenceException){
+            throw new PersistenceException(persistenceException.getMessage());
+        }
+    }
+
+    @Override
     public List<Reservation> consultReservationsCancelled() throws PersistenceException {
         try{
             return reservationMapper.consultReservationsCancelled();

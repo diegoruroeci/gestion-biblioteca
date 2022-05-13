@@ -3,6 +3,7 @@ package edu.eci.cvds.gestor.managedbeans;
 import com.google.inject.Inject;
 import edu.eci.cvds.gestor.services.*;
 import org.apache.ibatis.exceptions.PersistenceException;
+import org.primefaces.PrimeFaces;
 import org.primefaces.component.calendar.Calendar;
 
 import javax.faces.application.FacesMessage;
@@ -10,8 +11,10 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
 
@@ -29,6 +32,31 @@ public class ReserveBean extends BasePageBean{
     @Inject
     GestorServices gestorServices;
 
+    String manyMessage = "";
+
+
+    public void checkReserve(String initHour, String finalHour, String recurrence, Date recurrenceDate){
+        try {
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+            if (getRecurrenceOptions(recurrence)!=RecurrenceOptions.ONE_TIME) {
+                ArrayList<LocalDate> dates = reserveServices.checkReserve(dtf.format(LocalDate.now()),initHour,finalHour,getRecurso(),getRecurrenceOptions(recurrence),recurrenceDate);
+                if (dates.isEmpty()) {
+                    reserve(initHour,finalHour,recurrence,recurrenceDate);
+                } else {
+                    setManyMessage("Las siguientes reservas no estan disponibles\r\n" + dates.toString() + "\r\n deseas continuar?");
+                    PrimeFaces.current().executeScript("PF('warningManyDialog').show();");
+                }
+            }else {
+                if (!reserveServices.checkIfCanReserve(dtf.format(LocalDate.now()),initHour,finalHour,getRecurso())){
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error","La fecha seleccionada no esta disponible"));
+                }else {
+                    reserve(initHour,finalHour,recurrence,recurrenceDate);
+                }
+            }
+        } catch (ParseException | ServicesException parseException) {
+            parseException.printStackTrace();
+        }
+    }
 
     public void reserve(String initHour, String finalHour, String recurrence, Date recurrenceDate) throws ServicesException {
 
@@ -83,5 +111,13 @@ public class ReserveBean extends BasePageBean{
         }else if (hourDiff==2 && minutesDiff>0){
             throw new ServicesException("No se puede reservar por mas de 2 horas");
         }
+    }
+
+    public String getManyMessage() {
+        return manyMessage;
+    }
+
+    public void setManyMessage(String manyMessage) {
+        this.manyMessage = manyMessage;
     }
 }
