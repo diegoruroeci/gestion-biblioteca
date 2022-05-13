@@ -57,19 +57,40 @@
       <h:panelGrid id="eventDetails" columns="2">
 
         <p:outputLabel for="inicio" value="Fecha Inicio:"/>
-        <p:calendar id="inicio" value="#{ReservationBean.startHour}" pattern="dd/MM/yyyy HH:mm"/>
+        <p:selectOneMenu  id="inicio" binding="#{initHour}">
+          <f:selectItem itemLabel="Seleccione" itemValue=""/>
+          <f:selectItem itemLabel="7:00" itemValue="7:00"/>
+          <f:selectItem itemLabel="8:00" itemValue="8:00"/>
+          <f:selectItem itemLabel="9:00" itemValue="9:00"/>
+          <f:selectItem itemLabel="10:00" itemValue="10:00"/>
+        </p:selectOneMenu>
 
         <p:outputLabel for="fin" value="Fecha Fin:"/>
-        <p:calendar id="fin" value="#{ReservationBean.finishHour}" pattern="dd/MM/yyyy HH:mm"/>
+        <p:selectOneMenu  id="fin" binding="#{finalHour}">
+          <f:selectItem itemLabel="Seleccione" itemValue=""/>
+          <f:selectItem itemLabel="7:00" itemValue="7:00"/>
+          <f:selectItem itemLabel="8:00" itemValue="8:00"/>
+          <f:selectItem itemLabel="9:00" itemValue="9:00"/>
+          <f:selectItem itemLabel="10:00" itemValue="10:00"/>
+        </p:selectOneMenu>
 
         <p:outputLabel for="recurrence" value="Tipo de Recurrencia:"/>
-        <p:inputText id="recurrence" value="#{ReservationBean.recurrence}" />
+        <p:selectOneMenu  id="recurrence" binding="#{recurrence}">
+          <f:selectItem itemLabel="Seleccione" itemValue=""/>
+          <f:selectItem itemLabel="Diaria" itemValue="diaria"/>
+          <f:selectItem itemLabel="Semanal" itemValue="semanal"/>
+          <f:selectItem itemLabel="Mensual" itemValue="mensual"/>
+          <f:selectItem itemLabel="Una sola vez" itemValue="oneTime"/>
+        </p:selectOneMenu>
 
         <p:outputLabel for="daterecurrence" value="Fecha Recurrencia:"/>
-        <p:calendar id="daterecurrence" value="#{ReservationBean.recurrenceTime}" pattern="dd/MM/yyyy"/>
+        <p:calendar id="daterecurrence" value="#{date}" pattern="dd/MM/yyyy" mindate="today" maxdate="20/05/2022"/>
 
-        <p:commandButton id="addButton" value="Reservar" actionListener="#{ReserveBean.reserve(ReservationBean.getStartHour(),ReservationBean.getFinishHour(),ReservationBean.getRecurrence(),ReservationBean.getRecurrenceTime())}"
-                         oncomplete="PF('myschedule').update();PF('eventDialog').hide();"/>
+        <h:commandButton value="Reservar" type="submit" actionListener="#{ReserveBean.reserve(initHour.value,finalHour.value,recurrence.value,date)}"
+                         oncomplete="PF('myschedule').update();PF('eventDialog').hide();">
+            <f:param name="recurso" value="#{param['recurso']}"/>
+        </h:commandButton>
+
 
       </h:panelGrid>
 
@@ -77,4 +98,7 @@
 
   </h:form>
 </h:body>
+<script>
+    today = Date("dd/MM/yyyy");
+</script>
 </html>

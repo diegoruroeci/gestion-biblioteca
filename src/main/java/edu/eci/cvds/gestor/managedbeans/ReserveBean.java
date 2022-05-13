@@ -3,6 +3,7 @@ package edu.eci.cvds.gestor.managedbeans;
 import com.google.inject.Inject;
 import edu.eci.cvds.gestor.services.*;
 import org.apache.ibatis.exceptions.PersistenceException;
+import org.primefaces.component.calendar.Calendar;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
