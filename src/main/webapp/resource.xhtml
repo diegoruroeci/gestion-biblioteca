@@ -85,10 +85,11 @@
 
     <div class="registrar">
     <h:form id="frmm2">
+
+    <p:dialog header="Registrar Recurso" widgetVar="dlg2" modal="true"  resizable="false" height="400">
         <p:messages id="messages" showDetail="true" closable="true">
             <p:autoUpdate/>
         </p:messages>
-    <p:dialog header="Registrar Recurso" widgetVar="dlg2" modal="true"  resizable="false" height="400">
         <h:panelGrid columns="2" cellpadding="5">
             <h:outputLabel for="name" value="Nombre:" />
             <p:inputText id="name" label="name"
@@ -114,7 +115,10 @@
             <h:selectOneMenu  value="#{ResourceBean.disponibilidadSeleccionada}" class="form-control">
                 <f:selectItems value="#{ResourceBean.getRecursoDisponible()}" />
             </h:selectOneMenu>
-            <center><p:commandButton value="Registrar" actionListener="#{ResourceBean.register(name.value,location.value, type.value,capacity.value , internId.value, description.value, available.value)}" update="frmm2"/></center>
+            <f:facet name="footer">
+            <center><p:commandButton value="Registrar" actionListener="#{ResourceBean.register(name.value,location.value, type.value,capacity.value , internId.value, description.value, available.value)}"
+                                     oncomplete="if (!args.validationFailed) PF('adDialog').hide()"/></center>
+            </f:facet>
         </h:panelGrid>
     </p:dialog>
     </h:form>
