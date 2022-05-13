@@ -22,6 +22,8 @@ public interface ReservationMapper {
 
     public List<Reservation> consultReservationsActive();
 
+    public List<Reservation> consultReservationsActiveByHour(@Param("horaini") Timestamp initHour,@Param("horafin") Timestamp finalHour,@Param("recurso") int resource);
+
     public List<Reservation> consultReservationsCancelled();
 
     public List<Reservation> consultReservationsExpired();

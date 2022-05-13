@@ -25,6 +25,8 @@ public interface ReservationDAO {
 
     public List<Reservation> consultReservationsActive() throws PersistenceException;
 
+    public List<Reservation> consultReservationsActiveByHour(Timestamp initHour,Timestamp finalHour,int resource) throws PersistenceException;
+
     public List<Reservation> consultReservationsCancelled() throws PersistenceException;
 
     public List<Reservation> consultReservationsExpired() throws PersistenceException;
