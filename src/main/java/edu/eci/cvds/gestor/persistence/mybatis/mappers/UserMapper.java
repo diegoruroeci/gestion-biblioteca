@@ -10,4 +10,6 @@ public interface UserMapper {
     public List<User> consultUsers();
 
     public int getCarnetByEmail(@Param("email") String email);
+
+    public User consultUser(@Param("correo") String email);
 }

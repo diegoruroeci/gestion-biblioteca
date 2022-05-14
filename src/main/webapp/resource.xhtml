@@ -38,16 +38,17 @@
             margin-button: 0;
         }
 
-
-
 </style>
 </h:head>
 <h:body>
+    <h:form id="form">
     <div class="botones">
         <p:commandButton class="danger" value="#{LoginBean.textLog()}" actionListener="#{LoginBean.actionButton()}" />
     </div>
-    <center><h1>Recursos Biblioteca</h1></center>
-    <h:form id="form">
+    <center>
+        <h1 style="background-color:#ED7D31; width:500px">Recursos Biblioteca</h1>
+        <h2 style="background-color:#ED7D31; width:400px"><h:outputText rendered="#{LoginBean.showReserve}" value="#{LoginBean.consultUser(LoginBean.email).getName()}"/></h2>
+    </center>
         <p:commandButton value="Nuevo recurso" icon="pi pi-plus"  style="margin-right: .5rem"  type="button" onclick="PF('dlg2').show();"/>
         <p:commandButton rendered="#{LoginBean.showReserve}" value="#{LoginBean.textReserve()}" style="margin-right: .5rem" actionListener="#{LoginBean.actionReserve()}"/>
     <p:dataTable id="resource_table" var="resources" value="#{ResourceBean.resources}"  rowIndexVar="rowIndex"
@@ -78,7 +79,7 @@
             <h:outputText value="#{resources.capacity}" class="valor"/>
         </p:column>
         <p:column headerText="Reservar" class="titulo">
-            <p:button outcome="reserve?recurso=#{rowIndex}" value="Ver horarios" class="boton"/>
+            <p:button outcome="reserve?recurso=#{rowIndex}" value="Ver horarios" class="boton" />
         </p:column>
     </p:dataTable>
     </h:form>
@@ -117,7 +118,8 @@
             </h:selectOneMenu>
             <f:facet name="footer">
             <center><p:commandButton value="Registrar" actionListener="#{ResourceBean.register(name.value,location.value, type.value,capacity.value , internId.value, description.value, available.value)}"
-                                     oncomplete="if (!args.validationFailed) PF('adDialog').hide()"/></center>
+                                     process="@form"
+                                      oncomplete="if (!args.validationFailed) PF('adDialog').hide()" /></center>
             </f:facet>
         </h:panelGrid>
     </p:dialog>

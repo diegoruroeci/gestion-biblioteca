@@ -7,8 +7,11 @@ import edu.eci.cvds.gestor.entities.Resource;
 import edu.eci.cvds.gestor.entities.User;
 import edu.eci.cvds.gestor.persistence.*;
 import edu.eci.cvds.gestor.services.GestorServices;
+import edu.eci.cvds.gestor.services.ServicesException;
 import org.apache.ibatis.exceptions.PersistenceException;
 
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.List;
 
@@ -43,6 +46,14 @@ public class GestorServicesImpl implements GestorServices {
     public List<Reservation> consultReservations() throws PersistenceException {
         try{
             return reservationDAO.consultReservations();
+        }catch (PersistenceException | ParseException e) {
+            throw new PersistenceException(e.getMessage());
+        }
+    }
+
+    public List<Reservation> consultReservation(int id) throws PersistenceException {
+        try{
+            return reservationDAO.consultReservation(id);
         }catch (PersistenceException | ParseException e) {
             throw new PersistenceException(e.getMessage());
         }
@@ -95,6 +106,16 @@ public class GestorServicesImpl implements GestorServices {
     }
 
     @Override
+    public List<Reservation> consultReservationsActiveByHour(Timestamp initHour, Timestamp finalHour,int resource) throws PersistenceException {
+        try {
+            return reservationDAO.consultReservationsActiveByHour(initHour,finalHour,resource);
+        }catch (PersistenceException persistenceException){
+            throw new PersistenceException(persistenceException.getMessage());
+        }
+    }
+
+
+    @Override
     public List<Reservation> consultReservationsCancelled() throws PersistenceException {
         try{
             return reservationDAO.consultReservationsCancelled();
@@ -126,6 +147,15 @@ public class GestorServicesImpl implements GestorServices {
 
     public void setResources(List<Resource> resources) {
         this.resources = resources;
+    }
+
+    @Override
+    public User consultUser(String email) throws ServicesException {
+        try {
+            return userDAO.consultUser(email);
+        }catch (PersistenceException persistenceException){
+            throw new ServicesException(persistenceException.getMessage());
+        }
     }
 }
 

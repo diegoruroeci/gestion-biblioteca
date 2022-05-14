@@ -37,7 +37,7 @@
             margin-left: 90%;
             margin-button: 0;
         }
-</style>
+    </style>
 </h:head>
 <h:body>
     <h:form id="form">
@@ -46,6 +46,8 @@
         </p:messages>
         <div class="botones">
         </div>
+        <p:button value="Calendario" outcome="Schedule"/>
+        <p:button value="Atras" outcome="resource"/>
         <center><h1>Resumen de la reserva</h1></center>
         <h2>Hora inicial</h2>
         <p:inputText binding="#{initHour}"/>
@@ -65,12 +67,17 @@
             <p:calendar id="basic" pattern="dd/MM/yyyy" value="#{date}" mindate="today" maxdate="20/05/2022"/>
         </div>
 
-        <h:commandButton value="Reservar" type="submit" actionListener="#{ReserveBean.reserve(initHour.value,finalHour.value,recurrence.value,date)}">
+        <h:commandButton value="Reservar" type="submit" actionListener="#{ReserveBean.checkReserve(initHour.value,finalHour.value,recurrence.value,date)}">
             <f:param name="recurso" value="#{param['recurso']}"/>
         </h:commandButton>
+        <p:confirmDialog widgetVar="warningManyDialog"  message="#{ReserveBean.manyMessage}">
+            <p:commandButton value="Confirmar" oncomplete="PF('warningManyDialog').hide();"
+                             action="#{ReserveBean.reserve(initHour.value,finalHour.value,recurrence.value,date)}" />
+            <p:commandButton value="Cancelar"   onclick="PF('warningManyDialog').hide();"/>
+        </p:confirmDialog>
     </h:form>
 </h:body>
 <script>
-today = Date("dd/MM/yyyy");
+    today = Date("dd/MM/yyyy");
 </script>
 </html>

@@ -12,6 +12,8 @@ import java.util.List;
 public interface ReservationDAO {
 
     public List<Reservation> consultReservations() throws ParseException;
+  
+    public List<Reservation> consultReservation(int id) throws ParseException;
 
     public void reserveResource(Date date, Timestamp initHour, Timestamp finalHour, int resource, int carnet, RecurrenceOptions recurrence, Date recurrenceDate,String status);
 
@@ -22,6 +24,8 @@ public interface ReservationDAO {
     public List<Reservation> consultReservationsUserExpired(String email) throws PersistenceException;
 
     public List<Reservation> consultReservationsActive() throws PersistenceException;
+
+    public List<Reservation> consultReservationsActiveByHour(Timestamp initHour,Timestamp finalHour,int resource) throws PersistenceException;
 
     public List<Reservation> consultReservationsCancelled() throws PersistenceException;
 
