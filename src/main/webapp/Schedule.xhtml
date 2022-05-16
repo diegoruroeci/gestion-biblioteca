@@ -42,16 +42,15 @@
       </p:schedule>
     </h:panelGrid>
 
-        <p:dialog widgetVar="eventDetails1" header="Horario de reserva" showEffect="clip" hideEffect="clip"
-                  modal="true">
+        <p:dialog widgetVar="eventDetails1" header="Horario de reserva" showEffect="fade" hideEffect="fade">
 
             <h:panelGrid id="eventDetails1" border="1" columns="2" styleClass="table-style">
                 <h:outputLabel for="id" value="Id Recurso: " />
                 <h:outputLabel id="id" value="#{ReservationBean.eventId}"/>
-                            <h:outputLabel for="inicial" value="Hora Inicial: " />
-                            <h:outputLabel id="inicial" value="#{ReservationBean.ini}"/>
-                            <h:outputLabel for="final" value="Hora Final: " />
-                            <h:outputLabel id="final" value="#{ReservationBean.fin}"/>
+                <h:outputLabel for="inicial" value="Hora Inicial: " />
+                <h:outputLabel id="inicial" value="#{ReservationBean.ini}"/>
+                <h:outputLabel for="final" value="Hora Final: " />
+                <h:outputLabel id="final" value="#{ReservationBean.fin}"/>
             </h:panelGrid>
 
         </p:dialog>
@@ -113,14 +112,13 @@
             <f:param name="recurso" value="#{param['recurso']}"/>
         </h:commandButton>
 
+    </p:dialog>
+
         <p:confirmDialog widgetVar="warningManyDialog"  message="#{ReserveBean.manyMessage}">
           <p:commandButton value="Confirmar" oncomplete="PF('warningManyDialog').hide();"
                            action="#{ReserveBean.reserve(ReservationBean.currentDay,initHour.value,finalHour.value,recurrence.value,date)}" />
           <p:commandButton value="Cancelar"   onclick="PF('warningManyDialog').hide();"/>
         </p:confirmDialog>
-
-
-    </p:dialog>
 
   </h:form>
 </h:body>
