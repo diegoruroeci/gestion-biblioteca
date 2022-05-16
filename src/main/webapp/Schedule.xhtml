@@ -29,8 +29,8 @@
                   rightHeaderTemplate="agendaDay,agendaWeek,month"
                   timeZone="ZoneId.systemDefault()" clientTimeZone="local" draggable="false">
 
-<!--                    <p:ajax event="eventSelect" listener="#{ReservationBean.onEventSelect}" update="eventDetails1"-->
-<!--                            oncomplete="PF('eventDetails1').show();" />-->
+                    <p:ajax event="eventSelect" listener="#{ReservationBean.onEventSelect}" update="eventDetails1"
+                            oncomplete="PF('eventDetails1').show();" />
 
         <p:ajax event="eventMove" listener="#{ReservationBean.onEventMove}" update="messages"/>
 
@@ -42,20 +42,23 @@
       </p:schedule>
     </h:panelGrid>
 
-<!--        <p:dialog widgetVar="eventDetails1" header="Horario de reserva" showEffect="clip" hideEffect="clip"-->
-<!--                  modal="true">-->
+        <p:dialog widgetVar="eventDetails1" header="Horario de reserva" showEffect="clip" hideEffect="clip"
+                  modal="true">
 
-<!--            <h:panelGrid id="eventDetails1" border="1" columns="2" styleClass="table-style">-->
-<!--                <h:outputLabel for="id" value="Id Evento: " />-->
-<!--                <h:outputLabel id="id" value="#{ReservationBean.eventId}"/>-->
-<!--            </h:panelGrid>-->
+            <h:panelGrid id="eventDetails1" border="1" columns="2" styleClass="table-style">
+                <h:outputLabel for="id" value="Id Recurso: " />
+                <h:outputLabel id="id" value="#{ReservationBean.eventId}"/>
+                            <h:outputLabel for="inicial" value="Hora Inicial: " />
+                            <h:outputLabel id="inicial" value="#{ReservationBean.ini}"/>
+                            <h:outputLabel for="final" value="Hora Final: " />
+                            <h:outputLabel id="final" value="#{ReservationBean.fin}"/>
+            </h:panelGrid>
 
-<!--        </p:dialog>-->
+        </p:dialog>
 
     <p:dialog widgetVar="eventDialog" header="Reservar Recurso" showEffect="clip" hideEffect="clip" modal="true">
 
       <h:panelGrid id="eventDetails" columns="2">
-
 
         <p:outputLabel for="inicio" value="Fecha Inicio:"/>
         <p:selectOneMenu  id="inicio" binding="#{initHour}">
@@ -104,18 +107,18 @@
         <p:outputLabel for="daterecurrence" value="Fecha Recurrencia:"/>
         <p:calendar id="daterecurrence" value="#{date}" pattern="dd/MM/yyyy" mindate="today" maxdate="20/05/2022"/>
 
-        <h:commandButton value="Reservar" type="submit" actionListener="#{ReserveBean.checkReserve(initHour.value,finalHour.value,recurrence.value,date)}"
+      </h:panelGrid>
+        <h:commandButton value="Reservar" type="submit" actionListener="#{ReserveBean.checkReserve(ReservationBean.currentDay,initHour.value,finalHour.value,recurrence.value,date)}"
                          oncomplete="PF('myschedule').update();PF('eventDialog').hide();">
             <f:param name="recurso" value="#{param['recurso']}"/>
         </h:commandButton>
+
         <p:confirmDialog widgetVar="warningManyDialog"  message="#{ReserveBean.manyMessage}">
           <p:commandButton value="Confirmar" oncomplete="PF('warningManyDialog').hide();"
-                           action="#{ReserveBean.reserve(initHour.value,finalHour.value,recurrence.value,date)}" />
+                           action="#{ReserveBean.reserve(ReservationBean.currentDay,initHour.value,finalHour.value,recurrence.value,date)}" />
           <p:commandButton value="Cancelar"   onclick="PF('warningManyDialog').hide();"/>
         </p:confirmDialog>
 
-
-      </h:panelGrid>
 
     </p:dialog>
 
