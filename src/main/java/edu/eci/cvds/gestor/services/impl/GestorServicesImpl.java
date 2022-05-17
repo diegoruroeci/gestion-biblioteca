@@ -157,5 +157,14 @@ public class GestorServicesImpl implements GestorServices {
             throw new ServicesException(persistenceException.getMessage());
         }
     }
+
+    @Override
+    public List<Reservation> consultarRecursosMasUsados() throws ServicesException {
+        try {
+            return reservationDAO.recursosMasUsados();
+        } catch (PersistenceException e) {
+            throw new ServicesException(e.getMessage());
+        }
+    }
 }
 

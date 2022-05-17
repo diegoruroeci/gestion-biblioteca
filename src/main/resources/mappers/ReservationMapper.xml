@@ -192,6 +192,17 @@
 
     </select>
 
+    <select id="recursosMasUsados" resultMap="ReservationResult">
+        SELECT
+        re.nombre as re_nombre,
+        COUNT(re.id_recurso) AS cantidad
+        FROM reservas r
+        JOIN recursos re on r.recurso = re.id_recurso
+        GROUP BY re.nombre
+        ORDER BY cantidad desc
+        FETCH FIRST 3 ROWS ONLY
+    </select>
+
     <resultMap type='Reservation' id='ReservationResult'>
         <id property='id' column='id_reserva'/>
         <result property='date' column='fecha'/>
@@ -200,6 +211,7 @@
         <result property='status' column='estado'/>
         <result property='recurrence' column='recurrencia'/>
         <result property='recurrenceTime' column='fecharecurrencia'/>
+        <result property="amount" column="cantidad"/>
         <association property="resources" javaType="Resource" resultMap="edu.eci.cvds.gestor.persistence.mybatis.mappers.ResourceMapper.ResourceResult" columnPrefix="re_"/>
         <association property="Uname" javaType="User" resultMap="edu.eci.cvds.gestor.persistence.mybatis.mappers.UserMapper.UserResult" columnPrefix="u_"/>
     </resultMap>
