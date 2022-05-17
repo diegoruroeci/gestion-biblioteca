@@ -1,5 +1,7 @@
 package edu.eci.cvds.gestor.services;
 
+import edu.eci.cvds.gestor.entities.Reservation;
+
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.time.LocalDate;
@@ -15,4 +17,10 @@ public interface ReserveServices {
     public boolean checkIfCanReserve(Timestamp initHour, Timestamp finalHour, int resource);
 
     public boolean checkIfCanReserve(String date,String initHour, String finalHour, int resource) throws ParseException;
+
+    public void cancelReserve(Reservation reservation, java.sql.Date date);
+
+    public void cancelManyReservations(java.sql.Date date, Timestamp initHour, Timestamp finalHour, int resource, int carnet, java.sql.Date recurrenceDate, int days);
+
+    public void cancelMonthlyReservations(java.sql.Date date, Timestamp initHour, Timestamp finalHour, int resource, int carnet, java.sql.Date recurrenceDate);
 }

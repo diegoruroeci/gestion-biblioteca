@@ -42,5 +42,9 @@ public interface GestorServices {
 
     public abstract void setResources(List<Resource> resources);
 
+    public abstract List<Reservation> getReservationList();
+
+    public abstract void setReservationList(List<Reservation> reservationList);
+
     public User consultUser(String email) throws ServicesException;
 }

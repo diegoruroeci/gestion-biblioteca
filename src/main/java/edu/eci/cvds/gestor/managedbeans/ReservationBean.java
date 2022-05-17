@@ -5,9 +5,7 @@ import edu.eci.cvds.gestor.entities.Reservation;
 
 import edu.eci.cvds.gestor.entities.Resource;
 import edu.eci.cvds.gestor.entities.User;
-import edu.eci.cvds.gestor.services.GestorServices;
-import edu.eci.cvds.gestor.services.ServicesException;
-import edu.eci.cvds.gestor.services.UserServices;
+import edu.eci.cvds.gestor.services.*;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ApplicationScoped;
@@ -50,6 +48,11 @@ public class ReservationBean extends BasePageBean{
     @Inject
     private UserServices userServices;
 
+    @Inject
+    private ReserveServices reserveServices;
+
+    private int rowIndex;
+
     public List<Reservation> getReservations() {
         return gestorServices.consultReservations();
     }
@@ -59,6 +62,16 @@ public class ReservationBean extends BasePageBean{
             return gestorServices.consultReservationsActive();
         }else {
             return gestorServices.consultReservationsUser(email);
+        }
+    }
+
+    public void showDialog(int rowIndex){
+        this.rowIndex=rowIndex;
+        Reservation reservation = getReservationByRowIndex(rowIndex);
+        if (reservation.getRecurrence()!= RecurrenceOptions.ONE_TIME.toString()){
+            PrimeFaces.current().executeScript("PF('recurrenceDialog').show();");
+        }else {
+            PrimeFaces.current().executeScript("PF('confirmDialog').show();");
         }
     }
 
@@ -78,6 +91,18 @@ public class ReservationBean extends BasePageBean{
         }
     }
 
+    public void cancelReservation(){
+        Reservation reservation = getReservationByRowIndex(rowIndex);
+        reserveServices.cancelReserve(reservation,reservation.getDate());
+    }
+
+    public void cancelReservationSinceDate(java.util.Date date){
+        System.out.println(date);
+        System.out.println(rowIndex);
+        Reservation reservation = getReservationByRowIndex(rowIndex);
+    }
+
+
     public Timestamp getStartHour() {
         return startHour;
     }
@@ -94,7 +119,9 @@ public class ReservationBean extends BasePageBean{
         return recurrenceTime;
     }
 
-
+    private Reservation getReservationByRowIndex(int rowIndex){
+        return gestorServices.getReservationList().get(rowIndex);
+    }
 
     //Schedule
 

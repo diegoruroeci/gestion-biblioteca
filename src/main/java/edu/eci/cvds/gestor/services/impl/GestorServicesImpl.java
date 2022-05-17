@@ -31,6 +31,8 @@ public class GestorServicesImpl implements GestorServices {
 
     private List<Resource> resources;
 
+    private List<Reservation> reservationList;
+
     @Override
     public List<Resource> consultResources() throws PersistenceException {
         try{
@@ -62,7 +64,8 @@ public class GestorServicesImpl implements GestorServices {
     @Override
     public List<Reservation> consultReservationsUser(String email) throws PersistenceException {
         try{
-            return reservationDAO.consultReservationsUser(email);
+            setReservationList(reservationDAO.consultReservationsUser(email));
+            return getReservationList();
         }catch (PersistenceException e) {
             throw new PersistenceException(e.getMessage());
         }
@@ -156,6 +159,15 @@ public class GestorServicesImpl implements GestorServices {
         }catch (PersistenceException persistenceException){
             throw new ServicesException(persistenceException.getMessage());
         }
+    }
+
+    @Override
+    public List<Reservation> getReservationList() {
+        return reservationList;
+    }
+
+    public void setReservationList(List<Reservation> reservationList) {
+        this.reservationList = reservationList;
     }
 }
 

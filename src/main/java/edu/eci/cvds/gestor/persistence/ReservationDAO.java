@@ -30,4 +30,6 @@ public interface ReservationDAO {
     public List<Reservation> consultReservationsCancelled() throws PersistenceException;
 
     public List<Reservation> consultReservationsExpired() throws PersistenceException;
+
+    public void cancelReservation(int carnet, Timestamp initHour, Timestamp finalHour, int resource);
 }

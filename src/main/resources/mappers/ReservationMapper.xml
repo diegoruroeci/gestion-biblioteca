@@ -192,6 +192,12 @@
 
     </select>
 
+    <update id="cancelReservation">
+        update reservas r
+        set estado='cancelada'
+        where r.carnet= #{carnet} and r.horaini= #{horaini} and r.horafin= #{horafin} and r.recurso= #{recurso}
+    </update>
+
     <resultMap type='Reservation' id='ReservationResult'>
         <id property='id' column='id_reserva'/>
         <result property='date' column='fecha'/>
@@ -203,5 +209,4 @@
         <association property="resources" javaType="Resource" resultMap="edu.eci.cvds.gestor.persistence.mybatis.mappers.ResourceMapper.ResourceResult" columnPrefix="re_"/>
         <association property="Uname" javaType="User" resultMap="edu.eci.cvds.gestor.persistence.mybatis.mappers.UserMapper.UserResult" columnPrefix="u_"/>
     </resultMap>
-
 </mapper>

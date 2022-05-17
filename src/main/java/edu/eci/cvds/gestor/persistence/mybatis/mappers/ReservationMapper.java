@@ -29,4 +29,6 @@ public interface ReservationMapper {
     public List<Reservation> consultReservationsExpired();
 
     public void reserveResource(@Param("fecha") java.sql.Date date, @Param("horaini") Timestamp initHour, @Param("horafin") Timestamp finalHour, @Param("recurso") int resource, @Param("carnet") int carnet, @Param("recurrencia") String recurrence, @Param("fecharecurrencia") Date recurrenceDate);
+
+    public void cancelReservation( @Param("carnet") int carnet,@Param("horaini") Timestamp initHour,@Param("horafin") Timestamp finalHour,@Param("recurso") int resource);
 }

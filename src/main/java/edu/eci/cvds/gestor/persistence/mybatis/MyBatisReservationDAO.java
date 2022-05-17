@@ -104,4 +104,9 @@ public class MyBatisReservationDAO implements ReservationDAO {
             throw new PersistenceException(e.getMessage());
         }
     }
+
+    @Override
+    public void cancelReservation(int carnet, Timestamp initHour, Timestamp finalHour, int resource) {
+        reservationMapper.cancelReservation(carnet,initHour,finalHour,resource);
+    }
 }

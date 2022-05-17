@@ -64,7 +64,8 @@
                          paginatorTemplate="{CurrentPageReport}"
                          currentPageReportTemplate="{totalRecords} reservas"
                          widgetVar="reserveTable"
-                         emptyMessage="No existen datos con esa busqueda">
+                         emptyMessage="No existen datos con esa busqueda"
+                         rowIndexVar="rowIndex">
                 <p:column style="width:1rem">
                     <p:rowToggler/>
                 </p:column>
@@ -113,13 +114,39 @@
                             <div><span>#{reservations.getResources().getLocation()}</span></div>
                         </div>
                         <div class="info">
-                            <p:commandButton value="Cancelar" type="button">
-                            </p:commandButton>
+                            <h:commandButton value="Cancelar" type="submit" actionListener="#{ReservationBean.showDialog(rowIndex)}">
+                            </h:commandButton>
                         </div>
                     </div>
                     </center>
                 </p:rowExpansion>
             </p:dataTable>
+            <p:confirmDialog widgetVar="recurrenceDialog"  message="Como deseas cancelar tu reserva recurrente?">
+                <p:commandButton value="Cancelacion completa" oncomplete="PF('recurrenceDialog').hide();PF('confirmDialog').show();"
+                                 action="PF('confirmDialog').show();" />
+                <p:commandButton value="Cancelar desde fecha" oncomplete="PF('recurrenceDialog').hide();PF('cancelSinceDialog').show();" />
+                <p:commandButton value="Cancelar una sola reservacion" oncomplete="PF('recurrenceDialog').hide();PF('cancelSinceDialog').show();" />
+                <p:commandButton value="Ya no voy a cancelar" onclick="PF('recurrenceDialog').hide();"/>
+            </p:confirmDialog>
+            <p:confirmDialog widgetVar="confirmDialog"  message="Estas seguro de cancelar tu reservacion?">
+                <p:commandButton value="Si" oncomplete="PF('confirmDialog').hide();" actionListener="#{ReservationBean.cancelReservation()}"/>
+                <p:commandButton value="No" oncomplete="PF('confirmDialog').hide();" />
+            </p:confirmDialog>
+            <p:dialog widgetVar="cancelSinceDialog" header="Cancelar reserva desde" showEffect="clip" hideEffect="clip" modal="true">
+
+                <h:panelGrid id="eventDetails" columns="2">
+
+                    <p:outputLabel for="daterecurrence" value="Fecha:"/>
+                    <p:calendar id="daterecurrence" value="#{date}" pattern="dd/MM/yyyy" mindate="today" maxdate="20/05/2022"/>
+
+                </h:panelGrid>
+                <h:commandButton value="realizar cancelacion" type="submit" actionListener="#{ReservationBean.cancelReservationSinceDate(date)}"
+                                 oncomplete="PF('cancelSinceDialog').hide();">
+                </h:commandButton>
+                <h:commandButton value="ya no voy a cancelar" type="submit" oncomplete="PF('cancelSinceDialog').hide();">
+                </h:commandButton>
+
+            </p:dialog>
         </h:form>
     </h:body>
 </html>

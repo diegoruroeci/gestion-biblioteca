@@ -1,6 +1,7 @@
 package edu.eci.cvds.gestor.services.impl;
 
 import com.google.inject.Inject;
+import edu.eci.cvds.gestor.entities.Reservation;
 import edu.eci.cvds.gestor.entities.Resource;
 import edu.eci.cvds.gestor.persistence.ReservationDAO;
 import edu.eci.cvds.gestor.services.GestorServices;
@@ -156,6 +157,47 @@ public class ReserveServicesImpl implements ReserveServices {
             return true;
         }else {
             return false;
+        }
+    }
+
+    @Override
+    public void cancelReserve(Reservation reservation, java.sql.Date date) {
+        switch (reservation.getRecurrence()){
+            case "DAILY":
+                System.out.println("cancelacion diaria");
+                //cancelManyReservations(date,reservation.getStartHour(),reservation.getFinishHour(),reservation.getResource(),reservation.getLicense(),reservation.getRecurrenceTime(),1);
+                break;
+            case "MONTHLY":
+                System.out.println("cancelacion mensual");
+                //cancelManyReservations(date,reservation.getStartHour(),reservation.getFinishHour(),reservation.getResource(),reservation.getLicense(),reservation.getRecurrenceTime());
+                break;
+            case "WEEKLY":
+                System.out.println("cancelacion semanal");
+                //cancelManyReservations(date,reservation.getStartHour(),reservation.getFinishHour(),reservation.getResource(),reservation.getLicense(),reservation.getRecurrenceTime(),7);
+                break;
+            case "ONE_TIME":
+                System.out.println("unica cancelacion");
+                //reservationDAO.cancelReservation(reservation.getLicense(),reservation.getStartHour(),reservation.getFinishHour(),reservation.getResource());
+                break;
+        }
+    }
+
+    @Override
+    public void cancelManyReservations(java.sql.Date date, Timestamp initHour, Timestamp finalHour, int resource, int carnet, java.sql.Date recurrenceDate, int days){
+        LocalDate dateLocal=date.toLocalDate();
+        for (LocalDate currentDate = dateLocal; currentDate.isBefore(recurrenceDate.toLocalDate().plusDays(1)); currentDate=currentDate.plusDays(days)) {
+            if (currentDate.getDayOfWeek()!= DayOfWeek.SUNDAY){
+                reservationDAO.cancelReservation(carnet,initHour,finalHour,resource);
+            }
+        }
+    }
+    @Override
+    public void cancelMonthlyReservations(java.sql.Date date, Timestamp initHour, Timestamp finalHour, int resource, int carnet, java.sql.Date recurrenceDate){
+        LocalDate dateLocal=date.toLocalDate();
+        for (LocalDate currentDate = dateLocal; currentDate.isBefore(recurrenceDate.toLocalDate().plusDays(1)); currentDate=currentDate.plusMonths(1)) {
+            if (currentDate.getDayOfWeek()!= DayOfWeek.SUNDAY){
+                reservationDAO.cancelReservation(carnet,initHour,finalHour,resource);
+            }
         }
     }
 }
