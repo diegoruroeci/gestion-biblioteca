@@ -202,4 +202,14 @@ public class ReservationBean extends BasePageBean{
         }
         return recurso;
     }
+
+    public List<Reservation> consultarReservaPorCarrera() {
+        List<Reservation> recurso = new ArrayList<>();
+        try {
+            recurso = gestorServices.consultarReservaPorCarrera();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return recurso;
+    }
 }

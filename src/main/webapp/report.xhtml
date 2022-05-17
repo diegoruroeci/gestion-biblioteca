@@ -63,6 +63,27 @@
             </tbody>
         </table>
     </div>
+    <br/>
+    <h2>Reservas por carrera</h2>
+    <div><p:chart type="bar" model="#{recursosPorCarrera.grafico}"/></div>
+    <div>
+        <table id="recursosPorCarrera" class="display table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>Carrera</th>
+                <th>Cantidad de reservas</th>
+            </tr>
+            </thead>
+            <tbody>
+            <ui:repeat var="reserva" value="#{ReservationBean.consultarReservaPorCarrera()}">
+                <tr>
+                    <td>#{reserva.getUname().getCareer()}</td>
+                    <td>#{reserva.amount}</td>
+                </tr>
+            </ui:repeat>
+            </tbody>
+        </table>
+    </div>
 
 </h:body>
 </html>

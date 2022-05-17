@@ -13,6 +13,8 @@ public interface ReservationMapper {
 
     public List<Reservation> recursosMenosUsados();
 
+    public List<Reservation> reservaPorCarrera();
+
     public List<Reservation> consultReservations();
 
     public List<Reservation> consultReservation(@Param("id") int id);

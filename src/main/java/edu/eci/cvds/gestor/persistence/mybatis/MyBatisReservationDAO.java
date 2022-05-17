@@ -124,4 +124,14 @@ public class MyBatisReservationDAO implements ReservationDAO {
             throw new PersistenceException(e.getMessage());
         }
     }
+
+    @Override
+    public List<Reservation> reservaPorCarrera() throws PersistenceException {
+        try{
+            return reservationMapper.reservaPorCarrera();
+        }
+        catch(PersistenceException e) {
+            throw new PersistenceException(e.getMessage());
+        }
+    }
 }
