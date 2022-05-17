@@ -49,9 +49,10 @@
         <h1 style="background-color:#ED7D31; width:500px">Recursos Biblioteca</h1>
         <h2 style="background-color:#ED7D31; width:400px"><h:outputText rendered="#{LoginBean.showReserve}" value="#{LoginBean.consultUser(LoginBean.email).getName()}"/></h2>
     </center>
-        <p:button value="Nuevo recurso" icon="pi pi-plus" rendered="#{ResourceBean.showNew}" style="margin-right: .5rem" outcome="/gestor/registerResource.xhtml"/>
+        <p:button value="Nuevo recurso" rendered="#{ResourceBean.showNew}" style="margin-right: .5rem" outcome="/gestor/registerResource.xhtml"/>
         <p:commandButton rendered="#{LoginBean.showReserve}" value="#{LoginBean.textReserve()}" style="margin-right: .5rem" actionListener="#{LoginBean.actionReserve()}"/>
-    <p:dataTable id="resource_table" var="resources" value="#{ResourceBean.resources}"  rowIndexVar="rowIndex"
+        <p:button value="Reportes" rendered="#{ResourceBean.showNew}" style="margin-right: .5rem" outcome="/gestor/report.xhtml"/>
+        <p:dataTable id="resource_table" var="resources" value="#{ResourceBean.resources}"  rowIndexVar="rowIndex"
                  paginator="true" scrollable="true" scrollHeight="500"
                  paginatorTemplate="{CurrentPageReport}"
                  currentPageReportTemplate="{totalRecords} recursos"

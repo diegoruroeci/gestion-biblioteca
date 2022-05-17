@@ -32,4 +32,6 @@ public interface ReservationDAO {
     public List<Reservation> consultReservationsExpired() throws PersistenceException;
 
     public List<Reservation> recursosMasUsados() throws PersistenceException;
+
+    public List<Reservation> recursosMenosUsados() throws PersistenceException;
 }

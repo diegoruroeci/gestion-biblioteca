@@ -21,6 +21,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.primefaces.PrimeFaces;
@@ -180,5 +181,25 @@ public class ReservationBean extends BasePageBean{
 
     public String getCurrentDay() {
         return currentDay;
+    }
+
+    public List<Reservation> consultarRecursosMasUsados() {
+        List<Reservation> recurso = new ArrayList<>();
+        try {
+            recurso = gestorServices.consultarRecursosMasUsados();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return recurso;
+    }
+
+    public List<Reservation> consultarRecursosMenosUsados() {
+        List<Reservation> recurso = new ArrayList<>();
+        try {
+            recurso = gestorServices.consultarRecursosMenosUsados();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return recurso;
     }
 }
