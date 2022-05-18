@@ -102,7 +102,8 @@ public class GestorServicesImpl implements GestorServices {
     @Override
     public List<Reservation> consultReservationsActive() throws PersistenceException {
         try{
-            return reservationDAO.consultReservationsActive();
+            setReservationList(reservationDAO.consultReservationsActive());
+            return getReservationList();
         }catch (PersistenceException e) {
             throw new PersistenceException(e.getMessage());
         }

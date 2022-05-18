@@ -12,6 +12,7 @@ import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -91,20 +92,23 @@ public class ReservationBean extends BasePageBean{
         }
     }
 
-    public void cancelOneReservation(){
+    public void cancelOneReservation() throws IOException {
         Reservation reservation = getReservationByRowIndex(rowIndex);
         reserveServices.cancelOneReservation(reservation);
+        FacesContext.getCurrentInstance().getExternalContext().redirect("/gestor/reservation.xhtml");
     }
 
-    public void cancelReservation(){
+    public void cancelReservation() throws IOException {
         Reservation reservation = getReservationByRowIndex(rowIndex);
         reserveServices.cancelReserve(reservation,null);
+        FacesContext.getCurrentInstance().getExternalContext().redirect("/gestor/reservation.xhtml");
     }
 
-    public void cancelReservationSinceDate(java.util.Date date){
+    public void cancelReservationSinceDate(java.util.Date date) throws IOException {
         Reservation reservation = getReservationByRowIndex(rowIndex);
         Date date1 = new Date(date.getTime());
         reserveServices.cancelReserve(reservation,date1);
+        FacesContext.getCurrentInstance().getExternalContext().redirect("/gestor/reservation.xhtml");
     }
 
 

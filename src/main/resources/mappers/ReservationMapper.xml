@@ -32,7 +32,10 @@
         r.horafin,
         r.estado,
         r.recurrencia,
-        r.fecharecurrencia
+        r.fecharecurrencia,
+        r.recurso,
+        r.carnet,
+        r.id_reserva
 
         From usuarios u
         JOIN reservas r ON r.carnet = u.carnet
