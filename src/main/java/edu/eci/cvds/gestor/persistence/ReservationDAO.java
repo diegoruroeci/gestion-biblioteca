@@ -45,4 +45,6 @@ public interface ReservationDAO {
 
     public List<Reservation> horarioMenorOcupacion() throws PersistenceException;
 
+    public int getReserva() throws PersistenceException;
+
 }

@@ -57,4 +57,6 @@ public interface GestorServices {
     public abstract List<Reservation> consultarHorarioMayorOcupacion() throws ServicesException;
 
     public abstract List<Reservation> consultarHorarioMenorOcupacion() throws ServicesException;
+
+    public abstract int getReserva() throws ServicesException;
 }

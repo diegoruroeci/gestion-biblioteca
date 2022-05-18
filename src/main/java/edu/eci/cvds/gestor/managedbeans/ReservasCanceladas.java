@@ -74,7 +74,7 @@ public class ReservasCanceladas extends BasePageBean{
 
     private void createBarModel() {
         grafico = initBarModel();
-        grafico.setTitle("Reservas Recurrentes");
+        grafico.setTitle("Reservas Canceladas");
         grafico.setLegendPosition("ne");
 
         Axis xAxis = grafico.getAxis(AxisType.X);

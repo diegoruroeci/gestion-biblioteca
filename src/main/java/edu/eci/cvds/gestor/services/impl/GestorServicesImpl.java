@@ -220,5 +220,14 @@ public class GestorServicesImpl implements GestorServices {
             throw new ServicesException(e.getMessage());
         }
     }
+
+    @Override
+    public int getReserva() throws ServicesException {
+        try {
+            return reservationDAO.getReserva();
+        } catch (PersistenceException e) {
+            throw new ServicesException(e.getMessage());
+        }
+    }
 }
 

@@ -6,6 +6,7 @@
       xmlns:p="http://primefaces.org/ui">
 
 <h:head>
+  <link rel = "icon" href ="https://observatics.edu.co/wp-content/uploads/sites/20/2019/06/Logo-Escuela-ingenier%C3%ADa.png"/>
   <title>Recursos</title>
   <style type="text/css">
     body {
@@ -47,6 +48,8 @@
             <h:panelGrid id="eventDetails1" border="1" columns="2" styleClass="table-style">
                 <h:outputLabel for="id" value="Id Recurso: " />
                 <h:outputLabel id="id" value="#{ReservationBean.eventId}"/>
+                <h:outputLabel for="nombreu" value="Usuario Responsable: " />
+                <h:outputLabel id="nombreu" value="#{ReservationBean.nombre}"/>
                 <h:outputLabel for="inicial" value="Hora Inicial: " />
                 <h:outputLabel id="inicial" value="#{ReservationBean.ini}"/>
                 <h:outputLabel for="final" value="Hora Final: " />
@@ -60,7 +63,7 @@
       <h:panelGrid id="eventDetails" columns="2">
 
         <p:outputLabel for="inicio" value="Fecha Inicio:"/>
-        <p:selectOneMenu  id="inicio" binding="#{initHour}">
+        <p:selectOneMenu  id="inicio" binding="#{initHour}" required="true">
           <f:selectItem itemLabel="Seleccione" itemValue=""/>
           <f:selectItem itemLabel="7:00" itemValue="7:00"/>
           <f:selectItem itemLabel="8:00" itemValue="8:00"/>
@@ -78,7 +81,7 @@
         </p:selectOneMenu>
 
         <p:outputLabel for="fin" value="Fecha Fin:"/>
-        <p:selectOneMenu  id="fin" binding="#{finalHour}">
+        <p:selectOneMenu  id="fin" binding="#{finalHour}" required="true">
           <f:selectItem itemLabel="Seleccione" itemValue=""/>
           <f:selectItem itemLabel="7:00" itemValue="7:00"/>
           <f:selectItem itemLabel="8:00" itemValue="8:00"/>
@@ -96,7 +99,7 @@
         </p:selectOneMenu>
 
         <p:outputLabel for="recurrence" value="Tipo de Recurrencia:"/>
-        <p:selectOneMenu  id="recurrence" binding="#{recurrence}">
+        <p:selectOneMenu  id="recurrence" binding="#{recurrence}" required="true">
           <f:selectItem itemLabel="Seleccione" itemValue=""/>
           <f:selectItem itemLabel="Diaria" itemValue="diaria"/>
           <f:selectItem itemLabel="Semanal" itemValue="semanal"/>
@@ -104,7 +107,7 @@
           <f:selectItem itemLabel="Una sola vez" itemValue="oneTime"/>
         </p:selectOneMenu>
         <p:outputLabel for="daterecurrence" value="Fecha Recurrencia:"/>
-        <p:calendar id="daterecurrence" value="#{date}" pattern="dd/MM/yyyy" mindate="today" maxdate="20/05/2022"/>
+        <p:calendar id="daterecurrence" value="#{date}" pattern="dd/MM/yyyy" mindate="today" maxdate="20/05/2022" required="true"/>
 
       </h:panelGrid>
         <h:commandButton value="Reservar" type="submit" actionListener="#{ReserveBean.checkReserve(ReservationBean.currentDay,initHour.value,finalHour.value,recurrence.value,date)}"

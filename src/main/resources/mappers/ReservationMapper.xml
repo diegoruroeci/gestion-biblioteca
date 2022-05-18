@@ -181,14 +181,16 @@
 
     <select parameterType="map" id="consultReservation" resultMap="ReservationResult">
         select
+        u.nombre as u_nombre,
         r.horaini,
         r.horafin,
         r.recurrencia
 
         From reservas r
         JOIN recursos re ON re.id_recurso = r.recurso
+        JOIN usuarios u ON u.carnet = r.carnet
 
-        WHERE re.id_recurso = #{id}
+        WHERE re.id_recurso = #{id} and r.estado= 'activa'
 
     </select>
 
@@ -255,6 +257,12 @@
         GROUP BY r.horaini,r.horafin
         ORDER BY cantidad  desc
         FETCH FIRST 4 ROWS ONLY
+    </select>
+
+    <select id="getReserva" resultMap="ReservationResult">
+        SELECT
+        r.id_reserva
+        FROM reservas r
     </select>
 
     <select id="horarioMenorOcupacion" resultMap="ReservationResult">

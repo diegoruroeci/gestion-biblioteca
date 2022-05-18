@@ -11,6 +11,8 @@ public interface ReservationMapper {
 
     public List<Reservation> recursosMasUsados();
 
+    public int getReserva();
+
     public List<Reservation> reservasCanceladas();
 
     public List<Reservation> horarioMayorOcupacion();

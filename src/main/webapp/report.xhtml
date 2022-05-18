@@ -6,6 +6,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
     <title>Reportes</title>
+    <link rel = "icon" href ="https://observatics.edu.co/wp-content/uploads/sites/20/2019/06/Logo-Escuela-ingenier%C3%ADa.png"/>
     <style type="text/css">
         body {
             background-image:url('https://cdn.discordapp.com/attachments/771508386452734003/963929999612739604/bloquea.jpg');
@@ -14,15 +15,15 @@
         }
 
         tbody tr:nth-child(odd) {
-          background-color: #ff33cc;
+          background-color: #E8A58E;
         }
 
         tbody tr:nth-child(even) {
-          background-color: #e495e4;
+          background-color: #E99071;
         }
 
         tbody tr {
-          background-color: #ff33cc;
+          background-color: #ED7D31;
         }
 
         th, td {
@@ -35,7 +36,7 @@
           table-layout: fixed;
           border-collapse: collapse;
           border: 3px solid #000;
-          background-color: #ff33cc;
+          background-color: #ED7D31;
         }
 
     </style>
@@ -43,8 +44,8 @@
 <p:button value="Atras" outcome="resource"/>
 <h:body>
     <h:form>
-    <center><h1> Reportes </h1></center>
-    <h2>Recursos Mas Usados</h2>
+    <center><h1 style="background-color:#ED7D31; width:300px"> Reportes </h1></center>
+    <h2 style="background-color:#ED7D31; width:300px">Recursos Mas Usados</h2>
     <br/>
     <div><p:chart type="bar" model="#{recursosMasUsados.grafico}"/></div>
     <div>
@@ -79,7 +80,7 @@
 <!--        </p:commandButton>-->
     </div>
     <br/>
-    <h2>Recursos Menos Usados</h2>
+    <h2 style="background-color:#ED7D31; width:300px">Recursos Menos Usados</h2>
     <div><p:chart type="bar" model="#{recursosMenosUsados.grafico}"/></div>
     <div>
         <table id="recursosMenosUsados" class="display table table-bordered table-striped">
@@ -100,7 +101,7 @@
         </table>
     </div>
     <br/>
-    <h2>Reservas por carrera</h2>
+    <h2 style="background-color:#ED7D31; width:300px">Reservas por carrera</h2>
     <div><p:chart type="bar" model="#{recursosPorCarrera.grafico}"/></div>
     <div>
         <table id="recursosPorCarrera" class="display table table-bordered table-striped">
@@ -122,7 +123,7 @@
     </div>
 
     <br/>
-    <h2>Reservas Recurrentes</h2>
+    <h2 style="background-color:#ED7D31; width:300px">Reservas Recurrentes</h2>
     <div><p:chart type="bar" model="#{reservasRecurrentes.grafico}"/></div>
     <div>
         <table id="reservasRecurrentes" class="display table table-bordered table-striped">
@@ -144,7 +145,7 @@
     </div>
 
     <br/>
-    <h2>Reservas Canceladas</h2>
+    <h2 style="background-color:#ED7D31; width:300px">Reservas Canceladas</h2>
     <div><p:chart type="bar" model="#{reservasCanceladas.grafico}"/></div>
     <div>
         <table id="reservasCanceladas" class="display table table-bordered table-striped">
@@ -166,7 +167,7 @@
     </div>
 
     <br/>
-    <h2>Horarios con mayor ocupacion</h2>
+    <h2 style="background-color:#ED7D31; width:300px">Horarios con mayor ocupacion</h2>
     <div>
         <table id="horarioMayorOcupacion" class="display table table-bordered table-striped">
             <thead>
@@ -189,7 +190,7 @@
     </div>
 
     <br/>
-    <h2>Horarios con menor ocupacion</h2>
+    <h2 style="background-color:#ED7D31; width:300px">Horarios con menor ocupacion</h2>
     <div>
         <table id="horarioMenorOcupacion" class="display table table-bordered table-striped">
             <thead>

@@ -111,16 +111,18 @@ public class ReservationBean extends BasePageBean{
     private java.util.Date fin;
 
     private String currentDay;
+    private String nombre;
 
     public void loadEvents(int recurso) {
         eventModel = new DefaultScheduleModel();
         List<Reservation> horarios = gestorServices.consultReservation(recurso);
         for (Reservation r : horarios){
-            event = new DefaultScheduleEvent("Reservado", r.getStartHour(), r.getFinishHour());
+            this.event = new DefaultScheduleEvent("Reservado", r.getStartHour(), r.getFinishHour());
             eventModel.addEvent(event);
             eventId = recurso;
-            ini = r.getStartHour();
-            fin = r.getFinishHour();
+            this.ini = r.getStartHour();
+            this.fin = r.getFinishHour();
+            this.nombre = r.getUname().getName();
 //            event.setId(String.valueOf(r.getId()));
         }
     }
@@ -163,6 +165,10 @@ public class ReservationBean extends BasePageBean{
 
     public int getEventId() {
         return eventId;
+    }
+
+    public String getNombre() {
+        return nombre;
     }
 
     public java.util.Date getIni() {
