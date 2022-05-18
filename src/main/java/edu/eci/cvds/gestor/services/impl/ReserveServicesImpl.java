@@ -36,7 +36,8 @@ public class ReserveServicesImpl implements ReserveServices {
                 java.sql.Date recurrenceDateSql = new java.sql.Date(recurrenceDate.getTime());
                 createReservations(dateSql,initHour,finalHour,resource,carnet,recurrence,recurrenceDateSql,status);
             }else {
-                reservationDAO.reserveResource(dateSql,initTimeStamp,finalTimeStamp,resource,carnet,recurrence,dateSql,status);
+                Timestamp today = new Timestamp(System.currentTimeMillis());
+                reservationDAO.reserveResource(today,initTimeStamp,finalTimeStamp,resource,carnet,recurrence,dateSql,status);
             }
         }catch (ParseException parseException){
             throw new ServicesException("La cadena no parece una fecha", parseException);
@@ -103,37 +104,38 @@ public class ReserveServicesImpl implements ReserveServices {
 
 
     private void createReservations(java.sql.Date date, String initHour, String finalHour, int resource, int carnet, RecurrenceOptions recurrence, java.sql.Date recurrenceDate,String status) throws ParseException {
+        Timestamp today = new Timestamp(System.currentTimeMillis());
         switch (recurrence){
             case DAILY:
-                createManyReservations(date,initHour,finalHour,resource,carnet,recurrence,recurrenceDate,status,1);
+                createManyReservations(today,date,initHour,finalHour,resource,carnet,recurrence,recurrenceDate,status,1);
                 break;
             case WEEKLY:
-                createManyReservations(date,initHour,finalHour,resource,carnet,recurrence,recurrenceDate,status,7);
+                createManyReservations(today,date,initHour,finalHour,resource,carnet,recurrence,recurrenceDate,status,7);
                 break;
             case MONTHLY:
-                createMonthlyReservations(date,initHour,finalHour,resource,carnet,recurrence,recurrenceDate,status);
+                createMonthlyReservations(today,date,initHour,finalHour,resource,carnet,recurrence,recurrenceDate,status);
                 break;
         }
     }
 
-    private void createMonthlyReservations(java.sql.Date date, String initHour, String finalHour, int resource, int carnet, RecurrenceOptions recurrence, java.sql.Date recurrenceDate,String status) throws ParseException {
+    private void createMonthlyReservations(Timestamp today,java.sql.Date date, String initHour, String finalHour, int resource, int carnet, RecurrenceOptions recurrence, java.sql.Date recurrenceDate,String status) throws ParseException {
         LocalDate dateLocal=date.toLocalDate();
         for (LocalDate currentDate = dateLocal; currentDate.isBefore(recurrenceDate.toLocalDate().plusDays(1)); currentDate=currentDate.plusMonths(1)) {
             if (currentDate.getDayOfWeek()!= DayOfWeek.SUNDAY){
                 Timestamp initHourTimestamp = this.convertToTimestamp(currentDate,initHour);
                 Timestamp finalHourTimestamp = this.convertToTimestamp(currentDate,finalHour);
-                reservationDAO.reserveResource(java.sql.Date.valueOf(currentDate),initHourTimestamp,finalHourTimestamp,resource,carnet,recurrence,recurrenceDate,status);
+                reservationDAO.reserveResource(today,initHourTimestamp,finalHourTimestamp,resource,carnet,recurrence,recurrenceDate,status);
             }
         }
     }
 
-    private void createManyReservations(java.sql.Date date, String initHour, String finalHour, int resource, int carnet, RecurrenceOptions recurrence, java.sql.Date recurrenceDate,String status,int days) throws ParseException {
+    private void createManyReservations(Timestamp today,java.sql.Date date, String initHour, String finalHour, int resource, int carnet, RecurrenceOptions recurrence, java.sql.Date recurrenceDate,String status,int days) throws ParseException {
         LocalDate dateLocal=date.toLocalDate();
         for (LocalDate currentDate = dateLocal; currentDate.isBefore(recurrenceDate.toLocalDate().plusDays(1)); currentDate=currentDate.plusDays(days)) {
             if (currentDate.getDayOfWeek()!= DayOfWeek.SUNDAY){
                 Timestamp initHourTimestamp = this.convertToTimestamp(currentDate,initHour);
                 Timestamp finalHourTimestamp = this.convertToTimestamp(currentDate,finalHour);
-                reservationDAO.reserveResource(java.sql.Date.valueOf(currentDate),initHourTimestamp,finalHourTimestamp,resource,carnet,recurrence,recurrenceDate,status);
+                reservationDAO.reserveResource(today,initHourTimestamp,finalHourTimestamp,resource,carnet,recurrence,recurrenceDate,status);
             }
         }
     }
