@@ -164,7 +164,6 @@ public class ReserveServicesImpl implements ReserveServices {
 
     @Override
     public void cancelReserve(Reservation reservation, java.sql.Date date) {
-        System.out.println("entra");
         switch (reservation.getRecurrence()){
             case "DAILY":
                 cancelManyReservations(reservation.getDate(),date,reservation.getStartHour(),reservation.getFinishHour(),reservation.getResource(),reservation.getLicense(),reservation.getRecurrenceTime(),1,reservation.getRecurrence());
