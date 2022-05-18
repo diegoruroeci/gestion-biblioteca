@@ -36,7 +36,7 @@ public class LoginBean extends BasePageBean {
 
     private boolean showReserve;
 
-    private boolean backToStart;
+    private boolean showColumn;
 
     public void singIn(String email, String password) throws ServicesException, IOException {
         try {
@@ -47,7 +47,7 @@ public class LoginBean extends BasePageBean {
             }else {
                 loginServices.singIn(email, password, false);
                 this.email=email;
-                FacesContext.getCurrentInstance().getExternalContext().redirect("/gestor/resourceUser.xhtml");
+                FacesContext.getCurrentInstance().getExternalContext().redirect("/gestor/resource.xhtml");
             }
         }catch (ServicesException servicesException){
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error",servicesException.getMessage()));
@@ -79,10 +79,7 @@ public class LoginBean extends BasePageBean {
     }
 
     public void actionButton() throws IOException {
-        if(loginServices.isLoggedIn() && userServices.isAdmin()!=true){
-            loginServices.logOut();
-            FacesContext.getCurrentInstance().getExternalContext().redirect("/gestor/resourceUser.xhtml");
-        }if(loginServices.isLoggedIn() && userServices.isAdmin()){
+        if(loginServices.isLoggedIn()){
             loginServices.logOut();
             FacesContext.getCurrentInstance().getExternalContext().redirect("/gestor/resource.xhtml");
         }else{
@@ -104,14 +101,11 @@ public class LoginBean extends BasePageBean {
         return gestorServices.consultUser(email);
     }
 
-    public boolean isBackToStart() {
-        return loginServices.isLoggedIn();
-    }
-
-    public void  actionBackToStart() throws IOException {
+    public boolean isShowColumn(){
         if(loginServices.isLoggedIn() && userServices.isAdmin()){
-            FacesContext.getCurrentInstance().getExternalContext().redirect("/gestor/resource.xhtml");
+            return true;
+        }else{
+            return false;
         }
-        FacesContext.getCurrentInstance().getExternalContext().redirect("/gestor/resourceUser.xhtml");
     }
 }

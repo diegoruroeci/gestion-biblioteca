@@ -1,6 +1,7 @@
 package edu.eci.cvds.gestor.managedbeans;
 
 import com.google.inject.Inject;
+import edu.eci.cvds.gestor.entities.Reservation;
 import edu.eci.cvds.gestor.entities.Resource;
 import edu.eci.cvds.gestor.services.GestorServices;
 import edu.eci.cvds.gestor.services.UserServices;
@@ -157,6 +158,15 @@ public class ResourceBean extends BasePageBean {
     public List<Resource> getResourcesUser() {
         return gestorServices.consultResourcesUser();
     }
+
+    public List<Resource> getResourceUser(String email) {
+        if (userServices.isAdmin()){
+            return gestorServices.consultResources();
+        }else {
+            return gestorServices.consultResourcesUser();
+        }
+    }
+
 }
 
 

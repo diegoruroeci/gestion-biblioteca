@@ -49,9 +49,9 @@
         <h1 style="background-color:#ED7D31; width:500px">Recursos Biblioteca</h1>
         <h2 style="background-color:#ED7D31; width:400px"><h:outputText rendered="#{LoginBean.showReserve}" value="#{LoginBean.consultUser(LoginBean.email).getName()}"/></h2>
     </center>
-        <p:commandButton value="Nuevo recurso" icon="pi pi-plus"  style="margin-right: .5rem"  type="button" onclick="PF('dlg2').show();"/>
+        <p:commandButton rendered="#{LoginBean.isShowColumn()}" value="Nuevo recurso" icon="pi pi-plus"  style="margin-right: .5rem"  type="button" onclick="PF('dlg2').show();"/>
         <p:commandButton rendered="#{LoginBean.showReserve}" value="#{LoginBean.textReserve()}" style="margin-right: .5rem" actionListener="#{LoginBean.actionReserve()}"/>
-    <p:dataTable id="resource_table" var="resources" value="#{ResourceBean.resources}"  rowIndexVar="rowIndex"
+    <p:dataTable id="resource_table" var="resources" value="#{ResourceBean.getResourceUser(LoginBean.email)}"  rowIndexVar="rowIndex"
                  paginator="true" scrollable="true" scrollHeight="500"
                  paginatorTemplate="{CurrentPageReport}"
                  currentPageReportTemplate="{totalRecords} recursos"
@@ -75,7 +75,7 @@
         <p:column headerText="Biblioteca" class="titulo" sortBy="#{resources.location}" filterBy="#{resources.location}" filterStyle="width:100px" filterMatchMode="contains">
             <h:outputText value="#{resources.location}" class="valor"/>
         </p:column>
-        <p:column headerText="Disponible" class="titulo" sortBy="#{resources.available}"  filterStyle="width:100px" >
+        <p:column rendered="#{LoginBean.isShowColumn()}" headerText="Disponible" class="titulo" sortBy="#{resources.available}"  filterStyle="width:100px" >
             <h:outputText value="#{resources.available}" class="valor"/>
         </p:column>
         <p:column headerText="Unidades" class="titulo" sortBy="#{resources.capacity}" filterBy="#{resources.capacity}" filterStyle="width:100px" filterMatchMode="contains">
