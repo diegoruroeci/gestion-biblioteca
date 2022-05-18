@@ -28,8 +28,6 @@
         r.disponible
 
         FROM RECURSOS r
-
-        WHERE disponible = true
     </select>
 
     <insert id="registerResource" parameterType="map">

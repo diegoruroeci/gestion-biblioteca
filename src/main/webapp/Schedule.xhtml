@@ -115,9 +115,9 @@
     </p:dialog>
 
         <p:confirmDialog widgetVar="warningManyDialog"  message="#{ReserveBean.manyMessage}">
-          <p:commandButton value="Confirmar" oncomplete="PF('warningManyDialog').hide();"
+          <h:commandButton value="Confirmar" oncomplete="PF('warningManyDialog').hide();"
                            action="#{ReserveBean.reserve(ReservationBean.currentDay,initHour.value,finalHour.value,recurrence.value,date)}" />
-          <p:commandButton value="Cancelar"   onclick="PF('warningManyDialog').hide();"/>
+          <h:commandButton value="Cancelar"   onclick="PF('warningManyDialog').hide();"/>
         </p:confirmDialog>
 
   </h:form>
