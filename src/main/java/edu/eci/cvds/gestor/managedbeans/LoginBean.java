@@ -38,7 +38,7 @@ public class LoginBean extends BasePageBean {
 
     private boolean showRegister;
 
-    private boolean showInformationReserve;
+    private boolean backToStart;
 
     public void singIn(String email, String password) throws ServicesException, IOException {
         try {
@@ -81,9 +81,12 @@ public class LoginBean extends BasePageBean {
     }
 
     public void actionButton() throws IOException {
-        if(loginServices.isLoggedIn()){
+        if(loginServices.isLoggedIn() && userServices.isAdmin()!=true){
             loginServices.logOut();
             FacesContext.getCurrentInstance().getExternalContext().redirect("/gestor/resourceUser.xhtml");
+        }if(loginServices.isLoggedIn() && userServices.isAdmin()){
+            loginServices.logOut();
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/gestor/resource.xhtml");
         }else{
             FacesContext.getCurrentInstance().getExternalContext().redirect("/gestor/login.xhtml");
         }
@@ -115,15 +118,14 @@ public class LoginBean extends BasePageBean {
         }
     }
 
-    public boolean isSshowInformationReserve() {
+    public boolean isBackToStart() {
         return loginServices.isLoggedIn();
     }
 
-    public String texInfoReserve(){
-        if(loginServices.isLoggedIn() && userServices.isAdmin()!=true){
-            return "resourceUser";
-        }else{
-            return "resource";
+    public void  actionBackToStart() throws IOException {
+        if(loginServices.isLoggedIn() && userServices.isAdmin()){
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/gestor/resource.xhtml");
         }
+        FacesContext.getCurrentInstance().getExternalContext().redirect("/gestor/resourceUser.xhtml");
     }
 }

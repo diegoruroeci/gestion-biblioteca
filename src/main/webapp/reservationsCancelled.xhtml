@@ -53,7 +53,8 @@
     </style>
 </h:head>
 <h:body>
-    <p:button value="Atras" outcome="resource"/>
+<!--    <p:button value="Atras" outcome="resource"/>-->
+    <p:commandButton  rendered="#{LoginBean.backToStart}" value="Atras"  actionListener="#{LoginBean.actionBackToStart()}"/>
     <center><h1 style="background-color:#C31E1E; width:280px">Mis Reservas</h1></center>
     <h:form>
         <p:button value="Reservas Activas"  outcome ="reservation"/>
