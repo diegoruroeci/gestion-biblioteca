@@ -27,7 +27,21 @@
         r.descripcion,
         r.disponible
 
-        FROM RECURSOS r
+        FROM RECURSOS r;
+    </select>
+
+    <select parameterType="map" id="consultResourcesUser" resultMap="ResourceResult">
+        select
+        r.id_recurso,
+        r.nombre,
+        r.ubicacion,
+        r.tipo,
+        r.capacidad,
+        r.id_interno,
+        r.descripcion,
+        r.disponible
+
+        FROM RECURSOS r  where r.disponible=true;
     </select>
 
     <insert id="registerResource" parameterType="map">

@@ -49,7 +49,7 @@
         <h1 style="background-color:#ED7D31; width:500px">Recursos Biblioteca</h1>
         <h2 style="background-color:#ED7D31; width:400px"><h:outputText rendered="#{LoginBean.showReserve}" value="#{LoginBean.consultUser(LoginBean.email).getName()}"/></h2>
     </center>
-        <p:commandButton rendered="#{LoginBean.showRegister}" value="#{LoginBean.textRegister()}" icon="pi pi-plus"  style="margin-right: .5rem"  type="button" onclick="PF('dlg2').show();"/>
+        <p:commandButton value="Nuevo recurso" icon="pi pi-plus"  style="margin-right: .5rem"  type="button" onclick="PF('dlg2').show();"/>
         <p:commandButton rendered="#{LoginBean.showReserve}" value="#{LoginBean.textReserve()}" style="margin-right: .5rem" actionListener="#{LoginBean.actionReserve()}"/>
     <p:dataTable id="resource_table" var="resources" value="#{ResourceBean.resources}"  rowIndexVar="rowIndex"
                  paginator="true" scrollable="true" scrollHeight="500"
@@ -75,11 +75,14 @@
         <p:column headerText="Biblioteca" class="titulo" sortBy="#{resources.location}" filterBy="#{resources.location}" filterStyle="width:100px" filterMatchMode="contains">
             <h:outputText value="#{resources.location}" class="valor"/>
         </p:column>
+        <p:column headerText="Disponible" class="titulo" sortBy="#{resources.available}"  filterStyle="width:100px" >
+            <h:outputText value="#{resources.available}" class="valor"/>
+        </p:column>
         <p:column headerText="Unidades" class="titulo" sortBy="#{resources.capacity}" filterBy="#{resources.capacity}" filterStyle="width:100px" filterMatchMode="contains">
             <h:outputText value="#{resources.capacity}" class="valor"/>
         </p:column>
         <p:column headerText="Reservar" class="titulo">
-            <p:button outcome="reserve?recurso=#{rowIndex}" value="Ver horarios" class="boton" />
+            <p:button outcome="Schedule?recurso=#{rowIndex}" value="Ver horarios" class="boton" />
         </p:column>
     </p:dataTable>
     </h:form>

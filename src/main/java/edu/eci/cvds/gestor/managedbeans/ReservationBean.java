@@ -16,6 +16,11 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAccessor;
 import java.util.List;
 
 import org.primefaces.PrimeFaces;
@@ -101,13 +106,21 @@ public class ReservationBean extends BasePageBean{
 
     private int eventId;
 
-    public void loadEvents() {
+    private java.util.Date ini;
+    private java.util.Date fin;
+
+    private String currentDay;
+
+    public void loadEvents(int recurso) {
         eventModel = new DefaultScheduleModel();
-        List<Reservation> horarios = gestorServices.consultReservation(1);
+        List<Reservation> horarios = gestorServices.consultReservation(recurso);
         for (Reservation r : horarios){
-            event = new DefaultScheduleEvent("2" + " - " + "2", r.getStartHour(), r.getFinishHour());
+            event = new DefaultScheduleEvent("Reservado", r.getStartHour(), r.getFinishHour());
             eventModel.addEvent(event);
-            event.setId(String.valueOf(r.getId()));
+            eventId = recurso;
+            ini = r.getStartHour();
+            fin = r.getFinishHour();
+//            event.setId(String.valueOf(r.getId()));
         }
     }
 
@@ -121,7 +134,7 @@ public class ReservationBean extends BasePageBean{
 
     public void onEventSelect(SelectEvent selectEvent) {
         this.event = (ScheduleEvent) selectEvent.getObject();
-        this.eventId = Integer.parseInt(event.getId());
+//        this.eventId = Integer.parseInt(event.getId());
     }
 
     public void onEventMove(ScheduleEntryMoveEvent event) {
@@ -135,6 +148,14 @@ public class ReservationBean extends BasePageBean{
         PrimeFaces.current().dialog().showMessageDynamic(message);
     }
 
+    public void onDateSelect(SelectEvent selectEvent) {
+        java.util.Date date = (java.util.Date) selectEvent.getObject();
+        java.util.Date datet = new java.util.Date(date.getTime() + (1000 * 60 * 60 * 24));
+        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
+        this.currentDay = format.format(datet);
+
+    }
+
     private void addMessage(FacesMessage message) {
         PrimeFaces.current().dialog().showMessageDynamic(message);
     }
@@ -143,11 +164,21 @@ public class ReservationBean extends BasePageBean{
         return eventId;
     }
 
+    public java.util.Date getIni() {
+        return ini;
+    }
+
+    public java.util.Date getFin() {
+        return fin;
+    }
+
     public int setEventId() {
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext()
                 .getRequest();
         return Integer.parseInt(request.getParameter("id"));
     }
 
-
+    public String getCurrentDay() {
+        return currentDay;
+    }
 }

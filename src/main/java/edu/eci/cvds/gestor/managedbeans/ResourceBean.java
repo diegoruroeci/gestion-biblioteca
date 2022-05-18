@@ -153,6 +153,10 @@ public class ResourceBean extends BasePageBean {
     public void setDisponibilidadSeleccionada(boolean disponibilidadSeleccionada) {
         this.disponibilidadSeleccionada = disponibilidadSeleccionada;
     }
+
+    public List<Resource> getResourcesUser() {
+        return gestorServices.consultResourcesUser();
+    }
 }
 
 

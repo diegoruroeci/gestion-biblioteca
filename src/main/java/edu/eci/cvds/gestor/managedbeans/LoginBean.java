@@ -36,8 +36,9 @@ public class LoginBean extends BasePageBean {
 
     private boolean showReserve;
 
-
     private boolean showRegister;
+
+    private boolean showInformationReserve;
 
     public void singIn(String email, String password) throws ServicesException, IOException {
         try {
@@ -48,7 +49,7 @@ public class LoginBean extends BasePageBean {
             }else {
                 loginServices.singIn(email, password, false);
                 this.email=email;
-                FacesContext.getCurrentInstance().getExternalContext().redirect("/gestor/resource.xhtml");
+                FacesContext.getCurrentInstance().getExternalContext().redirect("/gestor/resourceUser.xhtml");
             }
         }catch (ServicesException servicesException){
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error",servicesException.getMessage()));
@@ -82,7 +83,7 @@ public class LoginBean extends BasePageBean {
     public void actionButton() throws IOException {
         if(loginServices.isLoggedIn()){
             loginServices.logOut();
-            FacesContext.getCurrentInstance().getExternalContext().redirect("/gestor/resource.xhtml");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/gestor/resourceUser.xhtml");
         }else{
             FacesContext.getCurrentInstance().getExternalContext().redirect("/gestor/login.xhtml");
         }
@@ -111,6 +112,18 @@ public class LoginBean extends BasePageBean {
             return "Nuevo Recurso";
         }else{
             return " ";
+        }
+    }
+
+    public boolean isSshowInformationReserve() {
+        return loginServices.isLoggedIn();
+    }
+
+    public String texInfoReserve(){
+        if(loginServices.isLoggedIn() && userServices.isAdmin()!=true){
+            return "resourceUser";
+        }else{
+            return "resource";
         }
     }
 }

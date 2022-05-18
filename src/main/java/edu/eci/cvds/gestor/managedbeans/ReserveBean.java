@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import edu.eci.cvds.gestor.services.*;
 import org.apache.ibatis.exceptions.PersistenceException;
 import org.primefaces.PrimeFaces;
+import org.primefaces.component.calendar.Calendar;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -33,23 +34,27 @@ public class ReserveBean extends BasePageBean{
 
     String manyMessage = "";
 
+    private int recurso;
 
-    public void checkReserve(String initHour, String finalHour, String recurrence, Date recurrenceDate){
+
+    public void checkReserve(String currentDay, String initHour, String finalHour, String recurrence, Date recurrenceDate){
         try {
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
             if (getRecurrenceOptions(recurrence)!=RecurrenceOptions.ONE_TIME) {
-                ArrayList<LocalDate> dates = reserveServices.checkReserve(dtf.format(LocalDate.now()),initHour,finalHour,getRecurso(),getRecurrenceOptions(recurrence),recurrenceDate);
+                ArrayList<LocalDate> dates = reserveServices.checkReserve(currentDay,initHour,finalHour,getRecurso(),getRecurrenceOptions(recurrence),recurrenceDate);
                 if (dates.isEmpty()) {
-                    reserve(initHour,finalHour,recurrence,recurrenceDate);
+                    reserve(currentDay,initHour,finalHour,recurrence,recurrenceDate);
                 } else {
+                    System.out.println(currentDay);
                     setManyMessage("Las siguientes reservas no estan disponibles\r\n" + dates.toString() + "\r\n deseas continuar?");
                     PrimeFaces.current().executeScript("PF('warningManyDialog').show();");
+                    recurso = getRecurso();
                 }
             }else {
-                if (!reserveServices.checkIfCanReserve(dtf.format(LocalDate.now()),initHour,finalHour,getRecurso())){
+                if (!reserveServices.checkIfCanReserve(currentDay,initHour,finalHour,getRecurso())){
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error","La fecha seleccionada no esta disponible"));
                 }else {
-                    reserve(initHour,finalHour,recurrence,recurrenceDate);
+                    reserve(currentDay, initHour,finalHour,recurrence,recurrenceDate);
                 }
             }
         } catch (ParseException | ServicesException parseException) {
@@ -57,13 +62,11 @@ public class ReserveBean extends BasePageBean{
         }
     }
 
-    public void reserve(String initHour, String finalHour, String recurrence, Date recurrenceDate) throws ServicesException {
+    public void reserve(String currentDay, String initHour, String finalHour, String recurrence, Date recurrenceDate) throws ServicesException {
 
         try {
             checkHour(initHour,finalHour);
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-            System.out.println("confirmado");
-            reserveServices.reserveResource(dtf.format(LocalDate.now()), initHour, finalHour, getRecurso(), userServices.getCarnetByEmail(userServices.getEmail()), getRecurrenceOptions(recurrence), recurrenceDate,"activa");
+            reserveServices.reserveResource(currentDay, initHour, finalHour, getRecurso(), userServices.getCarnetByEmail(userServices.getEmail()), getRecurrenceOptions(recurrence), recurrenceDate, "activa");
         }catch (PersistenceException persistenceException){
             throw new ServicesException("no se pudo completar la reserva", persistenceException);
         }catch (ServicesException servicesException){
@@ -74,8 +77,12 @@ public class ReserveBean extends BasePageBean{
     public int getRecurso() {
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext()
                 .getRequest();
-        int resourceIndex=Integer.parseInt(request.getParameter("recurso"));
-        return gestorServices.getResources().get(resourceIndex).getId();
+        try{
+            int resourceIndex=Integer.parseInt(request.getParameter("recurso"));
+            return gestorServices.getResources().get(resourceIndex).getId();
+        }catch (Exception e){
+            return this.recurso;
+        }
     }
 
     public RecurrenceOptions getRecurrenceOptions(String recurrence){

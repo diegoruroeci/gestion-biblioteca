@@ -43,4 +43,6 @@ public interface GestorServices {
     public abstract void setResources(List<Resource> resources);
 
     public User consultUser(String email) throws ServicesException;
+
+    public abstract List<Resource> consultResourcesUser() throws PersistenceException;
 }
