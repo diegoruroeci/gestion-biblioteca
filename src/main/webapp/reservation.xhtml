@@ -125,13 +125,19 @@
                 <p:commandButton value="Cancelacion completa" oncomplete="PF('recurrenceDialog').hide();PF('confirmDialog').show();"
                                  action="PF('confirmDialog').show();" />
                 <p:commandButton value="Cancelar desde fecha" oncomplete="PF('recurrenceDialog').hide();PF('cancelSinceDialog').show();" />
-                <p:commandButton value="Cancelar una sola reservacion" oncomplete="PF('recurrenceDialog').hide();PF('cancelSinceDialog').show();" />
+                <p:commandButton value="Cancelar solo esta reservacion" oncomplete="PF('recurrenceDialog').hide();PF('confirmDialogOneReservation').show();" />
                 <p:commandButton value="Ya no voy a cancelar" onclick="PF('recurrenceDialog').hide();"/>
             </p:confirmDialog>
             <p:confirmDialog widgetVar="confirmDialog"  message="Estas seguro de cancelar tu reservacion?">
                 <p:commandButton value="Si" oncomplete="PF('confirmDialog').hide();" actionListener="#{ReservationBean.cancelReservation()}"/>
                 <p:commandButton value="No" oncomplete="PF('confirmDialog').hide();" />
             </p:confirmDialog>
+
+            <p:confirmDialog widgetVar="confirmDialogOneReservation"  message="Estas seguro de cancelar tu reservacion?">
+                <p:commandButton value="Si" oncomplete="PF('confirmDialogOneReservation').hide();" actionListener="#{ReservationBean.cancelOneReservation()}"/>
+                <p:commandButton value="No" oncomplete="PF('confirmDialogOneReservation').hide();" />
+            </p:confirmDialog>
+
             <p:dialog widgetVar="cancelSinceDialog" header="Cancelar reserva desde" showEffect="clip" hideEffect="clip" modal="true">
 
                 <h:panelGrid id="eventDetails" columns="2">

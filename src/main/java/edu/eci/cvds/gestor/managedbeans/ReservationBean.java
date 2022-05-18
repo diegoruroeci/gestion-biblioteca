@@ -68,7 +68,7 @@ public class ReservationBean extends BasePageBean{
     public void showDialog(int rowIndex){
         this.rowIndex=rowIndex;
         Reservation reservation = getReservationByRowIndex(rowIndex);
-        if (reservation.getRecurrence()!= RecurrenceOptions.ONE_TIME.toString()){
+        if (!reservation.getRecurrence().equals(RecurrenceOptions.ONE_TIME.toString())){
             PrimeFaces.current().executeScript("PF('recurrenceDialog').show();");
         }else {
             PrimeFaces.current().executeScript("PF('confirmDialog').show();");
@@ -91,15 +91,20 @@ public class ReservationBean extends BasePageBean{
         }
     }
 
+    public void cancelOneReservation(){
+        Reservation reservation = getReservationByRowIndex(rowIndex);
+        reserveServices.cancelOneReservation(reservation);
+    }
+
     public void cancelReservation(){
         Reservation reservation = getReservationByRowIndex(rowIndex);
-        reserveServices.cancelReserve(reservation,reservation.getDate());
+        reserveServices.cancelReserve(reservation,null);
     }
 
     public void cancelReservationSinceDate(java.util.Date date){
-        System.out.println(date);
-        System.out.println(rowIndex);
         Reservation reservation = getReservationByRowIndex(rowIndex);
+        Date date1 = new Date(date.getTime());
+        reserveServices.cancelReserve(reservation,date1);
     }
 
 

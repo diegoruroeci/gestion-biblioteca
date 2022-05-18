@@ -20,7 +20,9 @@ public interface ReserveServices {
 
     public void cancelReserve(Reservation reservation, java.sql.Date date);
 
-    public void cancelManyReservations(java.sql.Date date, Timestamp initHour, Timestamp finalHour, int resource, int carnet, java.sql.Date recurrenceDate, int days);
+    public void cancelOneReservation(Reservation reservation);
 
-    public void cancelMonthlyReservations(java.sql.Date date, Timestamp initHour, Timestamp finalHour, int resource, int carnet, java.sql.Date recurrenceDate);
+    public void cancelManyReservations(Timestamp fechaRegistro,java.sql.Date date, Timestamp initHour, Timestamp finalHour, int resource, int carnet, java.sql.Date recurrenceDate, int days,String recurrence);
+
+    public void cancelMonthlyReservations(Timestamp fechaRegistro,java.sql.Date date, Timestamp initHour, Timestamp finalHour, int resource, int carnet, java.sql.Date recurrenceDate,String recurrence);
 }
