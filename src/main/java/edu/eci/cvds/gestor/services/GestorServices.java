@@ -50,4 +50,11 @@ public interface GestorServices {
 
     public abstract List<Reservation> consultarReservaPorCarrera() throws  ServicesException;
 
+    public abstract List<Reservation> consultarReservaRecurrentes() throws  ServicesException;
+
+    public abstract List<Reservation> consultarReservasCanceladas() throws ServicesException;
+
+    public abstract List<Reservation> consultarHorarioMayorOcupacion() throws ServicesException;
+
+    public abstract List<Reservation> consultarHorarioMenorOcupacion() throws ServicesException;
 }

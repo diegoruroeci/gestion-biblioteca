@@ -37,4 +37,12 @@ public interface ReservationDAO {
 
     public List<Reservation> reservaPorCarrera() throws PersistenceException;
 
+    public List<Reservation> reservaRecurrentes() throws PersistenceException;
+
+    public List<Reservation> reservasCanceladas() throws PersistenceException;
+
+    public List<Reservation> horarioMayorOcupacion() throws PersistenceException;
+
+    public List<Reservation> horarioMenorOcupacion() throws PersistenceException;
+
 }

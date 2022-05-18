@@ -225,6 +225,49 @@
         ORDER BY cantidad desc
     </select>
 
+    <select id="reservaRecurrentes" resultMap="ReservationResult">
+        SELECT
+        re.nombre as re_nombre,
+        COUNT(r.id_reserva) AS cantidad
+        FROM Reservas r
+        JOIN recursos re on r.recurso = re.id_recurso
+        WHERE r.recurrencia != 'ONE_TIME'
+        group by re.nombre
+        limit 6;
+    </select>
+
+    <select id="reservasCanceladas" resultMap="ReservationResult">
+        SELECT
+        re.nombre as re_nombre,
+        COUNT(r.id_reserva) AS cantidad
+        FROM Reservas r
+        JOIN recursos re on r.recurso = re.id_recurso
+        WHERE r.estado = 'cancelada'
+        group by re.nombre
+    </select>
+
+    <select id="horarioMayorOcupacion" resultMap="ReservationResult">
+        SELECT
+        r.horaini,
+        r.horafin,
+        COUNT(r.horaini) AS cantidad
+        FROM reservas r
+        GROUP BY r.horaini,r.horafin
+        ORDER BY cantidad  desc
+        FETCH FIRST 4 ROWS ONLY
+    </select>
+
+    <select id="horarioMenorOcupacion" resultMap="ReservationResult">
+        SELECT
+        r.horaini,
+        r.horafin,
+        COUNT(r.horaini) AS cantidad
+        FROM reservas r
+        GROUP BY r.horaini,r.horafin
+        ORDER BY cantidad  asc
+        FETCH FIRST 4 ROWS ONLY
+    </select>
+
     <resultMap type='Reservation' id='ReservationResult'>
         <id property='id' column='id_reserva'/>
         <result property='date' column='fecha'/>

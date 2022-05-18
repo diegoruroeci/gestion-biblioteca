@@ -184,5 +184,41 @@ public class GestorServicesImpl implements GestorServices {
             throw new ServicesException(e.getMessage());
         }
     }
+
+    @Override
+    public List<Reservation> consultarReservaRecurrentes() throws ServicesException {
+        try {
+            return reservationDAO.reservaRecurrentes();
+        } catch (PersistenceException e) {
+            throw new ServicesException(e.getMessage());
+        }
+    }
+
+    @Override
+    public List<Reservation> consultarReservasCanceladas() throws ServicesException {
+        try {
+            return reservationDAO.reservasCanceladas();
+        } catch (PersistenceException e) {
+            throw new ServicesException(e.getMessage());
+        }
+    }
+
+    @Override
+    public List<Reservation> consultarHorarioMayorOcupacion() throws ServicesException {
+        try {
+            return reservationDAO.horarioMayorOcupacion();
+        } catch (PersistenceException e) {
+            throw new ServicesException(e.getMessage());
+        }
+    }
+
+    @Override
+    public List<Reservation> consultarHorarioMenorOcupacion() throws ServicesException {
+        try {
+            return reservationDAO.horarioMenorOcupacion();
+        } catch (PersistenceException e) {
+            throw new ServicesException(e.getMessage());
+        }
+    }
 }
 

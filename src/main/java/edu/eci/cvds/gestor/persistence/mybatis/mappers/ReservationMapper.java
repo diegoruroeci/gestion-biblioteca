@@ -11,6 +11,14 @@ public interface ReservationMapper {
 
     public List<Reservation> recursosMasUsados();
 
+    public List<Reservation> reservasCanceladas();
+
+    public List<Reservation> horarioMayorOcupacion();
+
+    public List<Reservation> horarioMenorOcupacion();
+
+    public List<Reservation> reservaRecurrentes();
+
     public List<Reservation> recursosMenosUsados();
 
     public List<Reservation> reservaPorCarrera();

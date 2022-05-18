@@ -212,4 +212,44 @@ public class ReservationBean extends BasePageBean{
         }
         return recurso;
     }
+
+    public List<Reservation> consultarReservaRecurrentes() {
+        List<Reservation> recurso = new ArrayList<>();
+        try {
+            recurso = gestorServices.consultarReservaRecurrentes();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return recurso;
+    }
+
+    public List<Reservation> consultarReservasCanceladas() {
+        List<Reservation> recurso = new ArrayList<>();
+        try {
+            recurso = gestorServices.consultarReservasCanceladas();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return recurso;
+    }
+
+    public List<Reservation> consultarHorarioMayorOcupacion() {
+        List<Reservation> recurso = new ArrayList<>();
+        try {
+            recurso = gestorServices.consultarHorarioMayorOcupacion();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return recurso;
+    }
+
+    public List<Reservation> consultarHorarioMenorOcupacion() {
+        List<Reservation> recurso = new ArrayList<>();
+        try {
+            recurso = gestorServices.consultarHorarioMenorOcupacion();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return recurso;
+    }
 }

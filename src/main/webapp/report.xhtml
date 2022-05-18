@@ -85,5 +85,95 @@
         </table>
     </div>
 
+    <br/>
+    <h2>Reservas Recurrentes</h2>
+    <div><p:chart type="bar" model="#{reservasRecurrentes.grafico}"/></div>
+    <div>
+        <table id="reservasRecurrentes" class="display table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>Recurso</th>
+                <th>Cantidad de reservas recurrentes</th>
+            </tr>
+            </thead>
+            <tbody>
+            <ui:repeat var="reserva" value="#{ReservationBean.consultarReservaRecurrentes()}">
+                <tr>
+                    <td>#{reserva.getResources().getName()}</td>
+                    <td>#{reserva.amount}</td>
+                </tr>
+            </ui:repeat>
+            </tbody>
+        </table>
+    </div>
+
+    <br/>
+    <h2>Reservas Canceladas</h2>
+    <div><p:chart type="bar" model="#{reservasCanceladas.grafico}"/></div>
+    <div>
+        <table id="reservasCanceladas" class="display table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>Recurso</th>
+                <th>Cantidad de reservas canceladas</th>
+            </tr>
+            </thead>
+            <tbody>
+            <ui:repeat var="reserva" value="#{ReservationBean.consultarReservasCanceladas()}">
+                <tr>
+                    <td>#{reserva.getResources().getName()}</td>
+                    <td>#{reserva.amount}</td>
+                </tr>
+            </ui:repeat>
+            </tbody>
+        </table>
+    </div>
+
+    <br/>
+    <h2>Horarios con mayor ocupacion</h2>
+    <div>
+        <table id="horarioMayorOcupacion" class="display table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>Horario Inicial</th>
+                <th>Horario Final</th>
+                <th>Cantidad de reservas</th>
+            </tr>
+            </thead>
+            <tbody>
+            <ui:repeat var="reserva" value="#{ReservationBean.consultarHorarioMayorOcupacion()}">
+                <tr>
+                    <td>#{reserva.getStartHour()}</td>
+                    <td>#{reserva.getFinishHour()}</td>
+                    <td>#{reserva.amount}</td>
+                </tr>
+            </ui:repeat>
+            </tbody>
+        </table>
+    </div>
+
+    <br/>
+    <h2>Horarios con menor ocupacion</h2>
+    <div>
+        <table id="horarioMenorOcupacion" class="display table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>Horario Inicial</th>
+                <th>Horario Final</th>
+                <th>Cantidad de reservas</th>
+            </tr>
+            </thead>
+            <tbody>
+            <ui:repeat var="reserva" value="#{ReservationBean.consultarHorarioMenorOcupacion()}">
+                <tr>
+                    <td>#{reserva.getStartHour()}</td>
+                    <td>#{reserva.getFinishHour()}</td>
+                    <td>#{reserva.amount}</td>
+                </tr>
+            </ui:repeat>
+            </tbody>
+        </table>
+    </div>
+
 </h:body>
 </html>
