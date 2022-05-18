@@ -36,6 +36,9 @@ public class LoginBean extends BasePageBean {
 
     private boolean showReserve;
 
+
+    private boolean showRegister;
+
     public void singIn(String email, String password) throws ServicesException, IOException {
         try {
             if (email.trim().isEmpty()){
@@ -97,5 +100,17 @@ public class LoginBean extends BasePageBean {
 
     public User consultUser(String email) throws ServicesException {
         return gestorServices.consultUser(email);
+    }
+
+    public boolean isShowRegister() {
+        return loginServices.isLoggedIn();
+    }
+
+    public String textRegister(){
+        if(loginServices.isLoggedIn() && userServices.isAdmin()){
+            return "Nuevo Recurso";
+        }else{
+            return " ";
+        }
     }
 }
