@@ -26,6 +26,8 @@ public class ReserveServicesImpl implements ReserveServices {
     @Inject
     GestorServices gestorServices;
 
+    private ArrayList<LocalDate> cantReserve;
+
     @Override
     public void reserveResource(String date, String initHour, String finalHour, int resource, int carnet, RecurrenceOptions recurrence, Date recurrenceDate,String status) throws ServicesException {
         try {
@@ -63,7 +65,7 @@ public class ReserveServicesImpl implements ReserveServices {
 
     private ArrayList<LocalDate> checkMonthlyReservations(java.sql.Date date, String initHour, String finalHour, int resource, RecurrenceOptions recurrence, java.sql.Date recurrenceDate) throws ParseException {
         LocalDate dateLocal=date.toLocalDate();
-        ArrayList<LocalDate> cantReserve = new ArrayList<LocalDate>();
+        cantReserve = new ArrayList<LocalDate>();
         for (LocalDate currentDate = dateLocal; currentDate.isBefore(recurrenceDate.toLocalDate().plusDays(1)); currentDate=currentDate.plusMonths(1)) {
             if (currentDate.getDayOfWeek()!= DayOfWeek.SUNDAY){
                 Timestamp initHourTimestamp = this.convertToTimestamp(currentDate,initHour);
@@ -78,7 +80,7 @@ public class ReserveServicesImpl implements ReserveServices {
 
     private ArrayList<LocalDate> checkManyReservations(java.sql.Date date, String initHour, String finalHour, int resource, RecurrenceOptions recurrence, java.sql.Date recurrenceDate, int days) throws ParseException {
         LocalDate dateLocal=date.toLocalDate();
-        ArrayList<LocalDate> cantReserve = new ArrayList<LocalDate>();
+        cantReserve = new ArrayList<LocalDate>();
         for (LocalDate currentDate = dateLocal; currentDate.isBefore(recurrenceDate.toLocalDate().plusDays(1)); currentDate=currentDate.plusDays(days)) {
             if (currentDate.getDayOfWeek()!= DayOfWeek.SUNDAY){
                 Timestamp initHourTimestamp = this.convertToTimestamp(currentDate,initHour);
@@ -122,7 +124,7 @@ public class ReserveServicesImpl implements ReserveServices {
     private void createMonthlyReservations(Timestamp today,java.sql.Date date, String initHour, String finalHour, int resource, int carnet, RecurrenceOptions recurrence, java.sql.Date recurrenceDate,String status) throws ParseException {
         LocalDate dateLocal=date.toLocalDate();
         for (LocalDate currentDate = dateLocal; currentDate.isBefore(recurrenceDate.toLocalDate().plusDays(1)); currentDate=currentDate.plusMonths(1)) {
-            if (currentDate.getDayOfWeek()!= DayOfWeek.SUNDAY){
+            if (currentDate.getDayOfWeek()!= DayOfWeek.SUNDAY || cantReserve.contains(currentDate)){
                 Timestamp initHourTimestamp = this.convertToTimestamp(currentDate,initHour);
                 Timestamp finalHourTimestamp = this.convertToTimestamp(currentDate,finalHour);
                 reservationDAO.reserveResource(today,initHourTimestamp,finalHourTimestamp,resource,carnet,recurrence,recurrenceDate,status);
@@ -133,7 +135,7 @@ public class ReserveServicesImpl implements ReserveServices {
     private void createManyReservations(Timestamp today,java.sql.Date date, String initHour, String finalHour, int resource, int carnet, RecurrenceOptions recurrence, java.sql.Date recurrenceDate,String status,int days) throws ParseException {
         LocalDate dateLocal=date.toLocalDate();
         for (LocalDate currentDate = dateLocal; currentDate.isBefore(recurrenceDate.toLocalDate().plusDays(1)); currentDate=currentDate.plusDays(days)) {
-            if (currentDate.getDayOfWeek()!= DayOfWeek.SUNDAY){
+            if (currentDate.getDayOfWeek()!= DayOfWeek.SUNDAY && !cantReserve.contains(currentDate)){
                 Timestamp initHourTimestamp = this.convertToTimestamp(currentDate,initHour);
                 Timestamp finalHourTimestamp = this.convertToTimestamp(currentDate,finalHour);
                 reservationDAO.reserveResource(today,initHourTimestamp,finalHourTimestamp,resource,carnet,recurrence,recurrenceDate,status);
@@ -142,7 +144,6 @@ public class ReserveServicesImpl implements ReserveServices {
     }
     @Override
     public boolean checkIfCanReserve(Timestamp initHour,Timestamp finalHour, int resource){
-
         if (gestorServices.consultReservationsActiveByHour(initHour,finalHour,resource).isEmpty()){
             return true;
         }else {
@@ -154,7 +155,6 @@ public class ReserveServicesImpl implements ReserveServices {
     public boolean checkIfCanReserve(String date, String initHour, String finalHour, int resource) throws ParseException {
         Timestamp initTimeStamp = convertToTimestamp(date+' '+initHour);
         Timestamp finalTimeStamp = convertToTimestamp(date+' '+finalHour);
-
         if (gestorServices.consultReservationsActiveByHour(initTimeStamp,finalTimeStamp,resource).isEmpty()){
             return true;
         }else {
