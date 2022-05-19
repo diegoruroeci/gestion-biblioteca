@@ -170,5 +170,77 @@ public class GestorServicesImpl implements GestorServices {
     public void setReservationList(List<Reservation> reservationList) {
         this.reservationList = reservationList;
     }
+
+    @Override
+    public List<Reservation> consultarRecursosMasUsados() throws ServicesException {
+        try {
+            return reservationDAO.recursosMasUsados();
+        } catch (PersistenceException e) {
+            throw new ServicesException(e.getMessage());
+        }
+    }
+
+    @Override
+    public List<Reservation> consultarRecursosMenosUsados() throws ServicesException {
+        try {
+            return reservationDAO.recursosMenosUsados();
+        } catch (PersistenceException e) {
+            throw new ServicesException(e.getMessage());
+        }
+    }
+
+    @Override
+    public List<Reservation> consultarReservaPorCarrera() throws ServicesException {
+        try {
+            return reservationDAO.reservaPorCarrera();
+        } catch (PersistenceException e) {
+            throw new ServicesException(e.getMessage());
+        }
+    }
+
+    @Override
+    public List<Reservation> consultarReservaRecurrentes() throws ServicesException {
+        try {
+            return reservationDAO.reservaRecurrentes();
+        } catch (PersistenceException e) {
+            throw new ServicesException(e.getMessage());
+        }
+    }
+
+    @Override
+    public List<Reservation> consultarReservasCanceladas() throws ServicesException {
+        try {
+            return reservationDAO.reservasCanceladas();
+        } catch (PersistenceException e) {
+            throw new ServicesException(e.getMessage());
+        }
+    }
+
+    @Override
+    public List<Reservation> consultarHorarioMayorOcupacion() throws ServicesException {
+        try {
+            return reservationDAO.horarioMayorOcupacion();
+        } catch (PersistenceException e) {
+            throw new ServicesException(e.getMessage());
+        }
+    }
+
+    @Override
+    public List<Reservation> consultarHorarioMenorOcupacion() throws ServicesException {
+        try {
+            return reservationDAO.horarioMenorOcupacion();
+        } catch (PersistenceException e) {
+            throw new ServicesException(e.getMessage());
+        }
+    }
+
+    @Override
+    public int getReserva() throws ServicesException {
+        try {
+            return reservationDAO.getReserva();
+        } catch (PersistenceException e) {
+            throw new ServicesException(e.getMessage());
+        }
+    }
 }
 

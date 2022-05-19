@@ -4,7 +4,7 @@ public class main {
 
         public static void main(String[] args) throws ServicesException {
             GestorServices instance = ResourceFactory.getInstance().getGestorServices();
-            System.out.println(instance.consultUser("pruebaAdmin@prueba.com"));
+            System.out.println(instance.consultarReservaRecurrentes());
 
         }
 

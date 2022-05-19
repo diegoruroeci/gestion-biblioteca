@@ -10,6 +10,22 @@ import java.util.List;
 
 public interface ReservationMapper {
 
+    public List<Reservation> recursosMasUsados();
+
+    public int getReserva();
+
+    public List<Reservation> reservasCanceladas();
+
+    public List<Reservation> horarioMayorOcupacion();
+
+    public List<Reservation> horarioMenorOcupacion();
+
+    public List<Reservation> reservaRecurrentes();
+
+    public List<Reservation> recursosMenosUsados();
+
+    public List<Reservation> reservaPorCarrera();
+
     public List<Reservation> consultReservations();
 
     public List<Reservation> consultReservation(@Param("id") int id);

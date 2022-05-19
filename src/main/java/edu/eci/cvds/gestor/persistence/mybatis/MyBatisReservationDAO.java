@@ -128,4 +128,84 @@ public class MyBatisReservationDAO implements ReservationDAO {
             throw new PersistenceException(persistenceException.getMessage());
         }
     }
+
+    @Override
+    public List<Reservation> recursosMasUsados() throws PersistenceException {
+        try{
+            return reservationMapper.recursosMasUsados();
+        }
+        catch(PersistenceException e) {
+            throw new PersistenceException(e.getMessage());
+        }
+    }
+
+    @Override
+    public List<Reservation> recursosMenosUsados() throws PersistenceException {
+        try{
+            return reservationMapper.recursosMenosUsados();
+        }
+        catch(PersistenceException e) {
+            throw new PersistenceException(e.getMessage());
+        }
+    }
+
+    @Override
+    public List<Reservation> reservaPorCarrera() throws PersistenceException {
+        try{
+            return reservationMapper.reservaPorCarrera();
+        }
+        catch(PersistenceException e) {
+            throw new PersistenceException(e.getMessage());
+        }
+    }
+
+    @Override
+    public List<Reservation> reservaRecurrentes() throws PersistenceException {
+        try{
+            return reservationMapper.reservaRecurrentes();
+        }
+        catch(PersistenceException e) {
+            throw new PersistenceException(e.getMessage());
+        }
+    }
+
+    @Override
+    public List<Reservation> reservasCanceladas() throws PersistenceException {
+        try{
+            return reservationMapper.reservasCanceladas();
+        }
+        catch(PersistenceException e) {
+            throw new PersistenceException(e.getMessage());
+        }
+    }
+
+    @Override
+    public List<Reservation> horarioMayorOcupacion() throws PersistenceException {
+        try{
+            return reservationMapper.horarioMayorOcupacion();
+        }
+        catch(PersistenceException e) {
+            throw new PersistenceException(e.getMessage());
+        }
+    }
+
+    @Override
+    public List<Reservation> horarioMenorOcupacion() throws PersistenceException {
+        try{
+            return reservationMapper.horarioMenorOcupacion();
+        }
+        catch(PersistenceException e) {
+            throw new PersistenceException(e.getMessage());
+        }
+    }
+
+    @Override
+    public int getReserva() throws PersistenceException {
+        try{
+            return reservationMapper.getReserva();
+        }
+        catch(PersistenceException e) {
+            throw new PersistenceException(e.getMessage());
+        }
+    }
 }
