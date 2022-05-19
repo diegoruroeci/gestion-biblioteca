@@ -84,6 +84,12 @@
         <p:column headerText="Reservar" class="titulo">
             <p:button outcome="Schedule?recurso=#{rowIndex}" value="Ver horarios" class="boton" />
         </p:column>
+        <p:column rendered="#{LoginBean.isShowColumn()}" headerText="Eliminar" class="titulo">
+            <p:button outcome="Schedule?recurso=#{rowIndex}" value="Eliminar" class="boton" />
+        </p:column>
+        <p:column rendered="#{LoginBean.isShowColumn()}" headerText="Cambiar Estado" class="titulo">
+            <p:button  value="Estado" class="boton"  icon="pi pi-plus"  style="margin-right: .5rem"  type="button" onclick="PF('dlg1').show();"/>
+        </p:column>
     </p:dataTable>
     </h:form>
 
@@ -112,7 +118,7 @@
             <h:outputLabel for="internId" value="ID interno:" />
             <p:inputText id="internId" label="internId" type="number"
                          binding= "#{internId}" />
-            <p:outputLabel for="description" value="Descripción:" />
+            <p:outputLabel for="description" value="Descripción:" message="true"/>
             <p:inputTextarea id="description" label="description"
                              binding= "#{description}" />
 
@@ -140,6 +146,45 @@
        </h:panelGrid>
    </p:dialog>
    </h:form>
+       <h:form>
+        <p:dialog header="Editar Recurso" widgetVar="dlg1" modal="true" resizable="false">
+            <h:panelGrid columns="2" cellpadding="2">
+
+                <label class="bmd-label-floating">Estado:</label>
+                <h:selectOneMenu value="#{ResourceBean.disponibilidadSeleccionada}" class="form-control">
+                    <f:selectItems value="#{ResourceBean.getRecursoDisponible()}" />
+                </h:selectOneMenu>
+
+                <p:growl id="message3" showDetail="true" />
+                <p:commandButton class="buttonR" value="Editar" update="message3">
+                    <p:confirm header="Confirmación" message="¿Desea editar este recurso?" icon="pi pi-exclamation-triangle" />
+                    <f:actionListener binding="#{ResourceBean.changeAvailability(ResourceBean.id)}"/>
+                </p:commandButton>
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                    <div align="center">
+                        <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+                    </div>
+                </p:confirmDialog>
+            </h:panelGrid>
+        </p:dialog>
+        </h:form>
+
+        <h:form id="frmm3">
+            <p:commandButton class="buttonR"  value="Eliminar Recurso" >
+                <p:confirm header="Confirmación" message="¿Desea eliminar el recurso?" icon="pi pi-exclamation-triangle" />
+                <f:actionListener binding="#{ResourceBean.eliminarRecurso(recursos.identificadorInterno)}" update="frmm3"/>
+            </p:commandButton>
+
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <div align="center">
+                    <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+                </div>
+            </p:confirmDialog>
+        </h:form>
+
+
    </div>
 </h:body>
 </html>

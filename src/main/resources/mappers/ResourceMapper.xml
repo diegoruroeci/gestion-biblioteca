@@ -47,4 +47,30 @@
     <insert id="registerResource" parameterType="map">
         insert into Recursos(Nombre, Ubicacion, Tipo, Capacidad, ID_interno, Descripcion, Disponible) values (#{nombre}, #{ubicacion}, #{tipo}, #{capacidad}, #{idInterno}, #{descripcion}, #{disponible})
     </insert>
+
+    <select parameterType="map" id="consultResource" resultMap="ResourceResult">
+        select
+        r.id_recurso,
+        r.nombre,
+        r.ubicacion,
+        r.tipo,
+        r.capacidad,
+        r.id_interno,
+        r.descripcion,
+        r.disponible
+
+        FROM RECURSOS r WHERE id=#{recursos.id_recurso};
+    </select>
+
+    <update id="deleteResource" parameterType="map">
+        delete Recursos set estado='Eliminado' where id_recurso=#{recursos.id_recurso};
+    </update>
+
+    <update id="resourceNotAvailable" parameterType="map">
+        update Recursos  set disponible=false where id_recurso=#{recursos.id_recurso};
+    </update>
+
+    <update id="resourceAvailable" parameterType="map">
+        update Recursos SET disponible=true where id_recurso=#{recursos.id_recurso};
+    </update>
 </mapper>

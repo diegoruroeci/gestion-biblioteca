@@ -168,5 +168,41 @@ public class GestorServicesImpl implements GestorServices {
             throw new PersistenceException(e.getMessage());
         }
     }
+
+    @Override
+    public Resource consultResource(String id) throws PersistenceException {
+        try {
+            return resourceDAO.consultResource(id);
+        }catch (PersistenceException | ParseException e) {
+            throw new PersistenceException(e.getMessage());
+        }
+    }
+
+    @Override
+    public void deleteResource(Resource resource) throws PersistenceException {
+        try {
+            resourceDAO.deleteResource(resource);
+        }catch (PersistenceException | ParseException e) {
+            throw new PersistenceException(e.getMessage());
+        }
+    }
+
+    @Override
+    public void resourceNotAvailable(Resource resource) throws ParseException {
+        try {
+            resourceDAO.resourceNotAvailable(resource);
+        }catch (PersistenceException | ParseException e) {
+            throw new PersistenceException(e.getMessage());
+        }
+    }
+
+    @Override
+    public void resourceAvailable(Resource resource) throws ParseException {
+        try {
+            resourceDAO.resourceAvailable(resource);
+        }catch (PersistenceException | ParseException e) {
+            throw new PersistenceException(e.getMessage());
+        }
+    }
 }
 

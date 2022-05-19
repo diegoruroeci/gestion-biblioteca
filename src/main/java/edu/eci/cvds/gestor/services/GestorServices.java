@@ -45,4 +45,12 @@ public interface GestorServices {
     public User consultUser(String email) throws ServicesException;
 
     public abstract List<Resource> consultResourcesUser() throws PersistenceException;
+
+    public abstract Resource consultResource(String id) throws PersistenceException;
+
+    public abstract void deleteResource(Resource resource) throws  PersistenceException;
+
+    public abstract void resourceNotAvailable(Resource resource) throws ParseException;
+
+    public abstract void resourceAvailable(Resource resource) throws ParseException;
 }
