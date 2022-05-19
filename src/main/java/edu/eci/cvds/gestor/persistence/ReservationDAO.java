@@ -37,4 +37,21 @@ public interface ReservationDAO {
     public void cancelReservationSince(Timestamp date, int carnet, Timestamp inithour, LocalDate date1, int resource);
 
     public void cancelReservationComplete(Timestamp date,int carnet, int resource, String recurrence);
+
+    public List<Reservation> recursosMasUsados() throws PersistenceException;
+
+    public List<Reservation> recursosMenosUsados() throws PersistenceException;
+
+    public List<Reservation> reservaPorCarrera() throws PersistenceException;
+
+    public List<Reservation> reservaRecurrentes() throws PersistenceException;
+
+    public List<Reservation> reservasCanceladas() throws PersistenceException;
+
+    public List<Reservation> horarioMayorOcupacion() throws PersistenceException;
+
+    public List<Reservation> horarioMenorOcupacion() throws PersistenceException;
+
+    public int getReserva() throws PersistenceException;
+
 }

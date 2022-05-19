@@ -20,6 +20,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.primefaces.PrimeFaces;
@@ -146,16 +147,18 @@ public class ReservationBean extends BasePageBean{
     private java.util.Date fin;
 
     private String currentDay;
+    private String nombre;
 
     public void loadEvents(int recurso) {
         eventModel = new DefaultScheduleModel();
         List<Reservation> horarios = gestorServices.consultReservation(recurso);
         for (Reservation r : horarios){
-            event = new DefaultScheduleEvent("Reservado", r.getStartHour(), r.getFinishHour());
+            this.event = new DefaultScheduleEvent("Reservado", r.getStartHour(), r.getFinishHour());
             eventModel.addEvent(event);
             eventId = recurso;
-            ini = r.getStartHour();
-            fin = r.getFinishHour();
+            this.ini = r.getStartHour();
+            this.fin = r.getFinishHour();
+            this.nombre = r.getUname().getName();
 //            event.setId(String.valueOf(r.getId()));
         }
     }
@@ -200,6 +203,10 @@ public class ReservationBean extends BasePageBean{
         return eventId;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
     public java.util.Date getIni() {
         return ini;
     }
@@ -216,5 +223,75 @@ public class ReservationBean extends BasePageBean{
 
     public String getCurrentDay() {
         return currentDay;
+    }
+
+    public List<Reservation> consultarRecursosMasUsados() {
+        List<Reservation> recurso = new ArrayList<>();
+        try {
+            recurso = gestorServices.consultarRecursosMasUsados();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return recurso;
+    }
+
+    public List<Reservation> consultarRecursosMenosUsados() {
+        List<Reservation> recurso = new ArrayList<>();
+        try {
+            recurso = gestorServices.consultarRecursosMenosUsados();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return recurso;
+    }
+
+    public List<Reservation> consultarReservaPorCarrera() {
+        List<Reservation> recurso = new ArrayList<>();
+        try {
+            recurso = gestorServices.consultarReservaPorCarrera();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return recurso;
+    }
+
+    public List<Reservation> consultarReservaRecurrentes() {
+        List<Reservation> recurso = new ArrayList<>();
+        try {
+            recurso = gestorServices.consultarReservaRecurrentes();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return recurso;
+    }
+
+    public List<Reservation> consultarReservasCanceladas() {
+        List<Reservation> recurso = new ArrayList<>();
+        try {
+            recurso = gestorServices.consultarReservasCanceladas();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return recurso;
+    }
+
+    public List<Reservation> consultarHorarioMayorOcupacion() {
+        List<Reservation> recurso = new ArrayList<>();
+        try {
+            recurso = gestorServices.consultarHorarioMayorOcupacion();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return recurso;
+    }
+
+    public List<Reservation> consultarHorarioMenorOcupacion() {
+        List<Reservation> recurso = new ArrayList<>();
+        try {
+            recurso = gestorServices.consultarHorarioMenorOcupacion();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return recurso;
     }
 }
