@@ -142,7 +142,6 @@ public class ReserveServicesImpl implements ReserveServices {
     }
     @Override
     public boolean checkIfCanReserve(Timestamp initHour,Timestamp finalHour, int resource){
-
         if (gestorServices.consultReservationsActiveByHour(initHour,finalHour,resource).isEmpty()){
             return true;
         }else {
@@ -154,7 +153,6 @@ public class ReserveServicesImpl implements ReserveServices {
     public boolean checkIfCanReserve(String date, String initHour, String finalHour, int resource) throws ParseException {
         Timestamp initTimeStamp = convertToTimestamp(date+' '+initHour);
         Timestamp finalTimeStamp = convertToTimestamp(date+' '+finalHour);
-
         if (gestorServices.consultReservationsActiveByHour(initTimeStamp,finalTimeStamp,resource).isEmpty()){
             return true;
         }else {

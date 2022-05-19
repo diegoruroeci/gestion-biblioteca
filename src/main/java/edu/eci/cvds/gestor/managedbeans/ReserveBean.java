@@ -104,6 +104,9 @@ public class ReserveBean extends BasePageBean{
         Integer hourFinal = Integer.parseInt(finalHour.split(":")[0]);
         Integer minutesInit = Integer.parseInt(initHour.split(":")[1]);
         Integer minutesFinal = Integer.parseInt(finalHour.split(":")[1]);
+        if (hourFinal-hourInit==0 && minutesFinal-minutesInit==0){
+            throw new ServicesException("Error:las horas son iguales");
+        }
         int hourDiff = hourFinal-hourInit;
         int minutesDiff= minutesFinal-minutesInit;
         if (minutesDiff < 0) {
