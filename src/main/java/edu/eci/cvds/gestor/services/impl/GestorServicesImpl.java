@@ -204,5 +204,13 @@ public class GestorServicesImpl implements GestorServices {
             throw new PersistenceException(e.getMessage());
         }
     }
+
+    @Override
+    public void updateResource(Resource resource) throws ParseException {
+        try {
+            resourceDAO.updateResource(resource);
+        } catch (Exception e) {
+        }
+    }
 }
 

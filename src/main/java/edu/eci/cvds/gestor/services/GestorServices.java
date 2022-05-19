@@ -53,4 +53,6 @@ public interface GestorServices {
     public abstract void resourceNotAvailable(Resource resource) throws ParseException;
 
     public abstract void resourceAvailable(Resource resource) throws ParseException;
+
+    public void updateResource(Resource resource) throws ParseException;
 }

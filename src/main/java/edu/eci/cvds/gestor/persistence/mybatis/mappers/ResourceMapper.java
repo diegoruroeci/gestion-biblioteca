@@ -36,4 +36,6 @@ public interface ResourceMapper {
      * @param resource el recurso
      */
     public void resourceAvailable(@Param("resource") Resource resource);
+
+    public void updateResource(Resource resource);
 }

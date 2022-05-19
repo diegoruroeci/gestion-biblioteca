@@ -66,7 +66,7 @@ public class ResourceBean extends BasePageBean {
             }
             if(descripcion.trim().isEmpty() || descripcion.equals(null)){
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error","Descripcion requerida"));
-            }
+        }
             else {
                 ubicacion = this.ubicacionSeleccionada;
                 tipo= this.tipoSeleccionado;
@@ -189,6 +189,26 @@ public class ResourceBean extends BasePageBean {
             }
         }
     }
+
+    public void deleteResource(String id) {
+        try {
+            gestorServices.deleteResource(gestorServices.consultResource(id));
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Message", " Se ha eliminado el recurso");
+            PrimeFaces.current().dialog().showMessageDynamic(message);
+        } catch (Exception e) {
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(null, new FacesMessage("Error", e.getMessage()));
+        }
+    }
+
+    public void updateResource(Resource resource) {
+        try {
+            gestorServices.updateResource(resource);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
 
     /*public void onRowEdit(RowEditEvent<Resource> event) {
         FacesMessage msg = new FacesMessage("Product Edited", String.valueOf(event.getObject().getCode()));

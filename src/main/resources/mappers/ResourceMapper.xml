@@ -63,14 +63,18 @@
     </select>
 
     <update id="deleteResource" parameterType="map">
-        delete Recursos set estado='Eliminado' where id_recurso=#{recursos.id_recurso};
+        delete Recursos set estado='Eliminado' where id=#{resource.id_recurso};
     </update>
 
     <update id="resourceNotAvailable" parameterType="map">
-        update Recursos  set disponible=false where id_recurso=#{recursos.id_recurso};
+        update Recursos  set disponible=false where id=#{resource.id_recurso};
     </update>
 
     <update id="resourceAvailable" parameterType="map">
-        update Recursos SET disponible=true where id_recurso=#{recursos.id_recurso};
+        update Recursos SET disponible=true where id=#{resource.id_recurso};
+    </update>
+
+    <update id="updateResource" parameterType="map">
+        update recursos set disponibilidad = #{resource.disponibilidad} where id_recurso = #{resource.id_recurso}
     </update>
 </mapper>

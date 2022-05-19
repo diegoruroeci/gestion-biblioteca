@@ -21,5 +21,7 @@ public interface ResourceDAO {
 
     public void resourceAvailable(Resource resource) throws ParseException;
 
+    public void updateResource(Resource resource);
+
 }
 

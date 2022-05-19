@@ -75,4 +75,19 @@ public class MyBatisResourceDAO implements ResourceDAO {
             throw new PersistenceException(e.getMessage());
         }
     }
+
+    @Override
+    public void updateResource(Resource resource){
+        try{
+
+            if (resource.getAvailable().equals(true)) {
+                resource.setAvailable(false);
+            }
+            else if (resource.getAvailable().equals(false)){
+                resource.setAvailable(true);}
+            resourceMapper.updateResource(resource);
+        }catch (Exception e){
+            throw new PersistenceException(e.getMessage());
+        }
+    }
 }
