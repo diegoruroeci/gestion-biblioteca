@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Param;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.List;
 
 public interface ReservationMapper {
@@ -29,4 +30,10 @@ public interface ReservationMapper {
     public List<Reservation> consultReservationsExpired();
 
     public void reserveResource(@Param("fecha") java.sql.Date date, @Param("horaini") Timestamp initHour, @Param("horafin") Timestamp finalHour, @Param("recurso") int resource, @Param("carnet") int carnet, @Param("recurrencia") String recurrence, @Param("fecharecurrencia") Date recurrenceDate);
+
+    public void cancelReservation(@Param("fecha") Timestamp date, @Param("carnet") int carnet,@Param("horaini") Timestamp initHour,@Param("horafin") Timestamp finalHour,@Param("recurso") int resource);
+
+    public void cancelReservationSince(@Param("fecha") Timestamp date, @Param("carnet") int carnet, @Param("horaini") Timestamp initHour, @Param("fechaDesde") LocalDate date1, @Param("recurso") int resource);
+
+    public void cancelReservationComplete(@Param("fecha") Timestamp date, @Param("carnet") int carnet,@Param("recurso") int resource,@Param("recurrence") String recurrence);
 }

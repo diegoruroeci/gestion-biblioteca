@@ -5,15 +5,14 @@ import edu.eci.cvds.gestor.entities.Reservation;
 
 import edu.eci.cvds.gestor.entities.Resource;
 import edu.eci.cvds.gestor.entities.User;
-import edu.eci.cvds.gestor.services.GestorServices;
-import edu.eci.cvds.gestor.services.ServicesException;
-import edu.eci.cvds.gestor.services.UserServices;
+import edu.eci.cvds.gestor.services.*;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -50,6 +49,11 @@ public class ReservationBean extends BasePageBean{
     @Inject
     private UserServices userServices;
 
+    @Inject
+    private ReserveServices reserveServices;
+
+    private int rowIndex;
+
     public List<Reservation> getReservations() {
         return gestorServices.consultReservations();
     }
@@ -59,6 +63,16 @@ public class ReservationBean extends BasePageBean{
             return gestorServices.consultReservationsActive();
         }else {
             return gestorServices.consultReservationsUser(email);
+        }
+    }
+
+    public void showDialog(int rowIndex){
+        this.rowIndex=rowIndex;
+        Reservation reservation = getReservationByRowIndex(rowIndex);
+        if (!reservation.getRecurrence().equals(RecurrenceOptions.ONE_TIME.toString())){
+            PrimeFaces.current().executeScript("PF('recurrenceDialog').show();");
+        }else {
+            PrimeFaces.current().executeScript("PF('confirmDialog').show();");
         }
     }
 
@@ -78,6 +92,26 @@ public class ReservationBean extends BasePageBean{
         }
     }
 
+    public void cancelOneReservation() throws IOException {
+        Reservation reservation = getReservationByRowIndex(rowIndex);
+        reserveServices.cancelOneReservation(reservation);
+        FacesContext.getCurrentInstance().getExternalContext().redirect("/gestor/reservation.xhtml");
+    }
+
+    public void cancelReservation() throws IOException {
+        Reservation reservation = getReservationByRowIndex(rowIndex);
+        reserveServices.cancelReserve(reservation,null);
+        FacesContext.getCurrentInstance().getExternalContext().redirect("/gestor/reservation.xhtml");
+    }
+
+    public void cancelReservationSinceDate(java.util.Date date) throws IOException {
+        Reservation reservation = getReservationByRowIndex(rowIndex);
+        Date date1 = new Date(date.getTime());
+        reserveServices.cancelReserve(reservation,date1);
+        FacesContext.getCurrentInstance().getExternalContext().redirect("/gestor/reservation.xhtml");
+    }
+
+
     public Timestamp getStartHour() {
         return startHour;
     }
@@ -94,7 +128,9 @@ public class ReservationBean extends BasePageBean{
         return recurrenceTime;
     }
 
-
+    private Reservation getReservationByRowIndex(int rowIndex){
+        return gestorServices.getReservationList().get(rowIndex);
+    }
 
     //Schedule
 

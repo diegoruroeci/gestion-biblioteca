@@ -10,6 +10,7 @@ import org.apache.ibatis.exceptions.PersistenceException;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.List;
 
 public class MyBatisReservationDAO implements ReservationDAO {
@@ -102,6 +103,29 @@ public class MyBatisReservationDAO implements ReservationDAO {
             return reservationMapper.consultReservationsExpired();
         }catch (PersistenceException e){
             throw new PersistenceException(e.getMessage());
+        }
+    }
+
+    @Override
+    public void cancelReservation(Timestamp date, int carnet, Timestamp initHour, Timestamp finalHour, int resource) throws PersistenceException{
+        try {
+            reservationMapper.cancelReservation(date,carnet,initHour,finalHour,resource);
+        }catch (PersistenceException persistenceException){
+            throw new PersistenceException(persistenceException.getMessage());
+        }
+    }
+
+    @Override
+    public void cancelReservationSince(Timestamp date, int carnet, Timestamp inithour, LocalDate date1, int resource) {
+        reservationMapper.cancelReservationSince(date,carnet,inithour,date1,resource);
+    }
+
+    @Override
+    public void cancelReservationComplete(Timestamp date, int carnet, int resource, String recurrence) throws PersistenceException{
+        try {
+            reservationMapper.cancelReservationComplete(date,carnet,resource,recurrence);
+        }catch (PersistenceException persistenceException){
+            throw new PersistenceException(persistenceException.getMessage());
         }
     }
 }

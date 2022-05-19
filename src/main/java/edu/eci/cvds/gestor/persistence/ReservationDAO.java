@@ -7,6 +7,7 @@ import org.apache.ibatis.exceptions.PersistenceException;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.List;
 
 public interface ReservationDAO {
@@ -30,4 +31,10 @@ public interface ReservationDAO {
     public List<Reservation> consultReservationsCancelled() throws PersistenceException;
 
     public List<Reservation> consultReservationsExpired() throws PersistenceException;
+
+    public void cancelReservation(Timestamp date,int carnet, Timestamp initHour, Timestamp finalHour, int resource);
+
+    public void cancelReservationSince(Timestamp date, int carnet, Timestamp inithour, LocalDate date1, int resource);
+
+    public void cancelReservationComplete(Timestamp date,int carnet, int resource, String recurrence);
 }
