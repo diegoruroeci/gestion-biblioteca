@@ -11,6 +11,7 @@
         <result property='email' column='correo'/>
         <result property='password' column='contraseña'/>
         <result property='role' column='rol'/>
+        <result property="career" column="carrera"/>
     </resultMap>
 
     <select parameterType="map" id="consultUsers" resultMap="UserResult">
@@ -19,7 +20,8 @@
         u.nombre,
         u.correo,
         u.contraseña,
-        u.rol
+        u.rol,
+        u.carrera
 
         FROM USUARIOS u
     </select>
@@ -30,6 +32,14 @@
 
         FROM USUARIOS u
         WHERE u.correo = #{email}
+    </select>
+
+    <select parameterType="map" id="consultUser" resultMap="UserResult">
+        select
+        u.nombre
+
+        FROM Usuarios u
+        WHERE u.correo = #{correo};
     </select>
 
 </mapper>

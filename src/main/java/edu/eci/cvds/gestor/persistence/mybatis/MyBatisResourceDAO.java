@@ -30,4 +30,13 @@ public class MyBatisResourceDAO implements ResourceDAO {
             throw new PersistenceException(e.getMessage());
         }
     }
+
+    @Override
+    public List<Resource> consultResourcesUser() throws PersistenceException{
+        try{
+            return resourceMapper.consultResourcesUser();
+        }catch (PersistenceException e){
+            throw new PersistenceException(e.getMessage());
+        }
+    }
 }

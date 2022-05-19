@@ -11,4 +11,6 @@ public interface UserDAO {
     public List<User> consultUsers() throws ParseException;
 
     public int getCarnetByEmail(String email)throws PersistenceException;
+
+    public User consultUser(String email) throws PersistenceException;
 }

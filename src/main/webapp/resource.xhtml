@@ -5,6 +5,7 @@
       xmlns:p="http://primefaces.org/ui">
 
 <h:head>
+    <link rel = "icon" href ="https://observatics.edu.co/wp-content/uploads/sites/20/2019/06/Logo-Escuela-ingenier%C3%ADa.png"/>
     <title>Recursos</title>
 <style type="text/css">
         body {
@@ -41,14 +42,18 @@
 </style>
 </h:head>
 <h:body>
+    <h:form id="form">
     <div class="botones">
         <p:commandButton class="danger" value="#{LoginBean.textLog()}" actionListener="#{LoginBean.actionButton()}" />
     </div>
-    <center><h1>Recursos Biblioteca</h1></center>
-    <h:form id="form">
-        <p:button value="Nuevo recurso" icon="pi pi-plus" rendered="#{ResourceBean.showNew}" style="margin-right: .5rem" outcome="/gestor/registerResource.xhtml"/>
+    <center>
+        <h1 style="background-color:#ED7D31; width:500px">Recursos Biblioteca</h1>
+        <h2 style="background-color:#ED7D31; width:400px"><h:outputText rendered="#{LoginBean.showReserve}" value="#{LoginBean.consultUser(LoginBean.email).getName()}"/></h2>
+    </center>
+        <p:commandButton rendered="#{LoginBean.isShowColumn()}" value="Nuevo recurso" icon="pi pi-plus"  style="margin-right: .5rem"  type="button" onclick="PF('dlg2').show();"/>
         <p:commandButton rendered="#{LoginBean.showReserve}" value="#{LoginBean.textReserve()}" style="margin-right: .5rem" actionListener="#{LoginBean.actionReserve()}"/>
-    <p:dataTable id="resource_table" var="resources" value="#{ResourceBean.resources}"  rowIndexVar="rowIndex"
+        <p:button value="Reportes" rendered="#{ResourceBean.showNew}" style="margin-right: .5rem" outcome="/gestor/report.xhtml"/>
+        <p:dataTable id="resource_table" var="resources" value="#{ResourceBean.resources}"  rowIndexVar="rowIndex"
                  paginator="true" scrollable="true" scrollHeight="500"
                  paginatorTemplate="{CurrentPageReport}"
                  currentPageReportTemplate="{totalRecords} recursos"
@@ -76,10 +81,69 @@
             <h:outputText value="#{resources.capacity}" class="valor"/>
         </p:column>
         <p:column headerText="Reservar" class="titulo">
-            <p:button outcome="reserve?recurso=#{rowIndex}" value="Ver horarios" class="boton" />
+            <p:button outcome="Schedule?recurso=#{rowIndex}" value="Ver horarios" class="boton" />
         </p:column>
     </p:dataTable>
     </h:form>
+
+    <div class="registrar">
+    <h:form id="frmm2">
+
+    <p:dialog header="Registrar Recurso" widgetVar="dlg2" modal="true"  resizable="false" height="400">
+        <p:messages id="messages" showDetail="true" closable="true">
+            <p:autoUpdate/>
+        </p:messages>
+        <h:panelGrid columns="2" cellpadding="5">
+            <h:outputLabel for="name" value="Nombre:" />
+            <p:inputText id="name" label="name"
+                         binding= "#{name}" />
+            <label class="bmd-label-floating">Ubicacion:</label>
+            <h:selectOneMenu  value="#{ResourceBean.ubicacionSeleccionada}" class="form-control">
+                <f:selectItems value="#{ResourceBean.getUbicacionDelRecurso()}" />
+            </h:selectOneMenu>
+            <label class="bmd-label-floating">Tipo:</label>
+            <h:selectOneMenu value="#{ResourceBean.tipoSeleccionado}" class="form-control">
+                <f:selectItems value="#{ResourceBean.getTiposDeRecursos()}"  />
+            </h:selectOneMenu>
+            <h:outputLabel for="capacity" value="Capacidad:" />
+            <p:inputText id="capacity" label="capacity" type="number"
+                         binding= "#{capacity}"/>
+            <h:outputLabel for="internId" value="ID interno:" />
+            <p:inputText id="internId" label="internId" type="number"
+                         binding= "#{internId}" />
+            <p:outputLabel for="description" value="Descripción:" />
+            <p:inputTextarea id="description" label="description"
+                             binding= "#{description}" />
+
+            <p:outputLabel value="Disponible:" />
+            <p:selectOneRadio id="available" binding= "#{available}" layout="responsive" columns="2" >
+                <f:selectItem itemLabel="Si" itemValue="true"/>
+                <f:selectItem itemLabel="No" itemValue="false"/>
+            </p:selectOneRadio>
+            <p:outputLabel  />
+            <p:commandButton class="buttonR" value="Registrar" >
+                <p:confirm header="Confirmación" message="¿Desea registrar este recurso?" icon="pi pi-exclamation-triangle" />
+                <f:actionListener binding="#{ResourceBean.register(name.value,location.value, type.value,capacity.value , internId.value, description.value, available.value)}" update="frmm2" />
+            </p:commandButton>
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <div align="center">
+                    <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+                </div>
+            </p:confirmDialog>
+
+        </h:panelGrid>
+    </p:dialog>
+    </h:form>
+        <script>
+          document.addEventListener('DOMContentLoaded', function(){
+        let formulario = document.getElementById('frmm2');
+        formulario.addEventListener('submit', function() {
+          formulario.reset();
+        });
+      });
+    </script>
+    </div>
 </h:body>
 </html>
 

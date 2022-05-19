@@ -27,4 +27,13 @@ public class MyBatisUserDAO implements UserDAO {
     public int getCarnetByEmail(String email) throws PersistenceException {
         return userMapper.getCarnetByEmail(email);
     }
+
+    @Override
+    public User consultUser(String email) throws PersistenceException {
+        try {
+            return userMapper.consultUser(email);
+        } catch (PersistenceException e) {
+            throw new PersistenceException(e.getMessage());
+        }
+    }
 }

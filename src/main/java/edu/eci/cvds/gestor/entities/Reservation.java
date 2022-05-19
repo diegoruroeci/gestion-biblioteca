@@ -11,7 +11,7 @@ import java.util.List;
 public class Reservation implements Serializable {
 
     private int id;
-    private Date date;
+    private Timestamp date;
     private Timestamp startHour;
     private Timestamp finishHour;
     private int resource;
@@ -21,12 +21,13 @@ public class Reservation implements Serializable {
     private Date recurrenceTime;
     private Resource resources;
     private User Uname;
+    private int amount;
 
     public Reservation(){
         super();
     }
 
-    public Reservation(int id, Date date, Timestamp startHour, Timestamp finishHour, int resource, int license, String status, String recurrence, Date recurrenceTime) {
+    public Reservation(int id, Timestamp date, Timestamp startHour, Timestamp finishHour, int resource, int license, String status, String recurrence, Date recurrenceTime) {
         this.id = id;
         this.date = date;
         this.startHour = startHour;
@@ -46,11 +47,11 @@ public class Reservation implements Serializable {
         this.id = id;
     }
 
-    public Date getDate() {
+    public Timestamp getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(Timestamp date) {
         this.date = date;
     }
 
@@ -124,6 +125,14 @@ public class Reservation implements Serializable {
 
     public void setRecurrenceTime(Date recurrenceTime) {
         this.recurrenceTime = recurrenceTime;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 
     @Override
