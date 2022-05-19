@@ -31,6 +31,8 @@ public class GestorServicesImpl implements GestorServices {
 
     private List<Resource> resources;
 
+    private List<Reservation> reservationList;
+
     @Override
     public List<Resource> consultResources() throws PersistenceException {
         try{
@@ -62,7 +64,8 @@ public class GestorServicesImpl implements GestorServices {
     @Override
     public List<Reservation> consultReservationsUser(String email) throws PersistenceException {
         try{
-            return reservationDAO.consultReservationsUser(email);
+            setReservationList(reservationDAO.consultReservationsUser(email));
+            return getReservationList();
         }catch (PersistenceException e) {
             throw new PersistenceException(e.getMessage());
         }
@@ -99,7 +102,8 @@ public class GestorServicesImpl implements GestorServices {
     @Override
     public List<Reservation> consultReservationsActive() throws PersistenceException {
         try{
-            return reservationDAO.consultReservationsActive();
+            setReservationList(reservationDAO.consultReservationsActive());
+            return getReservationList();
         }catch (PersistenceException e) {
             throw new PersistenceException(e.getMessage());
         }
@@ -155,6 +159,87 @@ public class GestorServicesImpl implements GestorServices {
             return userDAO.consultUser(email);
         }catch (PersistenceException persistenceException){
             throw new ServicesException(persistenceException.getMessage());
+        }
+    }
+
+    @Override
+    public List<Reservation> getReservationList() {
+        return reservationList;
+    }
+
+    public void setReservationList(List<Reservation> reservationList) {
+        this.reservationList = reservationList;
+    }
+
+    @Override
+    public List<Reservation> consultarRecursosMasUsados() throws ServicesException {
+        try {
+            return reservationDAO.recursosMasUsados();
+        } catch (PersistenceException e) {
+            throw new ServicesException(e.getMessage());
+        }
+    }
+
+    @Override
+    public List<Reservation> consultarRecursosMenosUsados() throws ServicesException {
+        try {
+            return reservationDAO.recursosMenosUsados();
+        } catch (PersistenceException e) {
+            throw new ServicesException(e.getMessage());
+        }
+    }
+
+    @Override
+    public List<Reservation> consultarReservaPorCarrera() throws ServicesException {
+        try {
+            return reservationDAO.reservaPorCarrera();
+        } catch (PersistenceException e) {
+            throw new ServicesException(e.getMessage());
+        }
+    }
+
+    @Override
+    public List<Reservation> consultarReservaRecurrentes() throws ServicesException {
+        try {
+            return reservationDAO.reservaRecurrentes();
+        } catch (PersistenceException e) {
+            throw new ServicesException(e.getMessage());
+        }
+    }
+
+    @Override
+    public List<Reservation> consultarReservasCanceladas() throws ServicesException {
+        try {
+            return reservationDAO.reservasCanceladas();
+        } catch (PersistenceException e) {
+            throw new ServicesException(e.getMessage());
+        }
+    }
+
+    @Override
+    public List<Reservation> consultarHorarioMayorOcupacion() throws ServicesException {
+        try {
+            return reservationDAO.horarioMayorOcupacion();
+        } catch (PersistenceException e) {
+            throw new ServicesException(e.getMessage());
+        }
+    }
+
+    @Override
+    public List<Reservation> consultarHorarioMenorOcupacion() throws ServicesException {
+        try {
+            return reservationDAO.horarioMenorOcupacion();
+        } catch (PersistenceException e) {
+            throw new ServicesException(e.getMessage());
+        }
+    }
+
+    @Override
+    public int getReserva() throws ServicesException {
+        try {
+            return reservationDAO.getReserva();
+        } catch (PersistenceException e) {
+            throw new ServicesException(e.getMessage());
         }
     }
 

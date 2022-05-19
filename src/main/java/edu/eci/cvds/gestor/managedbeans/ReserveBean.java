@@ -45,7 +45,7 @@ public class ReserveBean extends BasePageBean{
                 if (dates.isEmpty()) {
                     reserve(currentDay,initHour,finalHour,recurrence,recurrenceDate);
                 } else {
-                    System.out.println(currentDay);
+//                    System.out.println(currentDay);
                     setManyMessage("Las siguientes reservas no estan disponibles\r\n" + dates.toString() + "\r\n deseas continuar?");
                     PrimeFaces.current().executeScript("PF('warningManyDialog').show();");
                     recurso = getRecurso();

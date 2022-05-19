@@ -6,17 +6,19 @@ public class User {
     private String password;
     private char role;
     private int license;
+    private String career;
 
     public User(){
         super();
     }
 
-    public User(int license, String name, String email, String password, char role) {
+    public User(int license, String name, String email, String password, char role, String career) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.role = role;
         this.license = license;
+        this.career = career;
     }
 
     public String getName() {
@@ -57,6 +59,14 @@ public class User {
 
     public void setLicense(int license) {
         this.license = license;
+    }
+
+    public String getCareer() {
+        return career;
+    }
+
+    public void setCareer(String career) {
+        this.career = career;
     }
 
     @Override
