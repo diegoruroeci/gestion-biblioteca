@@ -242,5 +242,16 @@ public class GestorServicesImpl implements GestorServices {
             throw new ServicesException(e.getMessage());
         }
     }
+
+    @Override
+    public List<Resource> consultResourcesUser() throws PersistenceException {
+        try{
+            List<Resource> resources = resourceDAO.consultResourcesUser();
+            setResources(resources);
+            return resources;
+        }catch (PersistenceException | ParseException e) {
+            throw new PersistenceException(e.getMessage());
+        }
+    }
 }
 

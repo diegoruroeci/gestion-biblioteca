@@ -36,6 +36,8 @@ public class LoginBean extends BasePageBean {
 
     private boolean showReserve;
 
+    private boolean showColumn;
+
     public void singIn(String email, String password) throws ServicesException, IOException {
         try {
             if (email.trim().isEmpty()){
@@ -97,5 +99,13 @@ public class LoginBean extends BasePageBean {
 
     public User consultUser(String email) throws ServicesException {
         return gestorServices.consultUser(email);
+    }
+
+    public boolean isShowColumn(){
+        if(loginServices.isLoggedIn() && userServices.isAdmin()){
+            return true;
+        }else{
+            return false;
+        }
     }
 }

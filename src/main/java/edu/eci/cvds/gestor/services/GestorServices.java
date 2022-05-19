@@ -48,6 +48,8 @@ public interface GestorServices {
 
     public User consultUser(String email) throws ServicesException;
 
+    public abstract List<Resource> consultResourcesUser() throws PersistenceException;
+
     public abstract List<Reservation> consultarRecursosMasUsados() throws  ServicesException;
 
     public abstract List<Reservation> consultarRecursosMenosUsados() throws  ServicesException;

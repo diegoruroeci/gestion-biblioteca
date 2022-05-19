@@ -1,6 +1,7 @@
 package edu.eci.cvds.gestor.managedbeans;
 
 import com.google.inject.Inject;
+import edu.eci.cvds.gestor.entities.Reservation;
 import edu.eci.cvds.gestor.entities.Resource;
 import edu.eci.cvds.gestor.services.GestorServices;
 import edu.eci.cvds.gestor.services.UserServices;
@@ -40,7 +41,7 @@ public class ResourceBean extends BasePageBean {
     public List<Resource> getResources() {
         return gestorServices.consultResources();
     }
-    private String[] TiposDeRecursos = {"Sala", "Computador", "Equipo de multimedia", "Libro"};
+    private String[] TiposDeRecursos = {"Sala", "Computador", "Tablero Inteligente", "Libro"};
     private String[] UbicacionDelRecurso = {"Biblioteca JAL Bloque B", "Biblioteca JAL Bloque G"};
     private boolean[] recursoDisponible={true,false};
     private String tipoSeleccionado;
@@ -49,13 +50,13 @@ public class ResourceBean extends BasePageBean {
 
 
 
-    public void register(String nombre, String ubicacion, String tipo, int capacidad, int idInterno, String descripcion, boolean disponible) throws PersistenceException {
+    public void register(String nombre, String ubicacion, String tipo, int capacidad, int idInterno,String descripcion, boolean disponible) throws PersistenceException {
         try{
             if(nombre.trim().isEmpty() || nombre.equals(null)){
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error","Nombre requerido"));
             }
-            if(0>capacidad || capacidad>1000){
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error","La capacidad debe estar dentro del rango de 0 a 1000"));
+            if(1>capacidad || capacidad>50){
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error","Capacidad entre 1 y 50"));
             }
             if(String.valueOf(capacidad).isEmpty() || String.valueOf(capacidad).equals(null)){
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error","Capacidad requerida"));
@@ -66,12 +67,14 @@ public class ResourceBean extends BasePageBean {
             else {
                 ubicacion = this.ubicacionSeleccionada;
                 tipo= this.tipoSeleccionado;
-                disponible=this.disponibilidadSeleccionada;
-                gestorServices.registerResource(nombre, ubicacion, tipo, capacidad, idInterno, descripcion, disponible);
+               // disponible=this.disponibilidadSeleccionada;
+                gestorServices.registerResource(nombre, ubicacion, tipo, capacidad,idInterno,descripcion, disponible);
                 FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Message", " Se ha registrado el recurso");
                 PrimeFaces.current().dialog().showMessageDynamic(message);
             }
         }catch (PersistenceException e){
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(null, new FacesMessage("Error", e.getMessage()));
             throw new PersistenceException(e.getMessage());
         }
     }
@@ -151,5 +154,19 @@ public class ResourceBean extends BasePageBean {
     public void setDisponibilidadSeleccionada(boolean disponibilidadSeleccionada) {
         this.disponibilidadSeleccionada = disponibilidadSeleccionada;
     }
+
+    public List<Resource> getResourcesUser() {
+        return gestorServices.consultResourcesUser();
+    }
+
+    public List<Resource> getResourceUser(String email) {
+        if (userServices.isAdmin()){
+            return gestorServices.consultResources();
+        }else {
+            return gestorServices.consultResourcesUser();
+        }
+    }
+
 }
+
 
