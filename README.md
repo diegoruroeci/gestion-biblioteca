@@ -1,107 +1,74 @@
 # Gestion-biblioteca
+## Proyecto final de CVDS (Ciclos de Vida Del Desarrollo de Software). Periodo 2022-1
+## Escuela Colombiana de Ingeniería Julio Garavito
+
 ### Integrantes
- * Juan Diego Becerra Peña
- * Diego Fernando Ruiz Rojas
- * Laura Nathalia Garcia Acuña
- * Hayden Esteban Cristancho Pinzón
+ * Diego Fernando Ruiz Rojas (Scrum Master)
+ * Juan Diego Becerra Peña (Team developer)
+ * Laura Nathalia Garcia Acuña (Team developer)
+ * Hayden Esteban Cristancho Pinzón (Team developer)
+### Profesor
+ * Hernan Dario Tenjo Mateus (Product Owner)
 
-### Sprint 1
+## Descripción del Proyecto
 
-### #1 Iniciar Sesión
+## Arquitectura y diseño detallado
 
-    Como: Usuario de la comunidad de la ECI.
+### Modelo E-R (Entidad-Relación)
+![ER](https://media.discordapp.net/attachments/771508386452734003/976617344669474866/unknown.png)
 
-    Necesito: Ingresar al sistema de gestión de recursos de la biblioteca.
+### Diagrama de clases
+![DC](https://media.discordapp.net/attachments/976630416016539688/976630426082893895/unknown.png)
 
-    Para: Realizar la gestión o reserva de un recurso especifico.
+### Enlace de la aplicación en Heroku
+https://cvds-gestor.herokuapp.com/
 
-Se debe realizar la auntenticación contra el LDAP de la Escuela, realizando el inicio de sesión con el usuario de correo electrónico del miembro de la comunidad.
-Se recomienda implementar Apache Shiro para la correcta implementación del inicio de sesión.
+### Descripción de la arquitectura y tecnologías utilizadas
+La aplicación está construida en 3 capas:
 
-### Criterios de Aceptación:
+#### Capa de presentación
+En esta capa se usaron las siguientes tecnologias:
+ *  Primefaces
+ *  JSF (Java Server Faces)
 
- * Se debe contar con dos perfiles para los usuarios autenticados: Comunidad, Administrador.
-        
-        1. Comunidad: juan.becerra-pe@mail.escuelaing.edu.co - 12345
-        2. Administrador: pruebaAdmin@prueba.com - 123321
-       
- * Las páginas a las que tengo acceso deben estar restringidas con base en el perfil al que pertenece un usuario.
 
-   Página Comunidad
-   
-  ![img1](https://cdn.discordapp.com/attachments/745800236181618718/966553589159981126/unknown.png)
-  
-  
-  Pagina Administrador
-  
-  ![img1](https://cdn.discordapp.com/attachments/745800236181618718/966553832731574272/unknown.png)
-  
- * Así como puedo iniciar sesión, debe haber una opción de cierre de sesión.
-  
-   
-  ![img1](https://cdn.discordapp.com/attachments/745800236181618718/966553589159981126/unknown.png)
-  
-    El botón de cierre de sesión se encuentra en la parte superior derecha 
-  
- * Si no existe una sesión activa, no debe ser posible acceder a ninguna página que requiera permisos de acceso.
-       
-       Si no se esta logeado y se intenta hacer una reserva, se dirige automaticamente a la pantalla de login.
-       
- * Una vez un usuario haya iniciado sesión, no se debe permitir volver al formulario de inicio de sesión.
- 
-       Se implementó correctamente
+#### Capa de aplicación
+Aquí se usaron tecnologías:
+ *  Java
+ *  Google Guice (Un framework para inyección de dependencias)
+ *  Maven (Herramienta para gestión de dependencias)
+ *  Apache Shiro (Framework para autentiticación)
 
-### #2 Registrar un recurso
+#### Capa de persistencia de datos
+Como motor de bases de datos se uso **PostgreSQL** y la herramienta **myBatis**, esta se encarga de realizar la  persistencia (mappea sentencias SQL y procedimientos almacenados con objetos a partir de ficheros XML o anotaciones).
 
-     Como: Usuario Administrador.
+### Integración continua
+![CircleCI](https://circleci.com/gh/diegoruroeci/gestion-biblioteca/tree/master.svg?style=svg)
 
-     Necesito: Registrar un nuevo recurso.
+### Calidad del codigo
+Al momento de autorizar el codacy, tira un error que no permite implementar codacy dentro del proyecto.
+![Codacy](https://media.discordapp.net/attachments/976630416016539688/976640238581583882/unknown.png)
 
-     Para: Que este pueda ser visualizado y utilizado por los miembros de la comunidad.
-  
-Un recurso es todo aquel elemento o espacio que es ofrecido por la biblioteca a la comunidad perteneciente a la ECI, estos recursos pueden ser salas de estudio,        equipos de computo, y equipos multimedia para el desarrollo de diferentes actividades.
+### Cubrimiento de pruebas
+Mediante el plugin de Jacoco se realizó el porcentaje de cubrimiento de pruebas unitarias del proyecto:
 
-### Criterios de Aceptación
+![cubrumiento](https://media.discordapp.net/attachments/976630416016539688/976639051929100308/unknown.png)   
 
- * La información básica de un recurso es: Nombre, ubicación, tipo, capacidad, identificador interno.
-    
-      ![img1](https://cdn.discordapp.com/attachments/745800236181618718/966558491508617266/unknown.png)
-    
- * El recurso también debe tener un horario de disponibilidad, donde se indica en qué horarios es posible solicitar reservas.
- * Una vez el recurso es creado debe aparecer disponible para ser reservado por los miembros de la comunidad.
- 
-    ![IMG1](https://cdn.discordapp.com/attachments/745800236181618718/966553895633567834/unknown.png)
-    
- * No pueden existir dos identificadores internos iguales dentro de los recursos.
-            
-          Se implementó correctamente.
+## Descripción del proceso
+Durante la realización del proyecto, se trabajo por medio de la metodología ágil Scrum. En este tiempo, se trabajaron 3 sprint cada uno con una duración de 2 semanas y que implementaron 10 historias de usuario.
 
-### #4 Consultar recursos
+## Descripción sprint 1
+![BC1](https://media.discordapp.net/attachments/976630416016539688/976633717797834804/unknown.png)
 
-    Como: Usuario Comunidad.
+ * Durante este primer sprint, teniamos 3 historias de usuario, creamos las tareas entre todos y cada designamos las mismas, tuvimos un buen desempreño en general y al concluir el tiempo de este sprint, habiamos finalizado las 3 historias de usuario de manera exitosa. Cada integrante cumplio los objetivos en el tiempo especificado. La página de incio de sesión sirve correctamente y se puede realizar ciertas funciones dependiendo del usuario que inicie sesión.
 
-    Necesito: Ver todos los recursos disponibles en la Biblioteca.
 
-    Para: Realizar poder realizar la reserva de aquel en el que me encuentro interesado.
+## Descripción sprint 2
+![BC2](https://media.discordapp.net/attachments/976630416016539688/976634113589133332/unknown.png)
 
-Los usuarios del sistema necesitan poder visualizar de una forma sencilla y agradable los recursos habilitados por la biblioteca para proceder a realizar una reserva de los mismos.
+* En este sprint, teniamos 4 historias de usuario, Juan Diego Becerra tomo la historia de visualizar reserva, Nathalia Garcia tomo la historia de consultar reservas, Diego Ruiz tomó la historia de reservar un recurso y Esteban Cristancho tomo la historia de visualizar horario de reservas de recurso. En la entrega de este sprint, teniamos algunos errores al momento de realizar una reserva en el calendario y registrando un recurso necesitabamos alguna excepciones.
 
-### Criterios de Aceptación:
+## Descripción sprint 3
+![BC3](https://media.discordapp.net/attachments/976630416016539688/976634296720834560/unknown.png)
 
- * Al momento de realizar la consulta, de deben mostrar todos lo recursos que se encuentran activos.
-    
- * Deben existir filtros que me permitan realizar una búsqueda mejor direccionada. Por tipo, capacidad y ubicación.
-      
-      ![img1](https://cdn.discordapp.com/attachments/745800236181618718/966553589159981126/unknown.png)
-       
- * Desde la interfaz de consulta debe existir una funcionalidad que me permita realizar la reserva de este recurso.
- 
-    ![img1](https://cdn.discordapp.com/attachments/745800236181618718/966553895633567834/unknown.png)
-    
-    ![img1](https://cdn.discordapp.com/attachments/745800236181618718/966553939745046528/unknown.png)
-    
-    ![img1](https://cdn.discordapp.com/attachments/745800236181618718/966553990647140362/unknown.png)
-    
- * La consulta de recursos la puede realizar cualquier usuario (autenticado o no autenticado)
-            
-        Se implementó correctamente.
+* En el último sprint, teniamos 3 historias de usuario, Juan Diego y Esteban tomaron la historia de Reporte de ocupación, Nathalia tomo la historia de cambiar estado de un recurso y Diego Ruiz tomo la historia de cancelación de reserva. Se solucionaron los pendientes de los sprints pasados, pero tuvimos problemas al momento de exportar los reportes al excel. Podría decirse que se cumplieron con todas las tareas solcitadas, y que el proyecto está en un excelente estado en cuanto a funcionalidad y calidad.
